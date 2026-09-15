@@ -1,0 +1,45 @@
+package entry;
+
+import state.State;
+import gui.GUI;
+import controller.Controller;
+import controller.GamePulse;
+import utility.DataLoader;
+
+/**
+ * AsteRAGE 2 entry class.
+ * Prepares all of the other classes and components as needed.
+ */
+public class AsteRAGE2
+{
+	public static void main (String [] args)
+	{
+		//load the assets.
+		DataLoader dataLoader = new DataLoader();
+		dataLoader.startLoading();
+		
+		//Begin loading and initializing the main components of AsteRAGE 2.
+		//Pass data loader to modules which need to reference retrieved information.
+		State state = new State( dataLoader );		
+	
+		Controller controller = new Controller();
+		GUI gui = new GUI();
+		GamePulse gamePulse = new GamePulse();
+		
+		//Set references to other components from here.
+		controller.setGUI ( gui );
+		controller.setState ( state );
+		
+		gui.setController( controller );
+		gui.setState( state );
+		
+		state.setGUI ( gui );
+		
+		gamePulse.setController( controller );
+		
+		//set the threads to running. Let the game begin!
+		gamePulse.start();
+		
+	} //end function main definition.
+	
+} //end class AsteRAGE2 definition.

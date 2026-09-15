@@ -1,0 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package objectBehaviors.asterage2;
+
+/**
+ *
+ * @author roberthood
+ */
+public interface Expires
+{
+	public boolean checkExpired();
+	public void setExpiredFlag( boolean newFlag );
+	
+} //end interface Expires definition
