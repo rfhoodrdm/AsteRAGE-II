@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package gui.asterage2widgets;
+package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
-import gameEffects.asterage2.HUDExplosionEffect;
-import gameEffects.asterage2.ShipExplosionEffect;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.ImageIcon;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 
 /**
  *

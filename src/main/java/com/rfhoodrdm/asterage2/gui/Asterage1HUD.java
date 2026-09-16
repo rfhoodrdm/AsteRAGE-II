@@ -1,15 +1,15 @@
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 
 import javax.swing.JProgressBar;
-import gui.templates.IconButtonTemplate;
+import com.rfhoodrdm.asterage2.gui.templates.IconButtonTemplate;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
-import state.Asterage1State;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
 
 
 /**

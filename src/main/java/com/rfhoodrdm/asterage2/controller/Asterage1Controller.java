@@ -4,33 +4,33 @@
  * and open the template in the editor.
  */
 
-package controller;
+package com.rfhoodrdm.asterage2.controller;
 
-import gameEffects.asterage1.MessageText;
-import gui.GUI;
-import gui.input.GameKeyAdapter;
-import state.Asterage1State;
-import gameObjects.asterage1.Asteroid;
-import gameObjects.asterage1.TrollPod;
-import gameObjects.asterage1.Bullet;
-import gameObjects.asterage1.TrollScout;
-import gameObjects.asterage1.PlayerPod;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.MessageText;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.Asteroid;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollPod;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.Bullet;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollScout;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerPod;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import gameObjects.asterage1.SpaceObject;
-import gameObjects.asterage1.PlayerShip;
-import gameObjects.asterage1.TrollMothership;
-import gui.SoundManager;
-import objectBehaviors.asterage1.FiresBullets;
-import objectBehaviors.asterage1.FiresSuperLaser;
-import objectBehaviors.asterage1.LimitedLifespan;
-import objectBehaviors.asterage1.DeploysShields;
-import gameEffects.asterage1.ShieldRing;
-import gameEffects.asterage1.ShipDebrisExplosion;
-import gameEffects.asterage1.Alien;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
+import com.rfhoodrdm.asterage2.gui.SoundManager;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresSuperLaser;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.Alien;
 import java.awt.event.KeyEvent;
-import state.Asterage1ScoreState;
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

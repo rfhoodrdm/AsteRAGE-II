@@ -1,8 +1,8 @@
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
 import javax.swing.JFrame;
 import java.awt.Color;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * GameFrame is the main frame for the entire program gui. It is where the main panel is placed, which houses

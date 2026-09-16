@@ -1,10 +1,10 @@
-package state;
+package com.rfhoodrdm.asterage2.state;
 
-import controller.Controller;
-import gui.GUI;
-import utility.DebugManager;
-import utility.GameConstants;
-import utility.DataLoader;
+import com.rfhoodrdm.asterage2.controller.Controller;
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 import java.util.concurrent.Semaphore;
 

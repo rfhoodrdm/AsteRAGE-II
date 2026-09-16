@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 
-package state;
+package com.rfhoodrdm.asterage2.state;
 
-import utility.GameConstants;
-import gameObjects.asterage1.PlayerShip;
-import gameObjects.asterage1.SpaceObject;
-import gameObjects.asterage1.TrollScout;
-import gameObjects.asterage1.Asteroid;
-import gameObjects.asterage1.TrollMothership;
-import gameObjects.asterage1.TrollPod;
-import gameEffects.asterage1.MessageText;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollScout;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.Asteroid;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollPod;
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.MessageText;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import utility.DataLoader;
 
 /**
  *

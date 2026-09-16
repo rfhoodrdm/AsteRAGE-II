@@ -4,24 +4,24 @@
  * and open the template in the editor.
  */
 
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import gameEffects.asterage2.SpaceEffect;
-import gameObjects.asterage2.Asteroid;
-import gameObjects.asterage2.HomingMissile;
-import gameObjects.asterage2.PlasmaBolt;
-import gameObjects.asterage2.PlayerShip;
-import gameObjects.asterage2.PowerUpBaseObject;
-import gameObjects.asterage2.TrollBaseShip;
-import gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.SpaceEffect;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.HomingMissile;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlasmaBolt;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PowerUpBaseObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JLabel;
-import state.Asterage2State;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

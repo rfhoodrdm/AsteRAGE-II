@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import gameEffects.asterage2.ShieldEffect;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShieldEffect;
 import java.util.ArrayList;
-import objectBehaviors.asterage2.ControlsWeaponsPods;
-import objectBehaviors.asterage2.DeploysShields;
-import objectBehaviors.asterage2.FiresPlasmaBoltsAtIntervals;
-import objectBehaviors.asterage2.FiresTrollLaser;
-import objectBehaviors.asterage2.PursuesPlayer;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.DeploysShields;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresPlasmaBoltsAtIntervals;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresTrollLaser;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
-import static state.Asterage2State.POINT_AWARDS.*;
-import utility.DebugManager;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.*;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *

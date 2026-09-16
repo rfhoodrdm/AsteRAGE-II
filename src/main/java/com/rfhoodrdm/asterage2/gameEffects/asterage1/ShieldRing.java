@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-package gameEffects.asterage1;
+package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
-import gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
 
 import java.awt.Color;
 

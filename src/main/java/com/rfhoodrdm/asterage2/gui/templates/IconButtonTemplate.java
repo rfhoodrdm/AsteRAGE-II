@@ -1,4 +1,4 @@
-package gui.templates;
+package com.rfhoodrdm.asterage2.gui.templates;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Color;

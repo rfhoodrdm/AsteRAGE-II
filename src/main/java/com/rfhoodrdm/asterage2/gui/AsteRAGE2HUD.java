@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import gui.asterage2widgets.LivesLevelScoreWidget;
-import gui.asterage2widgets.PowerPointsWidget;
-import gui.asterage2widgets.ShieldsWidget;
-import gui.asterage2widgets.ShipPowerupStatusWidget;
-import gui.asterage2widgets.UpgradesMenuWidget;
-import gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.LivesLevelScoreWidget;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.PowerPointsWidget;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShieldsWidget;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.UpgradesMenuWidget;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 
 /**
  *

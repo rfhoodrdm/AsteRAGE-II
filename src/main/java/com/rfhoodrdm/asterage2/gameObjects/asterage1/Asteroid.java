@@ -1,11 +1,11 @@
-package gameObjects.asterage1;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
 import java.awt.image.BufferedImage;
-import gui.GUI;
-import objectBehaviors.asterage1.GetsDestroyed;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.GetsDestroyed;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import utility.DebugManager;
-import state.Asterage1ScoreState;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
 
 /**
  * Represents either a small, medium, or large asteroid object.

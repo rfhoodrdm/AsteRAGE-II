@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import utility.GameConstants;
-import utility.ThetaCorrector;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  *

@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-package gui.asterage2widgets;
+package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import javax.swing.ImageIcon;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 
-import static state.Asterage2State.PowerUpMenuOption;
-import static state.Asterage2State.PowerUpMenuOption.*;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.*;
 
 /**
  *

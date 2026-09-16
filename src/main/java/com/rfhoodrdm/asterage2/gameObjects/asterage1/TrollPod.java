@@ -1,12 +1,12 @@
-package gameObjects.asterage1;
-import gameEffects.asterage1.ShieldRing;
-import gameEffects.asterage1.ShipDebrisExplosion;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import objectBehaviors.asterage1.FiresBullets;
-import objectBehaviors.asterage1.DeploysShields;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

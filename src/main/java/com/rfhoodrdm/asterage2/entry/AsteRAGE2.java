@@ -1,10 +1,10 @@
-package entry;
+package com.rfhoodrdm.asterage2.entry;
 
-import state.State;
-import gui.GUI;
-import controller.Controller;
-import controller.GamePulse;
-import utility.DataLoader;
+import com.rfhoodrdm.asterage2.state.State;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.controller.Controller;
+import com.rfhoodrdm.asterage2.controller.GamePulse;
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 
 /**
  * AsteRAGE 2 entry class.

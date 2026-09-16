@@ -1,12 +1,12 @@
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
-import state.Asterage1State;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import gameObjects.asterage1.SpaceObject;
-import gameObjects.asterage1.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
 /**
  * The game board where the space objects are drawn for the Asterage 1 game.
  */

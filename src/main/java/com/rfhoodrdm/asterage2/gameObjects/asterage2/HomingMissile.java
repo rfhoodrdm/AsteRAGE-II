@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
 import java.awt.image.BufferedImage;
-import objectBehaviors.asterage2.Expires;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import utility.GameConstants;
-import utility.RandomizedNumbers;
-import utility.ThetaCorrector;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
+import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  *

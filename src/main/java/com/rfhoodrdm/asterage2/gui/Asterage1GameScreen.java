@@ -1,7 +1,7 @@
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import gui.templates.PanelTemplate;
-import state.Asterage1State;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
 
 /**
  * The top-level panel for the Asterage 1 game.

@@ -1,6 +1,6 @@
-package gameObjects.asterage1;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 
 /**
  * Mythicite is the objective of the Trololo's mission. Collect as much as possible!

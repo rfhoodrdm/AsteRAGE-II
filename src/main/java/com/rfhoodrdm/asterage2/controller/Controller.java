@@ -1,12 +1,12 @@
-package controller;
+package com.rfhoodrdm.asterage2.controller;
 
-import gui.GUI;
-import state.State;
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.state.State;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 import java.awt.event.KeyEvent;
-import gui.input.GameKeyAdapter;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Class controller is the top level game logic implementation class.

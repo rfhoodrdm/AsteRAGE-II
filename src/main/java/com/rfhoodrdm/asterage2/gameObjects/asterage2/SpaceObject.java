@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import gameEffects.asterage2.GravityNetEffect;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.GravityNetEffect;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import utility.DebugManager;
-import utility.ThetaCorrector;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  * Base class of all objects that move around on the game board.

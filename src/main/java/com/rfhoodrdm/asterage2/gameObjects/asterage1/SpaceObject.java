@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage1;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

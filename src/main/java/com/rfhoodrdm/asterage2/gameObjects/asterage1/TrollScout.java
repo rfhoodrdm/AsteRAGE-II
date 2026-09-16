@@ -1,13 +1,13 @@
-package gameObjects.asterage1;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
 import java.awt.image.BufferedImage;
-import gui.GUI;
-import objectBehaviors.asterage1.FiresBullets;
-import objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import utility.GameConstants;
-import gameEffects.asterage1.ShieldRing;
-import gameEffects.asterage1.ShipDebrisExplosion;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
 /**
  * The troll scout is an independently navigating foe of the player.
  * It flies around the screen and attempts to destroy the player by firing bullets.

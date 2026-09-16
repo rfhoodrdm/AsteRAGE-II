@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package gui;
-import state.TitleState;
+package com.rfhoodrdm.asterage2.gui;
+import com.rfhoodrdm.asterage2.state.TitleState;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Dimension;
-import gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;

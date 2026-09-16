@@ -4,30 +4,31 @@
  * and open the template in the editor.
  */
 
-package state;
-import controller.Asterage2Controller;
-import gameEffects.asterage2.ShipExplosionEffect;
-import gameEffects.asterage2.SpaceEffect;
-import gameEffects.asterage2.WarpOutEffect;
-import gameObjects.asterage2.Asteroid;
-import gameObjects.asterage2.HomingMissile;
-import gameObjects.asterage2.PlasmaBolt;
-import gameObjects.asterage2.PlayerShip;
-import gameObjects.asterage2.PowerUpBaseObject;
-import gameObjects.asterage2.SpaceObject;
-import gameObjects.asterage2.TrollBaseShip;
-import gameObjects.asterage2.TrollMiningPod;
-import gameObjects.asterage2.TrollMothership;
-import gameObjects.asterage2.TrollWeaponPod;
-import gui.AsteRAGE2GameBoard;
-import gui.GUI;
-import gui.SoundManager;
+package com.rfhoodrdm.asterage2.state;
+import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.SpaceEffect;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.WarpOutEffect;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.HomingMissile;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlasmaBolt;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PowerUpBaseObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMiningPod;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMothership;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
+import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.SoundManager;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import objectBehaviors.asterage2.ControlsWeaponsPods;
-import static state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
-import utility.DataLoader;
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
+
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

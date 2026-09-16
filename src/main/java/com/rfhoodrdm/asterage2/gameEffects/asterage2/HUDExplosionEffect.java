@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package gameEffects.asterage2;
+package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import utility.GameConstants;
-import utility.RandomizedNumbers;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 
 /**
  *

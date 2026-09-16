@@ -1,15 +1,15 @@
-package gameObjects.asterage1;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 
 
-import objectBehaviors.asterage1.FiresBullets;
-import objectBehaviors.asterage1.DeploysShields;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import gameEffects.asterage1.ShipDebrisExplosion;
-import gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 
 /**
  * PlayerShip is the component on the game board representing the player. 

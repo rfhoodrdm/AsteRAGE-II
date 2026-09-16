@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import objectBehaviors.asterage2.Expires;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 
 
 
