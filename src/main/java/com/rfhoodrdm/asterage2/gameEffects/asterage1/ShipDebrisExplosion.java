@@ -1,10 +1,10 @@
-package gameEffects.asterage1;
-import gameObjects.asterage1.SpaceObject;
+package com.rfhoodrdm.asterage2.gameEffects.asterage1;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 

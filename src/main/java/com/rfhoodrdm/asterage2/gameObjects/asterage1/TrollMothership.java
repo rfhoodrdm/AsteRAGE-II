@@ -1,20 +1,20 @@
-package gameObjects.asterage1;
-import gameEffects.asterage1.ShieldRing;
-import gameEffects.asterage1.ShipDebrisExplosion;
-import gameEffects.asterage1.TrollLaser;
-import gui.GUI;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.TrollLaser;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import objectBehaviors.asterage1.FiresBullets;
-import objectBehaviors.asterage1.DeploysShields;
-import objectBehaviors.asterage1.FiresSuperLaser;
-import objectBehaviors.asterage1.FiresTractorBeam;
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresSuperLaser;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresTractorBeam;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

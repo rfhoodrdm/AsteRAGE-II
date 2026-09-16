@@ -1,6 +1,6 @@
-package objectBehaviors.asterage1;
+package com.rfhoodrdm.asterage2.objectBehaviors.asterage1;
 
-import gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**

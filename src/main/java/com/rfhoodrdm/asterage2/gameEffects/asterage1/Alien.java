@@ -1,11 +1,11 @@
-package gameEffects.asterage1;
+package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
-import gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 
 /**
  * Alien that is ejected from an asteroid into space, and dies. Calls the troll mothership when dead.

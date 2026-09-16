@@ -1,6 +1,6 @@
-package utility;
+package com.rfhoodrdm.asterage2.utility;
 
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /*		ERROR MESSAGE SCALE: 	(meaning)
 		1 - FATAL				unrecoverable error has occurred. Shut down and restart.

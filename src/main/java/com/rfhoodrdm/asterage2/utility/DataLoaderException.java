@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package utility;
+package com.rfhoodrdm.asterage2.utility;
 
 /**
  * Exception to be thrown if the data loader encounters an inability to load a file it needs.

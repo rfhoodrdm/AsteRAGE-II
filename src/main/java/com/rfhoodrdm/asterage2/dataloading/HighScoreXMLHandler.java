@@ -1,32 +1,28 @@
-package utility;
+package com.rfhoodrdm.asterage2.dataloading;
 
-import java.util.ArrayList;
-import state.HighScoreEntry;
-
-import javax.xml.parsers.DocumentBuilder; 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException; 
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
-import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
-import org.w3c.dom.Entity;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.dom.DOMSource;
+import com.rfhoodrdm.asterage2.state.HighScoreEntry;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 
 /**
@@ -62,7 +58,7 @@ public class HighScoreXMLHandler
 		{
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder(); 
-			Document doc = db.parse(new File("data/" + filenameToLoad));
+			Document doc = db.parse(new File(filenameToLoad));
 			
 			NodeList highScoreEntryNodeList = doc.getElementsByTagName( GameConstants.HIGH_SCORE_ENTRY_NODE );
 			
@@ -143,7 +139,7 @@ public class HighScoreXMLHandler
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource domSource = new DOMSource(doc);
-			StreamResult streamResult = new StreamResult ( new File ("data/" + fileNameToSave ) );
+			StreamResult streamResult = new StreamResult ( new File (fileNameToSave ) );
 			
 			transformer.transform(domSource, streamResult);
 			

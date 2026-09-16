@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package gameEffects.asterage2;
+package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
 
-import gameObjects.asterage2.PlayerShip;
-import gameObjects.asterage2.TrollBaseShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import objectBehaviors.asterage2.Expires;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Space effect which represents the troll super weapon.

@@ -4,22 +4,22 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
-import gameEffects.asterage2.GravityNetEffect;
-import gameEffects.asterage2.ShieldEffect;
-import gameEffects.asterage2.SonicDisruptorEffect;
-import gui.GUI;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.GravityNetEffect;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShieldEffect;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import java.awt.image.BufferedImage;
-import objectBehaviors.asterage2.DeploysShields;
-import objectBehaviors.asterage2.FiresPlasmaBolts;
-import objectBehaviors.asterage2.FiresSonicDisruptor;
-import objectBehaviors.asterage2.TakesDamage;
-import utility.GameConstants;
-import utility.RandomizedNumbers;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.DeploysShields;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresPlasmaBolts;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresSonicDisruptor;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.TakesDamage;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 
 /**
  *

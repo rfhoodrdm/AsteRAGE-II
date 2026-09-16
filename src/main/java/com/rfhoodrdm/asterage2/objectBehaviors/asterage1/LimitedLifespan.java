@@ -1,7 +1,7 @@
-package objectBehaviors.asterage1;
+package com.rfhoodrdm.asterage2.objectBehaviors.asterage1;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 
 /**
  * This interface presents all of the functions inherent to an object that only exists on the game board for a limited amount

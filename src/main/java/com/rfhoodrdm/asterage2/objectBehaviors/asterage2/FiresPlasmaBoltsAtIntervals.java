@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package objectBehaviors.asterage2;
+package com.rfhoodrdm.asterage2.objectBehaviors.asterage2;
 
 /**
  * This interface is an extension of the basic FiresPlasmaBolts interface.

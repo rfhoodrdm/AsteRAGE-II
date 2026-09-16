@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-package gameEffects.asterage2;
+package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
-import gameObjects.asterage2.SpaceObject;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.SpaceObject;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

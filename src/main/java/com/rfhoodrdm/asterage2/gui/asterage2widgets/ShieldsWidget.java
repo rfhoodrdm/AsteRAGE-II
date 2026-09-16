@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package gui.asterage2widgets;
+package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JProgressBar;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 
 /**
  *

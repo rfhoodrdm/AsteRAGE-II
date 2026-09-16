@@ -1,5 +1,5 @@
 
-package gui.templates;
+package com.rfhoodrdm.asterage2.gui.templates;
 
 import javax.swing.JPanel;
 import java.awt.Color;

@@ -1,8 +1,8 @@
-package gui.input;
+package com.rfhoodrdm.asterage2.gui.input;
 
-import controller.Controller;
+import com.rfhoodrdm.asterage2.controller.Controller;
 import java.awt.event.KeyEvent;
-import utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *	This class is responsible for gathering key strokes and key releases, and deliver them to the 

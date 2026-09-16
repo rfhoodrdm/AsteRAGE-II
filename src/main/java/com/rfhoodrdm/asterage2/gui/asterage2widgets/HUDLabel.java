@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package gui.asterage2widgets;
+package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Base class of an HUD label, to display text on the HUD.

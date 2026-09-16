@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-package gui;
-import gui.templates.PanelTemplate;
+package com.rfhoodrdm.asterage2.gui;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import state.TitleState;
-import state.Asterage1State;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.TitleState;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 import javax.swing.JTextPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -26,7 +26,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

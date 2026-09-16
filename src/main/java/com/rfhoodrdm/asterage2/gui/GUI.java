@@ -1,15 +1,15 @@
 
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import state.State;
-import controller.Controller;
-import gui.asterage2widgets.ShipPowerupStatusWidget;
-import gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.state.State;
+import com.rfhoodrdm.asterage2.controller.Controller;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
+import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 
 import java.awt.image.BufferedImage;
 import javax.swing.JOptionPane;
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * GUI is the top class in the graphical user interface. It holds the game frame, game panels,
@@ -274,8 +274,8 @@ public class GUI
 		ENEMY_BULLET("ENEMY_BULLET.png"),
 		ENEMY_DEBRIS("ENEMY_DEBRIS.png"),
 		TROLL_SCOUT("TROLL_SCOUT.png"),
-		TROLL_MOTHERSHIP("TROLL_MOTHERSHIP.PNG"),
-		TROLL_POD("TROLL_POD.PNG"),
+		TROLL_MOTHERSHIP("TROLL_MOTHERSHIP.png"),
+		TROLL_POD("TROLL_POD.png"),
 		LARGE_ASTEROID("LARGE_ASTEROID.png"),
 		MEDIUM_ASTEROID("MEDIUM_ASTEROID.png"),
 		SMALL_ASTEROID("SMALL_ASTEROID.png"),

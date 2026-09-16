@@ -1,7 +1,7 @@
-package gameObjects.asterage1;
+package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**

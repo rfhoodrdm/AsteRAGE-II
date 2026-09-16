@@ -1,9 +1,9 @@
-package gameEffects.asterage1;
+package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
-import gameObjects.asterage1.SpaceObject;
-import objectBehaviors.asterage1.LimitedLifespan;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
 import java.awt.image.BufferedImage;
-import gui.GUI;
+import com.rfhoodrdm.asterage2.gui.GUI;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.awt.Graphics;
 

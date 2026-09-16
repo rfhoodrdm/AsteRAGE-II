@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package objectBehaviors.asterage2;
+package com.rfhoodrdm.asterage2.objectBehaviors.asterage2;
 
-import gameObjects.asterage2.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
 
 /**
  *

@@ -1,6 +1,6 @@
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 import java.util.concurrent.Semaphore;
 
 

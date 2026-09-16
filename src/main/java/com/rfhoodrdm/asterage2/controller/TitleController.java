@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package controller;
+package com.rfhoodrdm.asterage2.controller;
 
-import state.TitleState;
-import gui.GUI;
-import gui.SoundManager;
-import gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.state.TitleState;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.SoundManager;
+import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import java.awt.event.KeyEvent;
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

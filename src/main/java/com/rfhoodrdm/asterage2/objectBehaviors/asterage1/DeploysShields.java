@@ -1,7 +1,7 @@
-package objectBehaviors.asterage1;
-import gameObjects.asterage1.SpaceObject;
+package com.rfhoodrdm.asterage2.objectBehaviors.asterage1;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 
 /**
  * Presents all methods involving interacting with an object's shields.

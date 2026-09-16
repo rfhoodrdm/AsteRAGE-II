@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package state;
+package com.rfhoodrdm.asterage2.state;
 
-import utility.DebugManager;
-import utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

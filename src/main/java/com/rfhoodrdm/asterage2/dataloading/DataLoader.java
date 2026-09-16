@@ -4,30 +4,35 @@
  * and open the template in the editor.
  */
 
-package utility;
+package com.rfhoodrdm.asterage2.dataloading;
 
-import gui.GUI;
-import gui.SoundPlayer;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import state.HighScoreDirectory;
-import state.HighScoreEntry;
+
+import com.rfhoodrdm.asterage2.dataloading.delegate.ImageLoaderDelegate;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.SoundPlayer;
+import com.rfhoodrdm.asterage2.state.HighScoreDirectory;
+import com.rfhoodrdm.asterage2.state.HighScoreEntry;
+import com.rfhoodrdm.asterage2.utility.DataLoaderException;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *
@@ -39,13 +44,22 @@ public class DataLoader
 		*******************			Data Members			******************
 		********************************************************************** */
 	
+	public static final String BASE_ASSET_DIRECTORY = "src/main/resources";
+	public static final String IMAGE_ASSET_DIRECTORY = BASE_ASSET_DIRECTORY + "/images";
+	public static final String SOUND_ASSET_DIRECTORY = BASE_ASSET_DIRECTORY + "/sounds";
+	
+	public static final String BASE_HIGH_SCORE_DIRECTORY = "config/temp/";
+	
 	//GUI Component pieces
     JFrame loaderFrame;
     JPanel loaderPanel;
     JLabel loaderLabel;
     JProgressBar loaderProgressBar;
 	
-	
+	//loading delegates
+    
+    private final ImageLoaderDelegate imageLoaderDelegate;
+    
 	//High Scores components.
 	ArrayList<HighScoreEntry> asterage1HighScoreList;
 	ArrayList<HighScoreEntry> asterage2HighScoreList;
@@ -62,6 +76,10 @@ public class DataLoader
 	
 	public DataLoader()
 	{
+		//create the loading delegates.
+		//TODO: rewire for injection, eventually.
+		imageLoaderDelegate = new ImageLoaderDelegate();
+		
 		//easy to remember and reference sizes.
 		Dimension loaderSize = new Dimension ( 500, 200 );
 		Dimension componentSize = new Dimension ( 500, 100 );
@@ -190,7 +208,8 @@ public class DataLoader
 	 */
 	public void saveHighScoreList ( ArrayList<HighScoreEntry> highScoreListToSave, String fileNameToSave )
 	{
-		HighScoreXMLHandler.saveXML(highScoreListToSave, fileNameToSave);
+		String fullFileNameToSave = BASE_HIGH_SCORE_DIRECTORY + fileNameToSave;
+		HighScoreXMLHandler.saveXML(highScoreListToSave, fullFileNameToSave);
 	}  //end function saveHighScoreList
 	
 	/*	**********************************************************************
@@ -203,25 +222,26 @@ public class DataLoader
 		String highScores1FileName = GameConstants.ASTERAGE_1_HIGH_SCORE_FILE_NAME;
 		++dataLoadsCompleted;
 		updateLabel ( highScores1FileName );
-		this.asterage1HighScoreList = HighScoreXMLHandler.loadXML( highScores1FileName );
+		this.asterage1HighScoreList = HighScoreXMLHandler.loadXML(BASE_HIGH_SCORE_DIRECTORY + highScores1FileName );
 
 		//load scores for AsteRAGE 2.
 		String highScores2FileName = GameConstants.ASTERAGE_2_HIGH_SCORE_FILE_NAME;
 		++dataLoadsCompleted;
 		updateLabel ( highScores2FileName );
-		this.asterage2HighScoreList = HighScoreXMLHandler.loadXML( highScores2FileName );
+		this.asterage2HighScoreList = HighScoreXMLHandler.loadXML( BASE_HIGH_SCORE_DIRECTORY + highScores2FileName );
 		
 	} //end function loadHighScores
 	
 	private void loadAllImages()
-	throws DataLoaderException
+			throws DataLoaderException
 	{ 
 		for (GUI.Image currentImage: GUI.Image.values() )
 		{
-			//get the file name, load the image, and store it in the enum.
-			//if we find a null, it is a problem.
 			String fileName = currentImage.getFilename();
-			BufferedImage newImage = this.loadImage( fileName );
+			updateLabel ( fileName );
+			displayProgress();
+			
+			BufferedImage newImage = imageLoaderDelegate.loadImage( fileName );
 			currentImage.setImage(newImage);
 			++dataLoadsCompleted;
 		} //end for each loop to iterate through and load all images.
@@ -229,7 +249,7 @@ public class DataLoader
 	} //end function loadAllImages definition
 	
 	private void loadAllSounds()
-	throws DataLoaderException
+			throws DataLoaderException
 	{
 		for (SoundPlayer.Sound currentSound : SoundPlayer.Sound.values() )
 		{
@@ -277,35 +297,6 @@ public class DataLoader
 		loaderLabel.setText(newMessage);
     } //end function updatelabel
 	
-	/**
-     * Load one image into memory and return it.
-     * @param fileName String value for locating our image on disk.
-     * @return The image that was loaded, or null if no image could be loaded.
-     */
-    private BufferedImage loadImage ( String fileName )
-	throws DataLoaderException
-    {
-		//make a new return value. 
-		BufferedImage loadedImage;
-
-		//update the gui items 
-		updateLabel ( fileName );
-		displayProgress();
-
-		String ref = "data/images/" + fileName;
-		try
-		{
-			loadedImage = ImageIO.read( new File(ref) );
-		} //end try
-		catch (IOException e)
-		{
-			DebugManager.logMessage(4, "Unable to load image " + fileName );
-			throw new DataLoaderException ( fileName + "\nLocation: " + ref);
-		} //end catch
-
-		//return our finished new list item.
-		return loadedImage;
-    } //end function loadImage
 	
 	 /**
      * Load one sound into memory and return it.
@@ -322,7 +313,7 @@ public class DataLoader
 		updateLabel ( fileName );
 		displayProgress();
 
-		String ref = "data/sounds/" + fileName;
+		String ref = SOUND_ASSET_DIRECTORY + "/" + fileName;
 		try
 		{
 			File soundfile = new File( ref );

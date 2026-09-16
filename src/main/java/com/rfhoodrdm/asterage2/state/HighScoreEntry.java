@@ -1,4 +1,4 @@
-package state;
+package com.rfhoodrdm.asterage2.state;
 
 /**
  * Contains information about one high score entry. Also has the getter and setter methods for those stats.

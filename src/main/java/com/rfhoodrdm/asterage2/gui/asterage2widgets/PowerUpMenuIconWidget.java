@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package gui.asterage2widgets;
+package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
 import java.awt.Dimension;
 import javax.swing.Icon;

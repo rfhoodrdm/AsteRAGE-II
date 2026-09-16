@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package gameObjects.asterage2;
+package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -14,12 +14,12 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
-import objectBehaviors.asterage2.ControlsWeaponsPods;
-import objectBehaviors.asterage2.PursuesPlayer;
-import static state.Asterage2State.POINT_AWARDS.TROLL_MOTHERSHIP_DESTROYED;
-import utility.DebugManager;
-import utility.GameConstants;
-import utility.ThetaCorrector;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.TROLL_MOTHERSHIP_DESTROYED;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
+import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  *

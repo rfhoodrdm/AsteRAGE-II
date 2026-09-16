@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package gui;
+package com.rfhoodrdm.asterage2.gui;
 
-import gui.asterage2widgets.ShipPowerupStatusWidget;
-import gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.GridBagConstraints;
-import state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
 
 /**
  *

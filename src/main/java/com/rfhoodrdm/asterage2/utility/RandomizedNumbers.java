@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package utility;
+package com.rfhoodrdm.asterage2.utility;
 
 /**
  *
