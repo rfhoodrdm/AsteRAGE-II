@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
 import com.rfhoodrdm.asterage2.gui.GUI;
@@ -75,27 +77,27 @@ extends BaseAsterageWidget
 	protected void initializeSubComponents()
 	{
 		//define the icons first
-		homingMissileLevel0Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_0.getImage() );			
-		homingMissileLevel1Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_1.getImage() );		
-		homingMissileLevel2Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_2.getImage() );		
+		homingMissileLevel0Icon = new ImageIcon( Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_0.getImage() );			
+		homingMissileLevel1Icon = new ImageIcon( Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_1.getImage() );		
+		homingMissileLevel2Icon = new ImageIcon( Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_2.getImage() );		
 
-		multiShotLevel0Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_MULTISHOT_LEVEL_0.getImage() );					
-		multiShotLevel1Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_MULTISHOT_LEVEL_1.getImage() );	
-		multiShotLevel2Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_MULTISHOT_LEVEL_2.getImage() );	
+		multiShotLevel0Icon = new ImageIcon( Image.A2_SYSTEM_ICON_MULTISHOT_LEVEL_0.getImage() );					
+		multiShotLevel1Icon = new ImageIcon( Image.A2_SYSTEM_ICON_MULTISHOT_LEVEL_1.getImage() );	
+		multiShotLevel2Icon = new ImageIcon( Image.A2_SYSTEM_ICON_MULTISHOT_LEVEL_2.getImage() );	
 
-		sonicDisruptorIcon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_SONIC_DISRUPTOR_DISABLED.getImage() );						
-		sonicDisruptorEnabledIcon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_SONIC_DISRUPTOR_ENABLED.getImage() );	
+		sonicDisruptorIcon = new ImageIcon( Image.A2_SYSTEM_ICON_SONIC_DISRUPTOR_DISABLED.getImage() );						
+		sonicDisruptorEnabledIcon = new ImageIcon( Image.A2_SYSTEM_ICON_SONIC_DISRUPTOR_ENABLED.getImage() );	
 
-		decelerationLevel0Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_DECELERATION_LEVEL_0.getImage() );					
-		decelerationLevel1Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_DECELERATION_LEVEL_1.getImage() );	
-		decelerationLevel2Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_DECELERATION_LEVEL_2.getImage() );	 
+		decelerationLevel0Icon = new ImageIcon( Image.A2_SYSTEM_ICON_DECELERATION_LEVEL_0.getImage() );					
+		decelerationLevel1Icon = new ImageIcon( Image.A2_SYSTEM_ICON_DECELERATION_LEVEL_1.getImage() );	
+		decelerationLevel2Icon = new ImageIcon( Image.A2_SYSTEM_ICON_DECELERATION_LEVEL_2.getImage() );	 
 
-		shieldGeneratorLevel0Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_SHIELD_GENERATOR_LEVEL_0.getImage() );			
-		shieldGeneratorLevel1Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_SHIELD_GENERATOR_LEVEL_1.getImage() );	
-		shieldGeneratorLevel2Icon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_SHIELD_GENERATOR_LEVEL_2.getImage() );	
+		shieldGeneratorLevel0Icon = new ImageIcon( Image.A2_SYSTEM_ICON_SHIELD_GENERATOR_LEVEL_0.getImage() );			
+		shieldGeneratorLevel1Icon = new ImageIcon( Image.A2_SYSTEM_ICON_SHIELD_GENERATOR_LEVEL_1.getImage() );	
+		shieldGeneratorLevel2Icon = new ImageIcon( Image.A2_SYSTEM_ICON_SHIELD_GENERATOR_LEVEL_2.getImage() );	
 
-		gravityNetIcon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_GRAVITY_NET_DISABLED.getImage() );						
-		gravityNetEnabledIcon = new ImageIcon( GUI.Image.A2_SYSTEM_ICON_GRAVITY_NET_ENABLED.getImage() );	
+		gravityNetIcon = new ImageIcon( Image.A2_SYSTEM_ICON_GRAVITY_NET_DISABLED.getImage() );						
+		gravityNetEnabledIcon = new ImageIcon( Image.A2_SYSTEM_ICON_GRAVITY_NET_ENABLED.getImage() );	
 		
 		//now define the widgets that will hold these icons
 		homingMissilePowerup = new PowerUpMenuIconWidget( homingMissileLevel0Icon );

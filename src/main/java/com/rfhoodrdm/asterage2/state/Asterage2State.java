@@ -22,9 +22,11 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMothership;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
 import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.GUI;
-import com.rfhoodrdm.asterage2.gui.SoundManager;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
+import com.rfhoodrdm.asterage2.sounds.SoundManager;
+
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
 
 import com.rfhoodrdm.asterage2.utility.DebugManager;

@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -27,7 +29,7 @@ extends TrollPod
 		
 		//set local variables.
 		this.playerShip = passedPlayerShip;
-		this.playerPodSprite = GUI.Image.POD_SPRITE.getImage();
+		this.playerPodSprite = Image.POD_SPRITE.getImage();
 		this.rotationalSpeed = 21; //override standard rotation of super class. Spin wildly when spawned.
 		this.setPosition(	playerShip.getXPosition(),
 							playerShip.getYPosition() );

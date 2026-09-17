@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
 import com.rfhoodrdm.asterage2.gui.GUI;
@@ -83,11 +85,11 @@ implements Expires
 		//return the missile sprite corresponding to the missile type.
 		if ( MissileType.PLAYER == getMissileType() )
 		{
-			return GUI.Image.A2_HOMING_MISSILE_PLAYER.getImage();
+			return Image.A2_HOMING_MISSILE_PLAYER.getImage();
 		}
 		else
 		{
-			return GUI.Image.A2_HOMING_MISSILE_TROLL.getImage();
+			return Image.A2_HOMING_MISSILE_TROLL.getImage();
 		}
 	} //end method getSimpleSprite
 	

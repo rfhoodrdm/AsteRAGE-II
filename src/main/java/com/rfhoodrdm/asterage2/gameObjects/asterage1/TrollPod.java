@@ -1,4 +1,6 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
 import java.awt.image.BufferedImage;
@@ -44,7 +46,7 @@ implements FiresBullets, DeploysShields
 		//set the local references.
 		this.trollMothership = passedMothership;
 		this.index = passedIndex;
-		this.trollPodSprite = GUI.Image.TROLL_POD.getImage();
+		this.trollPodSprite = Image.TROLL_POD.getImage();
 		
 		this.maxBulletCoolDown = GameConstants.FRAMES_PER_SECOND * 8;							//start at one bullet every eight seconds.
 		this.minBulletCoolDown = 

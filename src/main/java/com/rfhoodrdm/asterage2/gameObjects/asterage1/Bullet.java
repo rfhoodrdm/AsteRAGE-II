@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
@@ -112,8 +114,8 @@ implements LimitedLifespan
 	
 	private void loadSprites()
 	{
-		this.playerBulletImage = GUI.Image.PLAYER_BULLET.getImage();
-		this.trollBulletImage = GUI.Image.ENEMY_BULLET.getImage();
+		this.playerBulletImage = Image.PLAYER_BULLET.getImage();
+		this.trollBulletImage = Image.ENEMY_BULLET.getImage();
 	} //end function loadSprites
 	
 	/*	**********************************************************************

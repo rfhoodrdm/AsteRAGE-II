@@ -5,6 +5,8 @@
  */
 
 package com.rfhoodrdm.asterage2.gui;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
 import java.awt.Font;
@@ -69,7 +71,7 @@ extends PanelTemplate
 		this.gui = passedGUI;
 		
 		//remember references to images we use to paint.
-		titleGraphic = GUI.Image.TITLE_GRAPHIC.getImage();
+		titleGraphic = Image.TITLE_GRAPHIC.getImage();
 		
 		//Create and attach the Text Pane for the story.
 		storyPane = new StoryPane();

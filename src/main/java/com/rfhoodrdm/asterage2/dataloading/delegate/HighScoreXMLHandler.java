@@ -1,4 +1,4 @@
-package com.rfhoodrdm.asterage2.dataloading;
+package com.rfhoodrdm.asterage2.dataloading.delegate;
 
 import java.io.File;
 import java.io.IOException;

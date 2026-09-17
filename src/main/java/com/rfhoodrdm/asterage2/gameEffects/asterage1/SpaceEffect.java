@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
 import java.awt.image.BufferedImage;
@@ -36,7 +38,7 @@ implements LimitedLifespan
 				0.0, 0.0, 0.0);
 				
 		//set local variables
-		this.noSprite = GUI.Image.NO_IMAGE.getImage();
+		this.noSprite = Image.NO_IMAGE.getImage();
 		this.spaceObjectAttachment = passedSpaceObjectAttachment;
 		this.maxLifespan = passedLifespan;
 		this.currentLifespan = maxLifespan;

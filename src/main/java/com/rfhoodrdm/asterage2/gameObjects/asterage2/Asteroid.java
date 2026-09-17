@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
@@ -202,21 +204,21 @@ implements Expires, TakesDamage
 		Asteroid_Type_Size mySize = getAsteroidSize();
 		switch ( mySize )
 		{
-			case SMALL_WHITE:		return GUI.Image.A2_ASTEROID_SMALL_WHITE.getImage();
-			case MEDIUM_WHITE:		return GUI.Image.A2_ASTEROID_MEDIUM_WHITE.getImage(); 
-			case LARGE_WHITE:		return GUI.Image.A2_ASTEROID_LARGE_WHITE.getImage();
+			case SMALL_WHITE:		return Image.A2_ASTEROID_SMALL_WHITE.getImage();
+			case MEDIUM_WHITE:		return Image.A2_ASTEROID_MEDIUM_WHITE.getImage(); 
+			case LARGE_WHITE:		return Image.A2_ASTEROID_LARGE_WHITE.getImage();
 				
-			case SMALL_TAN:			return GUI.Image.A2_ASTEROID_SMALL_TAN.getImage();
-			case MEDIUM_TAN:		return GUI.Image.A2_ASTEROID_MEDIUM_TAN.getImage();
-			case LARGE_TAN:			return GUI.Image.A2_ASTEROID_LARGE_TAN.getImage();
+			case SMALL_TAN:			return Image.A2_ASTEROID_SMALL_TAN.getImage();
+			case MEDIUM_TAN:		return Image.A2_ASTEROID_MEDIUM_TAN.getImage();
+			case LARGE_TAN:			return Image.A2_ASTEROID_LARGE_TAN.getImage();
 				
-			case SMALL_RED:			return GUI.Image.A2_ASTEROID_SMALL_RED.getImage();
-			case MEDIUM_RED:		return GUI.Image.A2_ASTEROID_MEDIUM_RED.getImage();
-			case LARGE_RED:			return GUI.Image.A2_ASTEROID_LARGE_RED.getImage();
+			case SMALL_RED:			return Image.A2_ASTEROID_SMALL_RED.getImage();
+			case MEDIUM_RED:		return Image.A2_ASTEROID_MEDIUM_RED.getImage();
+			case LARGE_RED:			return Image.A2_ASTEROID_LARGE_RED.getImage();
 				
-			case SMALL_PURPLE:		return GUI.Image.A2_ASTEROID_SMALL_PURPLE.getImage();
-			case MEDIUM_PURPLE:		return GUI.Image.A2_ASTEROID_MEDIUM_PURPLE.getImage();
-			case LARGE_PURPLE:		return GUI.Image.A2_ASTEROID_LARGE_PURPLE.getImage();
+			case SMALL_PURPLE:		return Image.A2_ASTEROID_SMALL_PURPLE.getImage();
+			case MEDIUM_PURPLE:		return Image.A2_ASTEROID_MEDIUM_PURPLE.getImage();
+			case LARGE_PURPLE:		return Image.A2_ASTEROID_LARGE_PURPLE.getImage();
 				
 			default:
 				//shouldn't come here, but handle any other case by returning Null.

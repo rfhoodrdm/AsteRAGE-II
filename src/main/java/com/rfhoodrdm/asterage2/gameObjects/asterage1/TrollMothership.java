@@ -1,4 +1,6 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.TrollLaser;
@@ -71,7 +73,7 @@ implements FiresBullets, DeploysShields, FiresSuperLaser, FiresTractorBeam
 				5.0, 10.0, 1.0);
 		
 		//set local variables.
-		this.mothershipSprite = GUI.Image.TROLL_MOTHERSHIP.getImage();
+		this.mothershipSprite = Image.TROLL_MOTHERSHIP.getImage();
 		this.maxBulletCoolDown = GameConstants.FRAMES_PER_SECOND * 4;		//start at one bullet every four seconds.
 		this.minBulletCoolDown = 
 				(int) Math.floor (GameConstants.FRAMES_PER_SECOND * 1 );	

@@ -5,6 +5,8 @@
  */
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.GravityNetEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShieldEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
@@ -164,7 +166,7 @@ implements FiresPlasmaBolts, FiresSonicDisruptor, DeploysShields, TakesDamage
 	@Override	public boolean checkPlasmaBoltsCoolingDown()	{ return (plasmaBoltCooldownRemaining > 0);	}
 	@Override	public void resetPlasmaBoltCooldown()	{ plasmaBoltCooldownRemaining = 0;	}
 	@Override	public void startPlasmaBoltCooldown()	{	plasmaBoltCooldownRemaining = PLASMA_BOLT_MAX_COOLDOWN;	}
-	@Override	protected BufferedImage getSimpleSprite()	{	return GUI.Image.A2_PLAYER_SHIP.getImage();	 } //end method getSimpleSprite
+	@Override	protected BufferedImage getSimpleSprite()	{	return Image.A2_PLAYER_SHIP.getImage();	 } //end method getSimpleSprite
 	@Override	protected double getMaxVelocity()	{	 return MAX_VELOCITY;	} 
 	@Override	protected boolean checkAffectedByGravityNet() { return false; }	 //player ship is never affected by gravity net
 	public void rotateClockwise ( boolean passedRotationToggle ) { this.rotateClockwise = passedRotationToggle; }

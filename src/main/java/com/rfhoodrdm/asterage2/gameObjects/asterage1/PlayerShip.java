@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 
@@ -361,9 +363,9 @@ implements FiresBullets, DeploysShields
 	 */
 	protected void loadSprites()
 	{
-		this.shipSprite = GUI.Image.SHIP_SPRITE.getImage();
-		this.damagedShipSprite = GUI.Image.DAMAGED_SHIP_SPRITE.getImage();
-		this.destroyedShipSprite = GUI.Image.NO_IMAGE.getImage();
+		this.shipSprite = Image.SHIP_SPRITE.getImage();
+		this.damagedShipSprite = Image.DAMAGED_SHIP_SPRITE.getImage();
+		this.destroyedShipSprite = Image.NO_IMAGE.getImage();
 	} //end function loadShipSprites
 	
 	/**
