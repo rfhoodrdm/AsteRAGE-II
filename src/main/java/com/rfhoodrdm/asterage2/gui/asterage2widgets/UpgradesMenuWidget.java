@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -61,18 +63,18 @@ extends BaseAsterageWidget
 	@Override
 	protected void initializeSubComponents()
 	{
-		decelerationOptionIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_DECELERATION.getImage() );
-		decerationOptionSelectedIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_DECELERATION_SELECTED.getImage() );
-		shieldGeneratorOptionIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_SHIELD_GENERATOR.getImage() );
-		shieldGeneratorOptionSelectedIcon =  new ImageIcon( GUI.Image.A2_POWER_UP_ICON_SHIELD_GENERATOR_SELECTED.getImage() );
+		decelerationOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_DECELERATION.getImage() );
+		decerationOptionSelectedIcon = new ImageIcon( Image.A2_POWER_UP_ICON_DECELERATION_SELECTED.getImage() );
+		shieldGeneratorOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_SHIELD_GENERATOR.getImage() );
+		shieldGeneratorOptionSelectedIcon =  new ImageIcon( Image.A2_POWER_UP_ICON_SHIELD_GENERATOR_SELECTED.getImage() );
 		
-		homingMissileOptionIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_HOMING_MISSILE.getImage() );
-		homingMissileOptionSelectedIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_HOMING_MISSILE_SELECTED.getImage() );
-		extraLifeOptionIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_POINTS.getImage() );
-		extraLifeOptionSelectedIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_POINTS_SELECTED.getImage() );
+		homingMissileOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_HOMING_MISSILE.getImage() );
+		homingMissileOptionSelectedIcon = new ImageIcon( Image.A2_POWER_UP_ICON_HOMING_MISSILE_SELECTED.getImage() );
+		extraLifeOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_POINTS.getImage() );
+		extraLifeOptionSelectedIcon = new ImageIcon( Image.A2_POWER_UP_ICON_POINTS_SELECTED.getImage() );
 
-		multiShotOptionIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_MULTISHOT.getImage() );
-		multiShotOptionSelectedIcon = new ImageIcon( GUI.Image.A2_POWER_UP_ICON_MULTISHOT_SELECTED.getImage() );
+		multiShotOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_MULTISHOT.getImage() );
+		multiShotOptionSelectedIcon = new ImageIcon( Image.A2_POWER_UP_ICON_MULTISHOT_SELECTED.getImage() );
 		
 		powerUpMenuDescription = new HUDLabel("Select:", HUDLabel.HUDLabelType.STANDARD);
 		

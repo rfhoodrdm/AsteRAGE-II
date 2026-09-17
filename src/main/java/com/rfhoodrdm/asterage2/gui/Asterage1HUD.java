@@ -1,14 +1,17 @@
 package com.rfhoodrdm.asterage2.gui;
 
-import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.gui.Image;
 
-import javax.swing.JProgressBar;
-import com.rfhoodrdm.asterage2.gui.templates.IconButtonTemplate;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.JTextField;
+
+import com.rfhoodrdm.asterage2.gui.templates.IconButtonTemplate;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import com.rfhoodrdm.asterage2.state.Asterage1State;
 
 
@@ -59,7 +62,7 @@ extends PanelTemplate
 		scoreTextField = new JTextField();
 		levelTextField = new JTextField();
 		livesTextField = new JTextField();
-		shipLivesIcon = new ShipLivesIcon ( new ImageIcon (GUI.Image.EXTRA_LIFE_ICON.getImage() ) );
+		shipLivesIcon = new ShipLivesIcon ( new ImageIcon (Image.EXTRA_LIFE_ICON.getImage() ) );
 		
 		shieldLabel.setFont(hudTextFont);
 		scoreLabel.setFont(hudTextFont);

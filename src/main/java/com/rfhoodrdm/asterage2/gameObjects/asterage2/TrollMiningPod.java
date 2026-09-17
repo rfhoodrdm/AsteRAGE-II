@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -53,7 +55,7 @@ extends TrollBaseShip
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	@Override	protected BufferedImage getSimpleSprite()	{	return GUI.Image.A2_TROLL_MINING_POD.getImage();	} //end method getSimpleSprite
+	@Override	protected BufferedImage getSimpleSprite()	{	return Image.A2_TROLL_MINING_POD.getImage();	} //end method getSimpleSprite
 	@Override	protected double getMaxVelocity()	{	return TROLL_POD_MAX_VELOCITY;	}
 	@Override	public double getBaseMaxShieldStrength()	{	return TROLL_POD_MAX_SHIELD_STRENGTH;	}
 	@Override	public boolean checkPlasmaBoltsCoolingDown()	{	return true;	/*Hack. Troll mining pods never shoot lasers. */}

@@ -1,11 +1,12 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
-import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.GetsDestroyed;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
+
+import com.rfhoodrdm.asterage2.gui.Image;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.GetsDestroyed;
 import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
+import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * Represents either a small, medium, or large asteroid object.
@@ -115,9 +116,9 @@ implements GetsDestroyed
 		********************************************************************** */
 	private void loadSprites()
 	{
-		smallAsteroidSprite = GUI.Image.SMALL_ASTEROID.getImage();
-		mediumAsteroidSprite = GUI.Image.MEDIUM_ASTEROID.getImage();
-		largeAsteroidSprite = GUI.Image.LARGE_ASTEROID.getImage();
+		smallAsteroidSprite = Image.SMALL_ASTEROID.getImage();
+		mediumAsteroidSprite = Image.MEDIUM_ASTEROID.getImage();
+		largeAsteroidSprite = Image.LARGE_ASTEROID.getImage();
 	} //end function loadSprites
 	
 	/*	**********************************************************************

@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.SpaceObject;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
@@ -47,7 +49,7 @@ extends SpaceEffect
 		********************************************************************** */
 	
 	@Override	protected int getMaxExpiredCowndown()		{	return MAX_EXPIRED_COOLDOWN;	}
-	@Override	protected BufferedImage getSimpleSprite()	{	return GUI.Image.A2_WARP_OUT_GRAPHIC.getImage();	}	//custom drawing. No sprite to show.
+	@Override	protected BufferedImage getSimpleSprite()	{	return Image.A2_WARP_OUT_GRAPHIC.getImage();	}	//custom drawing. No sprite to show.
 	@Override	protected double getMaxVelocity()			{	return 0;	}	//does not move
 	
 	

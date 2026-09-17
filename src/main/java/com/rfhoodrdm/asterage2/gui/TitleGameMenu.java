@@ -5,6 +5,8 @@
  */
 
 package com.rfhoodrdm.asterage2.gui;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.state.TitleState;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -68,8 +70,8 @@ extends PanelTemplate
 		
 		asterage1MenuOption = new JLabel();
 		asterage2MenuOption = new JLabel();
-		asterage1MenuSelectionIndicator = new JButton( new ImageIcon (GUI.Image.GAME_SELECTOR_ICON_WHITE.getImage() ) );
-		asterage2MenuSelectionIndicator = new JButton( new ImageIcon (GUI.Image.GAME_SELECTOR_ICON_WHITE.getImage() ) );
+		asterage1MenuSelectionIndicator = new JButton( new ImageIcon (Image.GAME_SELECTOR_ICON_WHITE.getImage() ) );
+		asterage2MenuSelectionIndicator = new JButton( new ImageIcon (Image.GAME_SELECTOR_ICON_WHITE.getImage() ) );
 		asterage1MenuSelectionIndicator.setBorderPainted(false);
 		asterage2MenuSelectionIndicator.setBorderPainted(false);
 		asterage1MenuSelectionIndicator.setVisible(false);

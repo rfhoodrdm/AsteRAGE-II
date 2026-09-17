@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
@@ -42,7 +44,7 @@ implements FiresBullets, DeploysShields
 		//set the local variables.
 		this.maxBulletCoolDown = GameConstants.FRAMES_PER_SECOND * 2;	//one bullet every two seconds.
 		this.currentBulletCoolDown = maxBulletCoolDown;					//don't come in firing.
-		this.trollSprite = GUI.Image.TROLL_SCOUT.getImage();
+		this.trollSprite = Image.TROLL_SCOUT.getImage();
 		
 		this.maxShields = 100.0;
 		this.currentShields = 100.0;

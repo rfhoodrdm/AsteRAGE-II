@@ -1,11 +1,12 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Graphics;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gui.Image;
+import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Alien that is ejected from an asteroid into space, and dies. Calls the troll mothership when dead.
@@ -18,9 +19,9 @@ extends SpaceEffect
 		*******************			Data Members			******************
 		********************************************************************** */
 	public static final int alienLifeSpan = (int) Math.floor( GameConstants.FRAMES_PER_SECOND * 2.5 );
-	BufferedImage TrollSprite1 = GUI.Image.TROLL_1.getImage();
-	BufferedImage TrollSprite2 = GUI.Image.TROLL_2.getImage();
-	BufferedImage NO_SPRITE = GUI.Image.NO_IMAGE.getImage();
+	BufferedImage TrollSprite1 = Image.TROLL_1.getImage();
+	BufferedImage TrollSprite2 = Image.TROLL_2.getImage();
+	BufferedImage NO_SPRITE = Image.NO_IMAGE.getImage();
 	
 	int currentFrame = 0;
 	int frameHoldCount = 0;

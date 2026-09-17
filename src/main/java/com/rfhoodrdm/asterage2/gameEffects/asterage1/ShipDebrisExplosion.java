@@ -1,4 +1,6 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage1;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -37,8 +39,8 @@ extends SpaceEffect
 		super ( passedXLocation, passedYLocation, debrisExplosionLifespan, null );
 		
 		//Set local parameters
-		playerShipDebris = GUI.Image.PLAYER_DEBRIS.getImage();
-		trollShipDebris = GUI.Image.ENEMY_DEBRIS.getImage();
+		playerShipDebris = Image.PLAYER_DEBRIS.getImage();
+		trollShipDebris = Image.ENEMY_DEBRIS.getImage();
 		this.explosionOwner = passedOwner;		//who owns it?
 		
 		//initialize the DebrisStats array with new objects and random angles.

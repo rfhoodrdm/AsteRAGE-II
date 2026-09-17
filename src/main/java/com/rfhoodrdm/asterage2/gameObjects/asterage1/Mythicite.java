@@ -1,4 +1,6 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 
@@ -22,7 +24,7 @@ extends SpaceObject
 		super ( xSpawnLocation, ySpawnLocation,
 				50, 0, 0, 20,
 				0, 25, 0);
-		this.mythiciteSprite = GUI.Image.MYTHICITE.getImage();
+		this.mythiciteSprite = Image.MYTHICITE.getImage();
 	}
 	
 	/*	**********************************************************************

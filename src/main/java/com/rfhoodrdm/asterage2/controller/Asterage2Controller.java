@@ -7,6 +7,8 @@
 package com.rfhoodrdm.asterage2.controller;
 
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
+import com.rfhoodrdm.asterage2.sounds.SoundManager;
+
 import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.*;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
@@ -33,7 +35,6 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
 import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard.PopUpMessageLabel.MessageType;
 import com.rfhoodrdm.asterage2.gui.GUI;
-import com.rfhoodrdm.asterage2.gui.SoundManager;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import java.awt.event.KeyEvent;

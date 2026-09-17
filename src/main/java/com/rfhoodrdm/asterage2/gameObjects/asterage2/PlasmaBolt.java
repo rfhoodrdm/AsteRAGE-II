@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import com.rfhoodrdm.asterage2.gui.Image;
+
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
@@ -73,7 +75,7 @@ implements Expires
 	protected BufferedImage getSimpleSprite()	
 	{ 
 		return (plasmaBoltType == PlasmaBoltType.PLAYER) ? 
-				GUI.Image.A2_PLASMA_BOLT_PLAYER.getImage() : GUI.Image.A2_PLASMA_BOLT_ENEMY.getImage(); 
+				Image.A2_PLASMA_BOLT_PLAYER.getImage() : Image.A2_PLASMA_BOLT_ENEMY.getImage(); 
 	}	//end method getSimpleSprite
 	
 	public boolean checkExpired() { return this.expired; }

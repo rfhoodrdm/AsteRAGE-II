@@ -1,0 +1,29 @@
+
+
+TODO
+xx Create repo in github
+-- Connect AI code review to github repo
+-- rename packages to run under spring boot
+-- point to new resource folders
+
+
+
+-- Stop refocusing GUI on frame every tick
+-- Instead set ignoreRepaint = false
+-- Set double buffering
+-- Any other flags we want to set.
+
+
+-- Make fullscreen
+-- Scaling graphics?
+-- Rotating asteroids?
+
+
+-- Package game with JDK 25, make self-running
+-- Create new manual with new info on running game
+
+
+-- Use class-loader strategy to get game assets?
+  -- Or do we want to allow people to import new assets like ship sprites and tracks.
+-- Allow default image for broken graphics. Maybe X in a box?
+-- Reformulate asset loading post-deployment.

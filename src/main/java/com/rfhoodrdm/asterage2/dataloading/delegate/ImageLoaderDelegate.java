@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 import com.rfhoodrdm.asterage2.utility.DataLoaderException;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
 
+/**
+ * Delegate responsible for loading BufferedImage assets.
+ */
 public class ImageLoaderDelegate {
 	
 	private static final String IMAGE_RESOURCE_DIRECTORY = "images";
@@ -19,7 +22,7 @@ public class ImageLoaderDelegate {
 	 * 	1) Images in /config/data folder. (custom overrides)  TODO!
 	 *  2) Images from the resource loader, bundled with the game.
 	 *  3) Default image, if any. TODO!
-	 * @throws DataLoaderException if no image cannot be found in any location, including the default.
+	 * @throws DataLoaderException if no image can be found in any location, including the default.
 	 */
 	public BufferedImage loadImage(String imageName)
 		throws DataLoaderException {
