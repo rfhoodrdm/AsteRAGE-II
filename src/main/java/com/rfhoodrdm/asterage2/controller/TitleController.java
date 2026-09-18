@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.controller;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.event.KeyEvent;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
@@ -13,11 +15,14 @@ import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.TitleState;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 import lombok.Getter;
 import lombok.Setter;
 
+
+
+
+@Slf4j
 public class TitleController
 {
 	/*	**********************************************************************
@@ -186,7 +191,7 @@ public class TitleController
 		{
 			//switch to the game corresponding to the selection made
 			TitleState.GAME_SELECTION gameSelection = titleState.getCurrentGameSelected();
-			DebugManager.logMessage(5, "Countdown over. Game switching to : " + gameSelection);
+			log.debug("Countdown over. Game switching to : {}", gameSelection);
 			if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE1 )
 			{
 				controller.switchActiveState( CurrentState.ASTERAGE_1 );
@@ -196,7 +201,7 @@ public class TitleController
 			} else
 			{
 				//shouldn't reach here, because we've selected neither AsteRAGE 1 nor AsteRAGE 2. Make a note in the error log
-				DebugManager.logMessage(2, "Cannot switch to game: Game selection is unknown.");
+				log.error("Cannot switch to game: Game selection is unknown.");
 			} 
 		} 
 	} 
@@ -210,7 +215,7 @@ public class TitleController
 		TitleState.GAME_SELECTION currentGameSelection = titleState.getCurrentGameSelected();
 		TitleState.GAME_SELECTION nextGameSelection = TitleState.GAME_SELECTION.nextGameSelection(currentGameSelection);
 		
-		DebugManager.logMessage(5, "Changing game selected: " + nextGameSelection);
+		log.debug("Changing game selected: {}", nextGameSelection);
 		titleState.setCurrentGameSelected(nextGameSelection);
 		
 		//Play the menu selection changed sound.

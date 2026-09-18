@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -19,13 +21,16 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.TROLL_MOTHERSHIP_DESTROYED;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class TrollMothership
 extends TrollBaseShip
 implements PursuesPlayer, ControlsWeaponsPods
@@ -180,7 +185,7 @@ implements PursuesPlayer, ControlsWeaponsPods
 		{
 			if ( newWeaponPod == weaponPodArray[index])
 			{
-				DebugManager.logMessage(3, "Will not attach weapon pod to a ship twice.");
+				log.warn("Will not attach weapon pod to a ship twice.");
 				return;
 			} //end if check for weapon pod already in the list.
 		} //end for loop iterating through weapon pod array.

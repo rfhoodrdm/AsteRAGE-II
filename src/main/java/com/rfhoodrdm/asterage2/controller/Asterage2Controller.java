@@ -59,61 +59,51 @@ import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.Asterage2State;
 import com.rfhoodrdm.asterage2.state.Asterage2State.GameState;
 import com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
+
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class Asterage2Controller
 {
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	private GUI gui;
-	private Controller controller;
-	private Asterage2State asterage2State;
-	
+	@Setter private GUI gui;
+	@Setter private Controller controller;
+	@Setter private Asterage2State asterage2State;
 	
 	public static final int WARP_OUT_COUNTDOWN_SHIP_WARP_EVENT = GameConstants.FRAMES_PER_SECOND * 2;	//at 2 seconds left.
 	public static final int WARP_OUT_COUNTDOWN_LEVEL_UP_EVENT = 0;										//when countdown expired.
-	
 	
 	public static final String PAUSE_MESSAGE = "PAUSE";					//message to show if we're paused.
 	public static final String LEVEL_UP_MESSAGE = "LEVEL COMPLETE!";	//message to show once stage is complete
 	public static final String EXTRA_LIFE_MESSAGE = "EXTRA LIFE!";		//message to show if extra life is awarded.
 	public static final String CURRENT_LEVEL_MESSAGE = "LEVEL:  ";		//message indicating what level it is.
 	public static final String GAME_OVER_MESSAGE = "Game Over. Press ENTER for new game, or DELETE/ESC to quit.";	//game over message.
+	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Asterage2Controller()
-	{
+	
+	public Asterage2Controller() {
 		
-	} //end constructor
-	
-	public void setAsterage2State ( Asterage2State passedState )
-	{
-		this.asterage2State = passedState;
-	} //end funciton setAsterage1State
-	
-	public void setGUI ( GUI passedGUI )
-	{
-		this.gui = passedGUI;
-	} //end function setGUI
-	
-	public void setController ( Controller passedController )
-	{
-		this.controller = passedController;
-	} //end function setController
+	} 
+
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
 	
-	public void updateState()
-	{
+	public void updateState() {
 		//check the current state of the game. Perform a state update according to the game state.
 		GameState currentGameState = asterage2State.getGameState();
 		
@@ -624,7 +614,7 @@ public class Asterage2Controller
 				//should not reach here, as player homing missiles are designed only to target trolls 
 				//null case is checked above.
 				currentHomingMissile.setExpiredFlag(true);	//destroy missile immediately
-				DebugManager.logMessage(2, "Player Missile cannot target non-troll ships. Destroying missile.");
+				log.error("Player Missile cannot target non-troll ships. Destroying missile.");
 				return;
 			}	
 			
@@ -1311,8 +1301,8 @@ public class Asterage2Controller
 	private void fireSonicDisruptor( boolean firingDisruptorFlag ) {
 		//check to see if the sonic disruptor is equipped or not. 
 		//If so, it may be fired.
-		DebugManager.logMessage(6, "Sonic disruptor: Equipped: " + asterage2State.checkSonicDisruptorEquipped() +
-					"  Firing: " + firingDisruptorFlag );
+		log.trace("Sonic disruptor: Equipped: {}  Firing: {}",
+				asterage2State.checkSonicDisruptorEquipped(), firingDisruptorFlag);
 		if ( false == asterage2State.checkSonicDisruptorEquipped() ) { return; }
 		
 		PlayerShip playerShip = asterage2State.getPlayerShip();	
@@ -1369,9 +1359,9 @@ public class Asterage2Controller
 			int trollAngle = ThetaCorrector.correctThetaRange(90 + (int) Math.floor(Math.toDegrees(Math.atan2( deltaY , deltaX ))));
 			int angleDifference = calculateAngleDifference( trollAngle, playerShip.getFacingAngleDegrees() );
 			
-			DebugManager.logMessage(6, "Troll at ( " + currentTroll.getxCoordinateAsInt() + " , " + currentTroll.getyCoordinateAsInt()  +
-						" ) gives angle: " + angleDifference + " \t Player Angle: " + playerShip.getFacingAngleDegrees() +
-							" troll Angle: " + trollAngle);
+			log.trace("Troll at ( {} , {} ) gives angle: {} \t Player Angle: {} troll Angle: {}",
+					currentTroll.getxCoordinateAsInt(), currentTroll.getyCoordinateAsInt(), angleDifference,
+					playerShip.getFacingAngleDegrees(), trollAngle);
 			
 			if ( angleDifference < currentAngleToBeat ) {
 				//remember this angle as the current low record and remember which ship gave it.
@@ -1410,7 +1400,7 @@ public class Asterage2Controller
 		//if we don't have enough points, or the system is already at max upgrade level, then deny the purchase.
 		if (	(powerUpCost > pointsAvailableToSpend)  || 
 				systemIsAtMaxLevel)	{
-			DebugManager.logMessage(5 , "Not enough points to purchase upgrade, or system at max level: " + selectedPowerUp);
+			log.debug("Not enough points to purchase upgrade, or system at max level: {}", selectedPowerUp);
 			gui.playSoundForEvent(SoundManager.SOUND_EVENT.A2_PLAYER_PURCHASE_DENIED);
 			return;
 		} 
@@ -1538,7 +1528,7 @@ public class Asterage2Controller
 		//(does so every couple of levels.)
 		if ( 0 == asterage2State.getGameLevel() % TrollMothership.TROLL_MOTHERSHIP_LEVEL_SPAWN_FREQUENCY ) {
 			asterage2State.setSpawnedTrollMothershipRecently(false);
-			DebugManager.logMessage(5, "Resetting troll mothership spawn chance.");
+			log.debug("Resetting troll mothership spawn chance.");
 		}
 	}
 	
@@ -1549,7 +1539,7 @@ public class Asterage2Controller
 		final int NUMBER_OF_TRACKS = 4;
 		int soundTrackIndex = (currentLevel - 1) % NUMBER_OF_TRACKS;
 		
-		DebugManager.logMessage(6, "SoundTrack index selected: " + soundTrackIndex);
+		log.trace("SoundTrack index selected: {}", soundTrackIndex);
 		
 		switch ( soundTrackIndex ) {
 			case 3:
@@ -1635,7 +1625,7 @@ public class Asterage2Controller
 		int currentLevel = asterage2State.getGameLevel();
 
 		//Save the new record.
-		DebugManager.logMessage(5, highScoreNameToSave + " has secured a position of fame... for now!");
+		log.debug("{} has secured a position of fame... for now!", highScoreNameToSave);
 		asterage2State.insertNewRecord(highScoreNameToSave, currentLevel, score);
 	} 
 	

@@ -1,11 +1,12 @@
 package com.rfhoodrdm.asterage2.state;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 
 
@@ -13,6 +14,10 @@ import com.rfhoodrdm.asterage2.utility.DebugManager;
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class HighScoreDirectory
 {
 	/*	**********************************************************************
@@ -40,7 +45,7 @@ public class HighScoreDirectory
 		
 		if ( (null == loadedList) || (loadedList.size() < 10) )
 		{
-			DebugManager.logMessage(5, "No list. Making a default one.");
+			log.debug("No list. Making a default one.");
 			this.highScoreList = createDefaultList();
 		} 
 		else 
@@ -102,7 +107,7 @@ public class HighScoreDirectory
 		}
 		
 		//else
-		DebugManager.logMessage(5, "Tried to get a high score entry that didn't exist.");
+		log.debug("Tried to get a high score entry that didn't exist.");
 		return "AsteRAGE";
 	}
 	/**
@@ -119,7 +124,7 @@ public class HighScoreDirectory
 		}
 		
 		//else
-		DebugManager.logMessage(5, "Tried to get a high score entry that didn't exist.");
+		log.debug("Tried to get a high score entry that didn't exist.");
 		return "10";
 	} 
 	/**
@@ -136,7 +141,7 @@ public class HighScoreDirectory
 		}
 		
 		//else
-		DebugManager.logMessage(5, "Tried to get a high score entry that didn't exist.");
+		log.debug("Tried to get a high score entry that didn't exist.");
 		return "25000";
 	}
 	

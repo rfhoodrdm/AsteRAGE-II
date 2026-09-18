@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.dataloading.delegate;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.Optional;
@@ -9,11 +11,14 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * Delegate responsible for loading sound clips.
  */
+
+
+
+@Slf4j
 public class SoundLoaderDelegate {
 
 	private static final String SOUND_RESOURCE_DIRECTORY = "sounds";
@@ -32,7 +37,7 @@ public class SoundLoaderDelegate {
 		
 		Optional<Clip> soundMaybe = loadSoundWithResourceLoader(soundName);
 		if(soundMaybe.isPresent()) {
-			DebugManager.logMessage(5, "Successfully loaded from resource path: " + soundName);
+			log.debug("Successfully loaded from resource path: {}", soundName);
 			return soundMaybe.get();
 		}
 		
@@ -57,8 +62,7 @@ public class SoundLoaderDelegate {
 				
 				return Optional.ofNullable(loadedSound);
 		} catch (Exception ex) {
-			DebugManager.logMessage(4, "Could not load sound due to exception: " + soundName + " At Path: " + soundPath + 
-					" Exception: " + ex.getClass() + " " + ex.getMessage());
+			log.warn("Could not load sound due to exception: {} At Path: {}", soundName, soundPath, ex);
 		}
 		
 		return Optional.empty();

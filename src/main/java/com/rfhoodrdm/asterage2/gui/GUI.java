@@ -1,6 +1,8 @@
 
 package com.rfhoodrdm.asterage2.gui;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.swing.JOptionPane;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
@@ -9,12 +11,15 @@ import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * GUI is the top class in the graphical user interface. It holds the game frame, game panels,
  * and sound manager. It also contains references to the other modules.
  */
+
+
+
+@Slf4j
 public class GUI
 {
 	/*	**********************************************************************
@@ -134,7 +139,7 @@ public class GUI
 		
 		//get the current active state.
 		CurrentState currentState = state.getCurrentState();
-		DebugManager.logMessage(5, "Changing GUI shown: " + currentState.toString() );
+		log.debug("Changing GUI shown: {}", currentState);
 		
 		//show the gui corresponding to the active state.
 		//start the initial music sequence.

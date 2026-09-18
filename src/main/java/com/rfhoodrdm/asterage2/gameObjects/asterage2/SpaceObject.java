@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.GravityNetEffect;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
@@ -13,12 +15,15 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  * Base class of all objects that move around on the game board.
  */
+
+
+
+@Slf4j
 public abstract class SpaceObject
 {
 	/*	**********************************************************************
@@ -214,8 +219,8 @@ public abstract class SpaceObject
 //		if ( calculatedYPosition > bottomBoardMargin )	{ calculatedYPosition -= heightRelocationDistance; }
 //		if ( calculatedYPosition < topBoardMargin )		{ calculatedYPosition += heightRelocationDistance; }
 //		
-//		DebugManager.logMessage(6, "Top: " + topBoardMargin + " Bottom: " + bottomBoardMargin + 
-//				" Left : " + leftBoardMargin + " Right: " + rightBoardMargin );
+//		log.trace("Top: {} Bottom: {} Left : {} Right: {}",
+//				topBoardMargin, bottomBoardMargin, leftBoardMargin, rightBoardMargin);
 		
 		//set the new position.
 		setxCoordinateWithBoundsCorrection(calculatedXPosition, boardWidth);
@@ -266,10 +271,9 @@ public abstract class SpaceObject
 			double cumulativeXVelocity = currentXVelocity + deltaXVelocity;
 			double cumulativeYVelocity = currentYVelocity + deltaYVelocity;
 			
-			DebugManager.logMessage(6, 
-								" xcur: " + currentXVelocity + " ycur: " + currentYVelocity + 
-								" xdel: " + deltaXVelocity + " ydel: " + deltaYVelocity + 
-								" Xcum: " + cumulativeXVelocity + " Ycum: " + cumulativeYVelocity );
+			log.trace(" xcur: {} ycur: {} xdel: {} ydel: {} Xcum: {} Ycum: {}",
+					currentXVelocity, currentYVelocity, deltaXVelocity, deltaYVelocity,
+					cumulativeXVelocity, cumulativeYVelocity);
 			
 			double squaredSum = Math.pow(cumulativeXVelocity, 2) + Math.pow(cumulativeYVelocity, 2);
 			calculatedVelocity = Math.sqrt( squaredSum );

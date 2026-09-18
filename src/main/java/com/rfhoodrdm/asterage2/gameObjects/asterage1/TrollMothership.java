@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
@@ -16,11 +18,14 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresSuperLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresTractorBeam;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *
  */
+
+
+
+@Slf4j
 public class TrollMothership
 extends SpaceObject
 implements FiresBullets, DeploysShields, FiresSuperLaser, FiresTractorBeam
@@ -123,7 +128,7 @@ implements FiresBullets, DeploysShields, FiresSuperLaser, FiresTractorBeam
 			//check for null target first.
 			if ( null == this.tractorTarget )
 			{
-				DebugManager.logMessage(3, "Tractor beam engaged, but with no target.");
+				log.warn("Tractor beam engaged, but with no target.");
 				return;
 			} 
 			
@@ -150,7 +155,7 @@ implements FiresBullets, DeploysShields, FiresSuperLaser, FiresTractorBeam
 			//check for null target first.
 			if ( null == this.tractorTarget )
 			{
-				DebugManager.logMessage(3, "Tractor beam engaged, but with no target.");
+				log.warn("Tractor beam engaged, but with no target.");
 				return;
 			} 
 			
@@ -197,13 +202,13 @@ implements FiresBullets, DeploysShields, FiresSuperLaser, FiresTractorBeam
 	public void informPodDestroyed ( int destroyedPodIndex )
 	{
 		trollPod[destroyedPodIndex] = null;
-		DebugManager.logMessage(5, "Troll pod destroyed. Index: " + destroyedPodIndex );
+		log.debug("Troll pod destroyed. Index: {}", destroyedPodIndex);
 	} //end function informPodDestroyed
 	
 	public void attachTrollPod ( TrollPod newPod, int indexOfPod )
 	{
 		trollPod[indexOfPod] = newPod;
-		DebugManager.logMessage(5, "Attaching new pod at location: " + indexOfPod);
+		log.debug("Attaching new pod at location: {}", indexOfPod);
 	} //end function attachTrollPod
 	
 	//Find an unused pod index.

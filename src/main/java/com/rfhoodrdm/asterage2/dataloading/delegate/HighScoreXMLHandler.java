@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.dataloading.delegate;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,13 +24,16 @@ import org.xml.sax.SAXException;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.state.HighScoreEntry;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 
 /**
  * Loads and saves the high score lists.
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class HighScoreXMLHandler
 {
 	/*	**********************************************************************
@@ -73,27 +78,24 @@ public class HighScoreXMLHandler
 				
 				HighScoreEntry newEntry = new HighScoreEntry(name, level, points);
 				highScoreList.add( newEntry );
-				DebugManager.logMessage(5, "Loaded high score entry: " + name + " / " + level + " / " + points);
+				log.debug("Loaded high score entry: {} / {} / {}", name, level, points);
 				
 			} //end for loop iterating through the high score list.
 			
 		} //end try block
 		catch (ParserConfigurationException e) 
 		{
-			DebugManager.logMessage( 3, "ParserConfigurationException thrown when trying to load high score file: " 
-					+ filenameToLoad + "\n" + e.getStackTrace() );
+			log.warn("ParserConfigurationException thrown when trying to load high score file: {}", filenameToLoad, e);
 			return new ArrayList<>();	//returns an empty list. 
 		}
 		catch ( SAXException e )
 		{
-			DebugManager.logMessage( 3, "SAXException thrown when trying to load high score file: " 
-					+ filenameToLoad + "\n" + e.getStackTrace() );
+			log.warn("SAXException thrown when trying to load high score file: {}", filenameToLoad, e);
 			return new ArrayList<>();	//returns an empty list. 
 		}
 		catch ( IOException e )
 		{
-			DebugManager.logMessage( 3, "IOException thrown when trying to load high score file: " 
-					+ filenameToLoad + "\n" + e.getStackTrace() );
+			log.warn("IOException thrown when trying to load high score file: {}", filenameToLoad, e);
 			return new ArrayList<>();	//returns an empty list. 
 		} 
 		
@@ -143,18 +145,16 @@ public class HighScoreXMLHandler
 			
 			transformer.transform(domSource, streamResult);
 			
-			DebugManager.logMessage(5, "Save to file: " + fileNameToSave + " completed!");
+			log.debug("Save to file: {} completed!", fileNameToSave);
 			
 		} //end try block
 		catch (ParserConfigurationException e) 
 		{
-			DebugManager.logMessage( 3, "ParserConfigurationException thrown when trying to save high score file: " 
-					+ fileNameToSave + "\n" + e.getStackTrace() );
+			log.warn("ParserConfigurationException thrown when trying to save high score file: {}", fileNameToSave, e);
 		}
 		catch ( TransformerException e )
 		{
-			DebugManager.logMessage( 3, "TransformerException thrown when trying to save high score file: " 
-					+ fileNameToSave + "\n" + e.getStackTrace() );
+			log.warn("TransformerException thrown when trying to save high score file: {}", fileNameToSave, e);
 		}
 	} //end function saveXML definition
 	

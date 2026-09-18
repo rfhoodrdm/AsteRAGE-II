@@ -1,15 +1,20 @@
 package com.rfhoodrdm.asterage2.controller;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.state.State;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * Class controller is the top level game logic implementation class.
  * It in turn invokes the game logic to update the game state for the splash screen, and either AsteRAGE 1 or AsteRAGE 2
  */
+
+
+
+@Slf4j
 public class Controller
 {
 	/*	**********************************************************************
@@ -51,7 +56,7 @@ public class Controller
 		//pass each controller subcomponent a reference to the high level gui object.
 		titleController.setGui(passedGUI);
 		asterage1Controller.setGui ( gui );
-		asterage2Controller.setGUI( gui );
+		asterage2Controller.setGui( gui );
 	} 
 	
     /*	**********************************************************************
@@ -128,7 +133,7 @@ public class Controller
 			
 			default:
 				//we shouldn't get here. If so, then we are very much in error.
-				DebugManager.logMessage(2, "Received keyboard input designated for an unknown game controller.");
+				log.error("Received keyboard input designated for an unknown game controller.");
 				
 		} 
 	} 
