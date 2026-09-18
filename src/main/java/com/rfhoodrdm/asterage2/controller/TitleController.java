@@ -8,7 +8,7 @@ package com.rfhoodrdm.asterage2.controller;
 
 import java.awt.event.KeyEvent;
 
-import com.rfhoodrdm.asterage2.constants.CurrentState;
+import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;

@@ -13,7 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 

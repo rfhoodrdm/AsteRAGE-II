@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.TROLL_MOTHERSHIP_DESTROYED;

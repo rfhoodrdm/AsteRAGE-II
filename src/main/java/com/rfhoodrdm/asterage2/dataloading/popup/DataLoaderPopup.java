@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.sounds.Sound;
 

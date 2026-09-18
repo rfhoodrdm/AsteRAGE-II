@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
-import com.rfhoodrdm.asterage2.utility.DataLoaderException;
+import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**

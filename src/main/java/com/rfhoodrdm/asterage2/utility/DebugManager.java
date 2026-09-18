@@ -1,6 +1,6 @@
 package com.rfhoodrdm.asterage2.utility;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 
 /*		ERROR MESSAGE SCALE: 	(meaning)
 		1 - FATAL				unrecoverable error has occurred. Shut down and restart.
@@ -29,12 +29,11 @@ public class DebugManager
     {
 	//If the debugging level warrants showing the message, then print it to the
 	//standard error stream.
-	if ( severity <= GameConstants.DEBUGGING_LEVEL )
-	{
+	if ( severity <= GameConstants.DEBUGGING_LEVEL ) {
 	    displayMessagePrologue ( severity );
 	    displayMessage ( theMessage );
-	} //end if clause to determine if message should be logged
-    } //end function logMessage
+	} 
+    } 
 
 	
 	/*	**********************************************************************
@@ -69,10 +68,10 @@ public class DebugManager
 			case 6: 
 			prologue = "[ TRACE ] "; 
 			break;
-		} //end switch to select the message prologue.
+		} 
 		
 		System.err.print( prologue );
-    } //end function displayMessage Prologue
+    } 
     
     /**
      * Log the actual message.
@@ -82,6 +81,6 @@ public class DebugManager
     {
 	//use standard error stream. We can redirect this later if we want to save to a file.
 	System.err.println( theMessage );
-    } //end function displayMessagE
+    } 
 
 } //end class DebugManager definition

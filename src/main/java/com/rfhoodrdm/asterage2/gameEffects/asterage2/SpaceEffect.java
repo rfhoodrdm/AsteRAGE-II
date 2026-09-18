@@ -6,7 +6,7 @@
 
 package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.SpaceObject;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
 

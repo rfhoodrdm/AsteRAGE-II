@@ -12,8 +12,16 @@ import com.rfhoodrdm.asterage2.dataloading.DataLoader;
  */
 public class AsteRAGE2
 {
-	public static void main (String [] args)
-	{
+	/**
+	 * Entry point for plain java.
+	 * TODO: remove this.
+	 */
+//	public static void main (String [] args)
+//	{
+//		initializeGame();
+//	} 
+	
+	public static void initializeGame() {
 		//load the assets.
 		DataLoader dataLoader = new DataLoader();
 		dataLoader.startLoading();
@@ -37,5 +45,5 @@ public class AsteRAGE2
 		
 		//set the threads to running. Let the game begin!
 		gamePulse.start();
-	} 
+	}
 } 

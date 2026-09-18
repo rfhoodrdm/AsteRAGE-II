@@ -7,7 +7,7 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
 import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Color;
 import java.awt.Graphics;

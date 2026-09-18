@@ -2,7 +2,7 @@ package com.rfhoodrdm.asterage2.gui;
 
 import javax.swing.JFrame;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 
 import java.awt.Color;
 

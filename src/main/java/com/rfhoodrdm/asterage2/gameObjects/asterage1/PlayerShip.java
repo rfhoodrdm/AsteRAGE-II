@@ -11,7 +11,7 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 
 /**

@@ -5,7 +5,7 @@
  */
 
 package com.rfhoodrdm.asterage2.state;
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
