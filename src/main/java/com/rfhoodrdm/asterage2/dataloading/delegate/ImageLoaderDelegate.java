@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.dataloading.delegate;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.Optional;
@@ -7,11 +9,14 @@ import java.util.Optional;
 import javax.imageio.ImageIO;
 
 import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * Delegate responsible for loading BufferedImage assets.
  */
+
+
+
+@Slf4j
 public class ImageLoaderDelegate {
 	
 	private static final String IMAGE_RESOURCE_DIRECTORY = "images";
@@ -29,7 +34,7 @@ public class ImageLoaderDelegate {
 	
 		Optional<BufferedImage> imageMaybe = loadImageWithResourceLoader(imageName);
 		if(imageMaybe.isPresent()) {
-			DebugManager.logMessage(5, "Successfully loaded from resource path: " + imageName);
+			log.debug("Successfully loaded from resource path: {}", imageName);
 			return imageMaybe.get();
 		}
 
@@ -46,7 +51,7 @@ public class ImageLoaderDelegate {
 				return Optional.ofNullable(loadedImage);
 			}
 		} catch (Exception ex) {
-			DebugManager.logMessage(4, "No image resource found with name: " + imageName + " At Path: " + imagePath);
+			log.warn("No image resource found with name: {} At Path: {}", imageName, imagePath);
 		}
 		
 		return Optional.empty();

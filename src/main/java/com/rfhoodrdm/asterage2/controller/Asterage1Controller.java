@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.controller;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.event.KeyEvent;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -32,7 +34,6 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
 import com.rfhoodrdm.asterage2.state.Asterage1State;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,11 @@ import lombok.Setter;
  *
  * @author roberthood
  */
+
+
+
+
+@Slf4j
 public class Asterage1Controller {
 	/*
 	 * ********************************************************************** Data
@@ -382,7 +388,7 @@ public class Asterage1Controller {
 				// extra life to steal.
 				if ((asterage1State.getLevel() >= TrollMothership.tractorBeamLevelAcquired)
 						&& (asterage1State.getExtraLives() > 0) && (true == trollMothership.checkTractorReadiness())) {
-					DebugManager.logMessage(5, "Fire the tractor beam!");
+					log.debug("Fire the tractor beam!");
 					trollMothership.fireTractor(playerShip); // start firing at the player ship.
 					trollMothership.restartTractorCooldown();
 				} else {
@@ -436,7 +442,7 @@ public class Asterage1Controller {
 			double rangeToTarget = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
 			if (rangeToTarget < trollMothership.getCurrentTractorRange()) {
-				DebugManager.logMessage(5, "Locked on!");
+				log.debug("Locked on!");
 				trollMothership.lockOnTractorBeam(tractorTarget);
 			}
 		}
@@ -481,7 +487,7 @@ public class Asterage1Controller {
 
 			playerShip.resetTractorHullStress(); // reset hull stress back to max.
 
-			DebugManager.logMessage(5, "Spawning and attaching new player pod with index of " + index);
+			log.debug("Spawning and attaching new player pod with index of {}", index);
 		}
 	}
 
@@ -880,7 +886,7 @@ public class Asterage1Controller {
 			int currentLevel = asterage1State.getLevel();
 
 			// Save the new record.
-			DebugManager.logMessage(5, highScoreNameToSave + " has secured a position of fame... for now!");
+			log.debug("{} has secured a position of fame... for now!", highScoreNameToSave);
 			asterage1State.insertNewRecord(highScoreNameToSave, currentLevel, points);
 
 		} else {
@@ -1030,10 +1036,10 @@ public class Asterage1Controller {
 		// IN PROGRESS.
 		if (Asterage1State.GAME_STATUS.IN_PROGRESS == asterage1State.getGameStatus()) {
 			asterage1State.setGameStatus(Asterage1State.GAME_STATUS.PAUSE);
-			DebugManager.logMessage(5, "Pause!");
+			log.debug("Pause!");
 		} else if (Asterage1State.GAME_STATUS.PAUSE == asterage1State.getGameStatus()) {
 			asterage1State.setGameStatus(Asterage1State.GAME_STATUS.IN_PROGRESS);
-			DebugManager.logMessage(5, "Unpause!");
+			log.debug("Unpause!");
 		} else {
 			return; // we are not interested in pausing or unpauseing.
 		}

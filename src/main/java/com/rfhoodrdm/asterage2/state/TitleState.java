@@ -6,13 +6,18 @@
 
 package com.rfhoodrdm.asterage2.state;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class TitleState
 {
 	/*	**********************************************************************
@@ -50,7 +55,7 @@ public class TitleState
 		this.currentActivity = passedActivity;
 		//one set of game ticks per second for this activity.
 		this.timeToNextActivity = passedActivity.getTimeToNextActivity() * GameConstants.FRAMES_PER_SECOND;	
-		DebugManager.logMessage(5, "Setting title screen activity to " + passedActivity.toString() );
+		log.debug("Setting title screen activity to {}", passedActivity);
 	} //end function setCurrentActivity
 	
 	/**

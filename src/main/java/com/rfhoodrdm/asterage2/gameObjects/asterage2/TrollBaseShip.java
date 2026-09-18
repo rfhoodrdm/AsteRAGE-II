@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShieldEffect;
 import java.util.ArrayList;
@@ -16,12 +18,15 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresTrollLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
 
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.*;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public abstract class TrollBaseShip
 extends SpaceObject
 implements FiresPlasmaBoltsAtIntervals, DeploysShields, FiresTrollLaser
@@ -315,7 +320,7 @@ implements FiresPlasmaBoltsAtIntervals, DeploysShields, FiresTrollLaser
 				break;
 				
 			default:
-				DebugManager.logMessage(2, "Cannot enable troll ship system: " + optionToEnable + ". Not recognized.");
+				log.error("Cannot enable troll ship system: {}. Not recognized.", optionToEnable);
 				break;
 		} //end switch based on which ship system we want to enable.
 	} //end method equipOrEnableShipSystem
@@ -328,7 +333,7 @@ implements FiresPlasmaBoltsAtIntervals, DeploysShields, FiresTrollLaser
 		if ( !(this instanceof ControlsWeaponsPods) ) 
 		{ 
 			//incorrect type of ship to attach a weapon pod
-			DebugManager.logMessage(3, "Cannot attach a weapon pod to a ship that doesn't control them.");
+			log.warn("Cannot attach a weapon pod to a ship that doesn't control them.");
 			return;
 		} //end if check for type
 		

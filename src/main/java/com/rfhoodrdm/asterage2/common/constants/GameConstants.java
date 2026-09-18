@@ -18,9 +18,6 @@ public class GameConstants
     //how many frames per second are rendered to the screen.
     public static final int FRAMES_PER_SECOND = 32;
     
-	//what level of debugging message should be used.
-    public static final int DEBUGGING_LEVEL = 5;
-	
 	//length of misc thread sleeping time between activity. Used for performance tuning.
 	public static final int THREAD_SLEEP_TIME = 50;
 	

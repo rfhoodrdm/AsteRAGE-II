@@ -5,6 +5,8 @@
  */
 
 package com.rfhoodrdm.asterage2.state;
+
+import lombok.extern.slf4j.Slf4j;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
@@ -30,12 +32,15 @@ import com.rfhoodrdm.asterage2.sounds.SoundManager;
 
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
 
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class Asterage2State
 {
 	/*	**********************************************************************
@@ -247,7 +252,7 @@ public class Asterage2State
 				return ( getMultishotLevel() == MAX_SHIP_SYSTEM_LEVEL );
 				
 			default: 
-				DebugManager.logMessage(3, "Cannot check max level of system: " + whichSystem + " is not recognized.");
+				log.warn("Cannot check max level of system: {} is not recognized.", whichSystem);
 				return false;
 		} //end switch based on which system
 	} //end method checkSystemAtMaxLevel
@@ -261,7 +266,7 @@ public class Asterage2State
 		//check first to see if the system is at max level already, just to be safe.
 		if ( true == checkSystemAtMaxLevel(whichSystem)) 
 		{ 
-			DebugManager.logMessage(3, "Cannot upgrade system: " + whichSystem + ". Already at max level.");
+			log.warn("Cannot upgrade system: {}. Already at max level.", whichSystem);
 			return;
 		} //end if check for system already at max level 
 		
@@ -285,7 +290,7 @@ public class Asterage2State
 				
 			case EXTRA_POINTS:
 				//awarded via controller object. Shouldn't reach here.
-				DebugManager.logMessage(3, "Award points through system upgrade.");
+				log.warn("Award points through system upgrade.");
 				break;
 				
 			case MULTISHOT:
@@ -329,7 +334,7 @@ public class Asterage2State
 		//else we cannot add it, because we don't know of what type it is.
 		else
 		{
-			DebugManager.logMessage(2, "Cannot add object of unrecognized type.");
+			log.error("Cannot add object of unrecognized type.");
 		} //end else clause to note error of inability to add the object.
 	} //end method addSpaceObjectToLists
 	

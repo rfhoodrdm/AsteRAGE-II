@@ -1,10 +1,11 @@
 package com.rfhoodrdm.asterage2.state;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Semaphore;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,10 @@ import lombok.Setter;
  * State is the top level class in the game's "model" which holds the game state.
  * Holds information pertaining to the splash screen, as well as AsteRAGE 1 and 2.
  */
+
+
+
+@Slf4j
 public class State
 {
 	/*	**********************************************************************
@@ -70,7 +75,7 @@ public class State
 		//acquire the state lock to make changes.
 		stateLock.acquireUninterruptibly();
 		
-		DebugManager.logMessage(5, "Changing current active state to: " + newCurrentState.toString() );
+		log.debug("Changing current active state to: {}", newCurrentState);
 		this.currentState = newCurrentState;
 		
 		//also invoke that state's initialization function, to return its values to default -- we're starting anew.

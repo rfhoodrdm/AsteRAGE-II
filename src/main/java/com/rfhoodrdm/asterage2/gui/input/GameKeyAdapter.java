@@ -1,14 +1,19 @@
 package com.rfhoodrdm.asterage2.gui.input;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.controller.Controller;
 import java.awt.event.KeyEvent;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  *	This class is responsible for gathering key strokes and key releases, and deliver them to the 
  * master controller class. The GameKeyAdapter is intended to be attached to the top level
  * game frame in the gui.
  */
+
+
+
+@Slf4j
 public class GameKeyAdapter
 extends java.awt.event.KeyAdapter
 {
@@ -41,7 +46,7 @@ extends java.awt.event.KeyAdapter
 	{
 	   //Find out which key it was and pass the key press forward.
 	   int pressedKey = e.getKeyCode(); 
-	   DebugManager.logMessage(6, "Keypress registered: " + pressedKey);
+	   log.trace("Keypress registered: {}", pressedKey);
 	   controller.processKeyEvent( pressedKey, GAME_KEY_EVENT.DOWN );
 	    
 	} //end function keyPressed
@@ -52,7 +57,7 @@ extends java.awt.event.KeyAdapter
 	    //find out which key it was and pass the key release forward.
 	    int releasedKey = e.getKeyCode();
 		//TODO convert keys to lower case, to avoid caps lock bug.
-		DebugManager.logMessage(6, "Keyrelease registered: " + releasedKey);
+		log.trace("Keyrelease registered: {}", releasedKey);
 	    controller.processKeyEvent( releasedKey, GAME_KEY_EVENT.UP );
 	} //end function keyReleased.
 	

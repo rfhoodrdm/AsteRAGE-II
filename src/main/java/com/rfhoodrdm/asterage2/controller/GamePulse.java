@@ -3,7 +3,6 @@ package com.rfhoodrdm.asterage2.controller;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Controller;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * The GamePulse class is responsible for clock ticks that trigger game state

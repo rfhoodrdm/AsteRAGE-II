@@ -6,6 +6,8 @@
 
 package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlasmaBolt;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
@@ -15,13 +17,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**
  *
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class SonicDisruptorEffect
 extends SpaceEffect
 {
@@ -138,10 +143,9 @@ extends SpaceEffect
 		int angleDifference = Math.abs( disruptorAngle - objectAngle );
 		
 		boolean verdict = ( angleDifference < (SonicDisruptorEffect.DISRUPTOR_ARC_MEASURE/2) );
-		DebugManager.logMessage(6,	"Parent: " + parentXCoordinate + "," + parentYCoordinate + 
-									"Target: " + targetXCoordinate + "," + targetYCoordinate + 
-									"\tDistanceSquared: " + distanceSquared + " \tObjectAngle: " + objectAngle  + 
-									"\tFiringAngle: " + disruptorAngle);
+		log.trace("Parent: {},{} Target: {},{} \tDistanceSquared: {} \tObjectAngle: {} \tFiringAngle: {}",
+				parentXCoordinate, parentYCoordinate, targetXCoordinate, targetYCoordinate, distanceSquared,
+				objectAngle, disruptorAngle);
 		return verdict;
 	} //end method checkSonicDisruptorImpact
 	

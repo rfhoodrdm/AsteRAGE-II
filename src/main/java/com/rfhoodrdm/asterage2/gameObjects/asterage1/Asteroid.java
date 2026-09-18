@@ -1,17 +1,22 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.GetsDestroyed;
 import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
-import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**
  * Represents either a small, medium, or large asteroid object.
  * @author roberthood
  */
+
+
+
+@Slf4j
 public class Asteroid
 extends SpaceObject
 implements GetsDestroyed
@@ -93,7 +98,7 @@ implements GetsDestroyed
 				break;
 		} //end switch
 		
-		DebugManager.logMessage(6, "Make " + numberNewMedium + " medium and " + numberNewSmall + " new small asteroids.");
+		log.trace("Make {} medium and {} new small asteroids.", numberNewMedium, numberNewSmall);
 		//Now, spawn the indicated number of asteroids, of the given type.
 		for ( int counter = 1; counter <= numberNewMedium; ++ counter )
 		{
