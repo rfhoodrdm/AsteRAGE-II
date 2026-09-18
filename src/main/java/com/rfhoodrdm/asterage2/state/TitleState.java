@@ -6,8 +6,8 @@
 
 package com.rfhoodrdm.asterage2.state;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

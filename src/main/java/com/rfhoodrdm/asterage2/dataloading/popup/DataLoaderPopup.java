@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.sounds.Sound;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 public class DataLoaderPopup {
 

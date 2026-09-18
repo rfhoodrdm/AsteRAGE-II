@@ -6,6 +6,7 @@
 
 package com.rfhoodrdm.asterage2.gui;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
@@ -28,7 +29,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

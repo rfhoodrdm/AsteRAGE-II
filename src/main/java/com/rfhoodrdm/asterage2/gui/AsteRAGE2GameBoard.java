@@ -6,6 +6,7 @@
 
 package com.rfhoodrdm.asterage2.gui;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SpaceEffect;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.HomingMissile;
@@ -21,7 +22,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import com.rfhoodrdm.asterage2.state.Asterage2State;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

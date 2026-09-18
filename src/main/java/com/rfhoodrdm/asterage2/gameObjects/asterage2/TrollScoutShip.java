@@ -11,7 +11,8 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
+
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 /**

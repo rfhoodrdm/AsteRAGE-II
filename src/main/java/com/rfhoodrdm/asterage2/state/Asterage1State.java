@@ -6,13 +6,13 @@
 
 package com.rfhoodrdm.asterage2.state;
 
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollScout;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.Asteroid;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollPod;
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.MessageText;
 

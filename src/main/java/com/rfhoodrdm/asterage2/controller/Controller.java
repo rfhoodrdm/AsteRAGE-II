@@ -1,12 +1,10 @@
 package com.rfhoodrdm.asterage2.controller;
 
+import com.rfhoodrdm.asterage2.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.state.State;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
-import java.awt.event.KeyEvent;
-import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Class controller is the top level game logic implementation class.
@@ -17,12 +15,12 @@ public class Controller
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-    State state;
-	GUI gui;
+    private State state;
+    private GUI gui;
 	
-	TitleController titleController;
-	Asterage1Controller asterage1Controller;
-	Asterage2Controller asterage2Controller;
+    private TitleController titleController;
+    private Asterage1Controller asterage1Controller;
+    private Asterage2Controller asterage2Controller;
 	
     /*	**********************************************************************
 		********************		Constructor				******************
@@ -37,27 +35,26 @@ public class Controller
 		titleController.setController ( this ) ;
 		asterage1Controller.setController( this );
 		asterage2Controller.setController( this );
-	} //end constructor
+	} 
 	
 	public void setState ( State passedState )
 	{
 		this.state = passedState;
 		
 		//once we have the master state object, set all of our components' state references
-		titleController.setTitleState ( state.getTitleStateObject() );	
-		asterage1Controller.setAsterage1State( state.getAsterage1StateObject() );
-		asterage2Controller.setAsterage2State( state.getAsterage2StateObject() );
-	} //end method setState
+		titleController.setTitleState ( state.getTitleState() );	
+		asterage1Controller.setAsterage1State( state.getAsterage1State() );
+		asterage2Controller.setAsterage2State( state.getAsterage2State() );
+	} 
 	
 	public void setGUI ( GUI passedGUI )
 	{
 		this.gui = passedGUI;
 		
 		//pass each controller subcomponent a reference to the high level gui object.
-		titleController.setGUI ( gui );
 		asterage1Controller.setGUI ( gui );
 		asterage2Controller.setGUI( gui );
-	} //end function setGUI
+	} 
 	
     /*	**********************************************************************
 		********************		Class Interface			******************
@@ -74,7 +71,7 @@ public class Controller
 	 */
 	public void updateState ()
 	{
-		GameConstants.CURRENT_STATE whatState = state.getCurrentActiveState();
+		CurrentState whatState = state.getCurrentState();
 		
 		//DebugManager.logMessage(6 , "Updating game state: " + whatState.toString() );
 		
@@ -100,7 +97,7 @@ public class Controller
 	 * Organizes the switcg of the current, officially active state between Title screen, Asterage 1, and Asterage 2.
 	 * @param newState 
 	 */
-	public void switchActiveState ( GameConstants.CURRENT_STATE newState )
+	public void switchActiveState ( CurrentState newState )
 	{
 		//change and reinitialize the current active state.
 		state.changeCurrentActiveState( newState );
@@ -130,7 +127,7 @@ public class Controller
 	{
 		//get the current active controller, by fetching which state is currently active.
 		//we need to deliver the key event to that controller.
-		GameConstants.CURRENT_STATE currentActiveState = state.getCurrentActiveState();
+		CurrentState currentActiveState = state.getCurrentState();
 		switch ( currentActiveState )
 		{
 			case TITLE_SCREEN:

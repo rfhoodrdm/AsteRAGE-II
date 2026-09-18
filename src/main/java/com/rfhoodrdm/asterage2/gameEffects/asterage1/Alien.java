@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Alien that is ejected from an asteroid into space, and dies. Calls the troll mothership when dead.
