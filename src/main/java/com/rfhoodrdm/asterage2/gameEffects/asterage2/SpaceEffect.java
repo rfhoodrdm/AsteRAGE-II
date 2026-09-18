@@ -6,9 +6,9 @@
 
 package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.SpaceObject;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Base class of space effects: objects that are drawn on the game board that have limited life spans.

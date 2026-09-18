@@ -9,7 +9,8 @@ package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
+
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 
 /**

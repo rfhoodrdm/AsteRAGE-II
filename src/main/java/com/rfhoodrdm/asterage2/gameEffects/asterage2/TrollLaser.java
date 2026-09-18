@@ -7,6 +7,7 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
 import java.awt.BasicStroke;
@@ -15,7 +16,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  * Space effect which represents the troll super weapon.

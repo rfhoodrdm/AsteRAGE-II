@@ -5,6 +5,7 @@
  */
 
 package com.rfhoodrdm.asterage2.state;
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
@@ -30,7 +31,6 @@ import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
 
 import com.rfhoodrdm.asterage2.utility.DebugManager;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

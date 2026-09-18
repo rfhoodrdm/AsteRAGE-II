@@ -3,11 +3,12 @@ package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import com.rfhoodrdm.asterage2.state.Asterage1State;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 /**
  *

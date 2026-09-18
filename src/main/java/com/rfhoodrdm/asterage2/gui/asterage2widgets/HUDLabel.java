@@ -10,7 +10,8 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
+
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 
 /**
  * Base class of an HUD label, to display text on the HUD.

@@ -1,4 +1,4 @@
-package com.rfhoodrdm.asterage2.utility;
+package com.rfhoodrdm.asterage2.constants;
 
 /**
  * GameConstants provides enumerated and hard-coded constants that apply to the entire game,
@@ -13,7 +13,7 @@ public class GameConstants
     
     //Working title of the game.
     public static final String GAME_NAME = "AsteRAGE 2";
-    public static final String GAME_VERSION = "v1.0.0";
+    public static final String GAME_VERSION = "v1.1.0";
 	
     //how many frames per second are rendered to the screen.
     public static final int FRAMES_PER_SECOND = 32;
@@ -44,33 +44,5 @@ public class GameConstants
 	public static final String HIGH_SCORE_NAME_ATTRIBUTE = "Name";
 	public static final String HIGH_SCORE_LEVEL_ATTRIBUTE = "Level";
 	public static final String HIGH_SCORE_POINTS_ATTRIBUTE = "Points";
-	
-	
-	/*	**********************************************************************
-		********************		Inner Classes			******************
-		********************************************************************** */
-	
-	//what different states are possible?
-	public enum CURRENT_STATE
-	{
-		TITLE_SCREEN,
-		ASTERAGE_1,
-		ASTERAGE_2;
-		
-		@Override
-		public String toString()
-		{
-			switch (this)
-			{
-				case TITLE_SCREEN: return "Title Screen.";
-				case ASTERAGE_1: return "AsteRAGE 1";
-				case ASTERAGE_2: return "AsteRAGE 2";
-				default: return "";
-			} //end switch based on type
-		} //end function toString
-	} //end definition of enumerated value for current state.
-	
-	
-	
-	
-} //end class GameConstants definition
+
+} 

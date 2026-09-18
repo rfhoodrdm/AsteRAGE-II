@@ -1,7 +1,7 @@
 package com.rfhoodrdm.asterage2.controller;
 
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Controller;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
 

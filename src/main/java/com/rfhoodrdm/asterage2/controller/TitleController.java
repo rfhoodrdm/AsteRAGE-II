@@ -6,27 +6,34 @@
 
 package com.rfhoodrdm.asterage2.controller;
 
-import com.rfhoodrdm.asterage2.state.TitleState;
+import java.awt.event.KeyEvent;
+
+import com.rfhoodrdm.asterage2.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
-
-import java.awt.event.KeyEvent;
+import com.rfhoodrdm.asterage2.state.TitleState;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
-/**
- *
- * @author roberthood
- */
+import lombok.Getter;
+import lombok.Setter;
+
 public class TitleController
 {
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	TitleState titleState;
-	GUI gui;						//master gui reference
-	Controller controller;			//master controller reference
+	@Getter 
+	@Setter
+	private TitleState titleState;
+	
+	@Getter 
+	@Setter
+	private GUI gui;						//master gui reference
+	
+	@Getter 
+	@Setter
+	private Controller controller;			//master controller reference
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
@@ -35,23 +42,10 @@ public class TitleController
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	
-	public void setTitleState ( TitleState passedTitleState )
-	{
-		this.titleState = passedTitleState;
-	} //end function setTitleState
-	public void updateState()
-	{
+
+	public void updateState()	{
 		updateTitleState(); 
-	} //end function updateState
-	public void setGUI ( GUI passedGUI )
-	{
-		this.gui = passedGUI;
-	} //end function setGUI
-	public void setController ( Controller passedController ) 
-	{
-		this.controller = passedController;
-	} //end function setController
+	}
 	
 	/**
 	 * Entry point of the logic to determine how to react to key presses.
@@ -61,14 +55,12 @@ public class TitleController
 	public void processKeyEvent ( int keyCode, GameKeyAdapter.GAME_KEY_EVENT whichEvent )
 	{
 		//First, filter out keystrokes that are not used, so we don't try to process them.
-		if ( false == checkIfKeyUsed( keyCode ) )
-		{
-			return;	//don't try to process it.
+		if ( false == checkIfKeyUsed( keyCode ) ) {
+			return;	
 		}
 		
 		//Key up, or key down?
-		switch ( whichEvent )
-		{
+		switch ( whichEvent ) {
 			case UP:
 				processKeyUpEvent( keyCode );
 				break;
@@ -78,10 +70,9 @@ public class TitleController
 				break;
 				
 			default:
-				//do nothing
 				return;
-		} //end switch based on key up or key down.
-	} //end function processKeyEvent
+		} 
+	}
 	
 	
 	/*	**********************************************************************
@@ -94,7 +85,7 @@ public class TitleController
 		//For state: SLIDING_PANEL
 		//For state: DISPLAYING_NEXT_PANEL
 		
-	} //end function processKeyEvent
+	} 
 	
 	private void processKeyDownEvent ( int keyCode )
 	{
@@ -124,9 +115,9 @@ public class TitleController
 					menuSelectGame();
 					break;
 
-			}//end switch 
-		} //end if check to see if input is still being accepted.
-	} //end function processKeyDownEvent
+			}
+		} 
+	} 
 	
 	/**
 	 * Check the keystroke against our list of used keys. 
@@ -156,9 +147,8 @@ public class TitleController
 			
 			default:
 				return false;
-		} //end switch
-	} //end function checkIfKeyUsed
-	
+		} 
+	} 
 	
 	private void updateTitleState ()
 	{
@@ -182,40 +172,34 @@ public class TitleController
 		//redraw the screen. --Changed to redraw with every update to accomodate new star field pattern.
 		titleState.decrementTimeToNextActivity();
 		gui.refreshSplashScreen();
-
-		
-	} //end function updateTitleState
+	} 
 	
 	private void update_GameSelectedCountdown()
 	{
 		//if the countdown is still above 0, then deduct 1 from it.
-		if ( titleState.getTimeToGameStart() > 0 )
-		{
+		if ( titleState.getTimeToGameStart() > 0 )	{
 			titleState.decrementTimeToGameStart();
-		} //end if block for time left.
+		}
 		
 		//if the countdown is 0 exactly, switch to the next screen.
-		if ( 0 >= titleState.getTimeToGameStart () )
+		if ( 0 >= titleState.getTimeToGameStart() )
 		{
 			//switch to the game corresponding to the selection made
 			TitleState.GAME_SELECTION gameSelection = titleState.getCurrentGameSelected();
 			DebugManager.logMessage(5, "Countdown over. Game switching to : " + gameSelection);
 			if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE1 )
 			{
-				controller.switchActiveState( GameConstants.CURRENT_STATE.ASTERAGE_1 );
-			} //end if clause dealing with asterage 1 being the selected game.
-			else if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE2 )
+				controller.switchActiveState( CurrentState.ASTERAGE_1 );
+			} else if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE2 )
 			{
-				controller.switchActiveState( GameConstants.CURRENT_STATE.ASTERAGE_2 );
-			} //end else-if to go to AsteRAGE 2
-			else
+				controller.switchActiveState( CurrentState.ASTERAGE_2 );
+			} else
 			{
 				//shouldn't reach here, because we've selected neither AsteRAGE 1 nor AsteRAGE 2. Make a note in the error log
 				DebugManager.logMessage(2, "Cannot switch to game: Game selection is unknown.");
-			} //end else clause for 
-			
-		} //end if block for no time left.
-	} //end function
+			} 
+		} 
+	} 
 	
 	/**
 	 * Change the currently active menu selection.
@@ -231,7 +215,7 @@ public class TitleController
 		
 		//Play the menu selection changed sound.
 		gui.playSoundForEvent( SoundManager.SOUND_EVENT.TITLE_SCREEN_MENU_OPTION_CHANGED );
-	} //end function changeMenuSelection
+	} 
 	
 	/**
 	 * Finalize the selection when the selecting key is pressed.
@@ -243,5 +227,5 @@ public class TitleController
 		
 		//play the game selection sound.
 		gui.playSoundForEvent ( SoundManager.SOUND_EVENT.TITLE_SCREEN_MENU_GAME_SELECTED );
-	} //end function menuSelectGame
-} //end class TitleController definition.
+	} 
+} 

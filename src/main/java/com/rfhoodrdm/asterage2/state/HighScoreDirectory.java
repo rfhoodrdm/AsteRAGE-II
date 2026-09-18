@@ -3,9 +3,9 @@ package com.rfhoodrdm.asterage2.state;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.rfhoodrdm.asterage2.constants.GameConstants;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
-import com.rfhoodrdm.asterage2.utility.GameConstants;
 
 
 

@@ -33,13 +33,9 @@ public class AsteRAGE2
 		gui.setController( controller );
 		gui.setState( state );
 		
-		state.setGUI ( gui );
-		
 		gamePulse.setController( controller );
 		
 		//set the threads to running. Let the game begin!
 		gamePulse.start();
-		
-	} //end function main definition.
-	
-} //end class AsteRAGE2 definition.
+	} 
+} 
