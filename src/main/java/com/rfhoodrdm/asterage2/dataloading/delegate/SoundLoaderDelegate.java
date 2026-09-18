@@ -8,7 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import com.rfhoodrdm.asterage2.utility.DataLoaderException;
+import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
 
 /**

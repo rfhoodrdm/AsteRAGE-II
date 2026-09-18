@@ -1,7 +1,7 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
 import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;

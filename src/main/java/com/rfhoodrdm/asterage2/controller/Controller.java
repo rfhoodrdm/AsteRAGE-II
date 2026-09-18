@@ -1,6 +1,6 @@
 package com.rfhoodrdm.asterage2.controller;
 
-import com.rfhoodrdm.asterage2.constants.CurrentState;
+import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.state.State;
@@ -25,8 +25,7 @@ public class Controller
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Controller()
-	{
+	public Controller() {
 		titleController = new TitleController();
 		asterage1Controller = new Asterage1Controller();
 		asterage2Controller = new Asterage2Controller();
@@ -37,8 +36,7 @@ public class Controller
 		asterage2Controller.setController( this );
 	} 
 	
-	public void setState ( State passedState )
-	{
+	public void setState ( State passedState ) {
 		this.state = passedState;
 		
 		//once we have the master state object, set all of our components' state references
@@ -47,12 +45,12 @@ public class Controller
 		asterage2Controller.setAsterage2State( state.getAsterage2State() );
 	} 
 	
-	public void setGUI ( GUI passedGUI )
-	{
+	public void setGUI ( GUI passedGUI ) {
 		this.gui = passedGUI;
 		
 		//pass each controller subcomponent a reference to the high level gui object.
-		asterage1Controller.setGUI ( gui );
+		titleController.setGui(passedGUI);
+		asterage1Controller.setGui ( gui );
 		asterage2Controller.setGUI( gui );
 	} 
 	
@@ -60,8 +58,7 @@ public class Controller
 		********************		Class Interface			******************
 		********************************************************************** */
 
-	public void showInitialState ()
-	{
+	public void showInitialState () {
 		//show the initial screen.
 		gui.showInitialGUI();	
 	} 
@@ -69,15 +66,11 @@ public class Controller
 	/**
 	 * This method invokes the state update logic for the corresponding active game state.
 	 */
-	public void updateState ()
-	{
+	public void updateState () {
 		CurrentState whatState = state.getCurrentState();
 		
-		//DebugManager.logMessage(6 , "Updating game state: " + whatState.toString() );
-		
 		//update the currently active state.
-		switch ( whatState )
-		{
+		switch ( whatState ) {
 			case TITLE_SCREEN:
 				titleController.updateState();
 				break;
@@ -89,16 +82,13 @@ public class Controller
 			case ASTERAGE_2:
 				asterage2Controller.updateState();
 				break;
-		} //end switch
-		
-	} //end function updateState
+		} 
+	} 
 	
 	/**
-	 * Organizes the switcg of the current, officially active state between Title screen, Asterage 1, and Asterage 2.
-	 * @param newState 
+	 * Organizes the switch of the current, officially active state between Title screen, Asterage 1, and Asterage 2.
 	 */
-	public void switchActiveState ( CurrentState newState )
-	{
+	public void switchActiveState ( CurrentState newState ) {
 		//change and reinitialize the current active state.
 		state.changeCurrentActiveState( newState );
 		
@@ -107,21 +97,15 @@ public class Controller
 		
 		//show the correct gui components.
 		gui.changeCurrentGuiShown();
-	} //end function switchActiveState
+	} 
     /*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
-	/**
-	 * Receives key press events from the gui.
-	 * @param keyDown The character corresponding to the key pressed.
-	 */
 	
 	/**
 	 * Receives key press and release events from the keyboard input module, and decides
 	 * how to process them, according to which is the active state. Only the active state should be
 	 * receiving keyboard input.
-	 * @param key The key that corresponds to the one pressed on the keyboard.
-	 * @param whichEvent UP or DOWN, pertaining to releases and presses, respectively.
 	 */
 	public void processKeyEvent ( int keyCode, GameKeyAdapter.GAME_KEY_EVENT whichEvent )
 	{
@@ -146,7 +130,6 @@ public class Controller
 				//we shouldn't get here. If so, then we are very much in error.
 				DebugManager.logMessage(2, "Received keyboard input designated for an unknown game controller.");
 				
-		} //end switch based on currently active state.
-		
-	} //end function processKeyDown
-} //end class controller definition
+		} 
+	} 
+} 

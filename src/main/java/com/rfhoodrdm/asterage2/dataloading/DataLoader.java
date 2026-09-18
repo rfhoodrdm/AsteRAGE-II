@@ -18,7 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
 import com.rfhoodrdm.asterage2.dataloading.delegate.HighScoreXMLHandler;
 import com.rfhoodrdm.asterage2.dataloading.delegate.ImageLoaderDelegate;
 import com.rfhoodrdm.asterage2.dataloading.delegate.SoundLoaderDelegate;
@@ -27,7 +28,6 @@ import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.sounds.Sound;
 import com.rfhoodrdm.asterage2.state.HighScoreDirectory;
 import com.rfhoodrdm.asterage2.state.HighScoreEntry;
-import com.rfhoodrdm.asterage2.utility.DataLoaderException;
 
 /**
  *

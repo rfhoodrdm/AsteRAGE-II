@@ -1,4 +1,4 @@
-package com.rfhoodrdm.asterage2.constants;
+package com.rfhoodrdm.asterage2.common.constants;
 
 public enum CurrentState {
 	TITLE_SCREEN,

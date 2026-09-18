@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.rfhoodrdm.asterage2.controller;
 
 import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.DECELERATION;
@@ -32,8 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.rfhoodrdm.asterage2.constants.CurrentState;
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.CurrentState;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.TrollLaser;

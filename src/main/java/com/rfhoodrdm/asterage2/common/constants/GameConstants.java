@@ -1,4 +1,4 @@
-package com.rfhoodrdm.asterage2.constants;
+package com.rfhoodrdm.asterage2.common.constants;
 
 /**
  * GameConstants provides enumerated and hard-coded constants that apply to the entire game,

@@ -3,7 +3,7 @@ package com.rfhoodrdm.asterage2.gui;
 
 import javax.swing.JOptionPane;
 
-import com.rfhoodrdm.asterage2.constants.CurrentState;
+import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.controller.Controller;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;

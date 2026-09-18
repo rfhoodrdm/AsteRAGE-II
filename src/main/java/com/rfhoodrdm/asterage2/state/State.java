@@ -2,7 +2,7 @@ package com.rfhoodrdm.asterage2.state;
 
 import java.util.concurrent.Semaphore;
 
-import com.rfhoodrdm.asterage2.constants.CurrentState;
+import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
 

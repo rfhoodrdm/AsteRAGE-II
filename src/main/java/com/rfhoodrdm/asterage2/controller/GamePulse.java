@@ -1,7 +1,7 @@
 package com.rfhoodrdm.asterage2.controller;
 
 import com.rfhoodrdm.asterage2.gui.GUI;
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Controller;
 import com.rfhoodrdm.asterage2.utility.DebugManager;
 
@@ -15,11 +15,11 @@ extends Thread
     /*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-    int restBetweenTicks;		//how much time between clock pulses.
+    private int restBetweenTicks;		//how much time between clock pulses.
     
 	//references to other components.
-    Controller controller;
-    GUI gui;
+    private Controller controller;
+    private GUI gui;
     
     /*	**********************************************************************
 		********************		Constructor				******************
@@ -28,16 +28,15 @@ extends Thread
     {
 		//Get the number of frames per second from the GameConstants object.
 		restBetweenTicks = 1000 / GameConstants.FRAMES_PER_SECOND;
-    }//end constructor
+    }
     
     /*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
 
-    public void setController ( Controller passedController )
-    {
+    public void setController ( Controller passedController ) {
 		this.controller = passedController;
-    } //end function 
+    } 
     
     /*	**********************************************************************
 		********************		Functionality			******************
@@ -53,24 +52,20 @@ extends Thread
 		//This is to prevent null pointer exceptions in painting, if we are relying on state to decide how to display things.
 		controller.showInitialState();
 		
-		while ( true )
-		{
+		while ( true ) {
 			//must use a try-catch block to handle possible interrupted exceptions.
 			try
 			{
 				//First, sleep a while.
 				Thread.sleep ( restBetweenTicks );
-			} //end try block
+			}
 			catch ( InterruptedException e) 
 			{
 				//nothing to do.
 			}
 
-			//Do some work.
 			controller.updateState();
 
-		} //end while loop 
-	
-    } //end function run
-    
+		} 
+    }
 }

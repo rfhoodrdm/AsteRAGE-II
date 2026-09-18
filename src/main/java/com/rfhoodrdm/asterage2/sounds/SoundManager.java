@@ -2,7 +2,7 @@ package com.rfhoodrdm.asterage2.sounds;
 
 import java.util.concurrent.Semaphore;
 
-import com.rfhoodrdm.asterage2.constants.GameConstants;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 
 
 /**
