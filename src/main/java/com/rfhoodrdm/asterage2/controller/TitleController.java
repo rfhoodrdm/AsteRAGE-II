@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.rfhoodrdm.asterage2.controller;
 
 import java.awt.event.KeyEvent;
@@ -12,14 +6,12 @@ import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
+import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.TitleState;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-
-
-
 
 @Slf4j
 public class TitleController
@@ -39,9 +31,16 @@ public class TitleController
 	@Setter
 	private Controller controller;			//master controller reference
 	
+	private final SoundManager soundManager;
+	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
+	
+	public TitleController(SoundManager soundManager) {
+		this.soundManager = soundManager;
+	}
+	
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -154,15 +153,12 @@ public class TitleController
 		} 
 	} 
 	
-	private void updateTitleState ()
-	{
+	private void updateTitleState () {
 		//First find out what sactivity the title screen is performing. 
 		TitleState.TITLE_SCREEN_ACTIVITY currentActivity = titleState.getCurrentActivity();
 		
 		//always-do tasks:
 		gui.refreshTitleGameMenu();			//refresh the appearance of the game selection menu.
-		gui.assertFocusOnFrame();			//keep the focus on the frame so we keep getting user input.
-		
 		
 		//do different things based on what the current activity is.
 		// If the game has been selected, then update the countdown. 
@@ -186,19 +182,15 @@ public class TitleController
 		}
 		
 		//if the countdown is 0 exactly, switch to the next screen.
-		if ( 0 >= titleState.getTimeToGameStart() )
-		{
+		if ( 0 >= titleState.getTimeToGameStart() ) {
 			//switch to the game corresponding to the selection made
 			TitleState.GAME_SELECTION gameSelection = titleState.getCurrentGameSelected();
 			log.debug("Countdown over. Game switching to : {}", gameSelection);
-			if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE1 )
-			{
+			if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE1 ) {
 				controller.switchActiveState( CurrentState.ASTERAGE_1 );
-			} else if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE2 )
-			{
+			} else if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE2 ) {
 				controller.switchActiveState( CurrentState.ASTERAGE_2 );
-			} else
-			{
+			} else {
 				//shouldn't reach here, because we've selected neither AsteRAGE 1 nor AsteRAGE 2. Make a note in the error log
 				log.error("Cannot switch to game: Game selection is unknown.");
 			} 
@@ -218,7 +210,7 @@ public class TitleController
 		titleState.setCurrentGameSelected(nextGameSelection);
 		
 		//Play the menu selection changed sound.
-		gui.playSoundForEvent( SoundEvent.TITLE_SCREEN_MENU_OPTION_CHANGED );
+		soundManager.playSoundEvent( SoundEvent.TITLE_SCREEN_MENU_OPTION_CHANGED );
 	} 
 	
 	/**
@@ -230,6 +222,6 @@ public class TitleController
 		titleState.setGameSelected(true);
 		
 		//play the game selection sound.
-		gui.playSoundForEvent ( SoundEvent.TITLE_SCREEN_MENU_GAME_SELECTED );
+		soundManager.playSoundEvent ( SoundEvent.TITLE_SCREEN_MENU_GAME_SELECTED );
 	} 
 } 

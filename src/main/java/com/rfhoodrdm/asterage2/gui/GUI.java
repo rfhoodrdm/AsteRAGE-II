@@ -78,7 +78,6 @@ public class GUI
 	
 	/**
 	 * Set the master state reference.
-
 	 */
 	public void setState ( State passedState )	{
 		this.state = passedState;
@@ -97,39 +96,29 @@ public class GUI
 	/**
 	 * Refresh the title game menu instead of repainting the whole screen. It saves computation power.
 	 */
-	public void refreshTitleGameMenu()
-	{
+	public void refreshTitleGameMenu() {
 		splashScreen.refreshTitleGameMenu();
 	} 
 	
 	/**
 	 * Repaint the entire splash screen, if something was added or changed.
 	 */
-	public void refreshSplashScreen()
-	{
+	public void refreshSplashScreen() {
 		splashScreen.repaint();
 	} 
 	
-	/**
-	 * Takes in a request to play a sound.
-	 */
-	public void playSoundForEvent ( SoundEvent soundEvent )
-	{
-		soundManager.playSoundEvent( soundEvent );
-	} 
+//	/**
+//	 * Takes in a request to play a sound.
+//	 */
+//	public void playSoundForEvent ( SoundEvent soundEvent )	{
+//		soundManager.playSoundEvent( soundEvent );
+//	} 
+//	
+//	public void haltSoundForEvent ( SoundEvent soundEvent )	{
+//		soundManager.stopSoundEvent(soundEvent);
+//	}
 	
-	public void haltSoundForEvent ( SoundEvent soundEvent )
-	{
-		soundManager.stopSoundEvent(soundEvent);
-	}
-	
-	public void assertFocusOnFrame()
-	{
-		gameFrame.requestFocus();
-	} 
-	
-	public void changeCurrentGuiShown()
-	{
+	public void changeCurrentGuiShown()	{
 		//hide all of the GUI panels to avoid complex logic.
 		splashScreen.setVisible(false);
 		asterage1GameScreen.setVisible(false);
@@ -165,29 +154,17 @@ public class GUI
 	} 
 	
 	/**
-	 * Makes a call to the sound manager on behalf of the caller to change the music being played.
-	 * @param newSequence 
-	 */
-	public void changeMusicSequence( SoundManager.SOUNDTRACK_SEQUENCE newSequence )
-	{
-		soundManager.changeMusicSequence(newSequence);
-	} 
-	
-	/**
 	 * Receive and pass forward request to update the Asterage 1 stat display
 	 */
-	public void refreshAsterage1StatDisplay()
-	{
+	public void refreshAsterage1StatDisplay() {
 		asterage1GameScreen.refreshStatDisplay();
 	} 
 	
-	public void repaintAsterage1GameBoard ()
-	{
+	public void repaintAsterage1GameBoard () {
 		asterage1GameScreen.repaintGameBoard();
 	}
 	
-	public void repaintAsteRAGE2Display()
-	{
+	public void repaintAsteRAGE2Display() {
 		asterage2GameScreen.repaint();
 		asterage2GameScreen.updateGameDisplay();
 	} 
@@ -196,8 +173,7 @@ public class GUI
 	/**
 	 * Open a simple text field dialog box, posing a question to the player, and soliciting a text reply.
 	 */
-	public String getReplyDialog( String title, String question)
-	{
+	public String getReplyDialog( String title, String question) {
 		return JOptionPane.showInputDialog(		gameFrame,
 										 		question,
 												title,
@@ -208,8 +184,7 @@ public class GUI
 	 * Asks the user if they want to return to main menu, thus aborting the game.
 	 * @return Boolean verdict. True = yes, false = no.
 	 */
-	public boolean checkAsterage2AbortGameDialog ()
-	{ 
+	public boolean checkAsterage2AbortGameDialog () { 
 		String[] options = { "Continue Game", "Return to Menu" };
 		
 		int selection =  JOptionPane.showOptionDialog(	gameFrame, 
@@ -243,6 +218,8 @@ public class GUI
     /*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
-
-
+	
+	private void changeMusicSequence( SoundManager.SOUNDTRACK_SEQUENCE newSequence ) {
+		soundManager.changeMusicSequence(newSequence);
+	} 
 }

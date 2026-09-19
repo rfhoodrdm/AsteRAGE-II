@@ -2,10 +2,9 @@ package com.rfhoodrdm.asterage2.state;
 
 import java.util.concurrent.Semaphore;
 
-import org.springframework.stereotype.Component;
-
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.sounds.SoundManager;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +39,7 @@ public class State
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public State ( DataLoader passedLoader )
+	public State ( DataLoader passedLoader, SoundManager soundManager )
 	{
 		//initialize the state semaphore lock to 1 permit, fairness enforced.
 		stateLock = new Semaphore ( 1, true );
@@ -54,7 +53,7 @@ public class State
 		 
 		 asterage1State = new Asterage1State( passedLoader );
 		 asterage1State.initializeAsterage1State();
-		 asterage2State = new Asterage2State( passedLoader );
+		 asterage2State = new Asterage2State( passedLoader, soundManager );
 		 asterage2State.initializeAsterage2State();
 	} 
 	

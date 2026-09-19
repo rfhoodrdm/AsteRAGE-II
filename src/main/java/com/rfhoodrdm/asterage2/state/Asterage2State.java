@@ -30,6 +30,7 @@ import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
+import com.rfhoodrdm.asterage2.sounds.SoundManager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -106,11 +107,16 @@ public class Asterage2State
 	private boolean trollMothershipSpawnCountdownInProgress = false;
 	public static final int TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 2;	//3 seconds worth
 	private int currentTrollMothershipSpawnCountdown = TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN;
+	
+	private SoundManager soundManager; //TODO: this should not be called from state, perhaps. Refactor!
+	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Asterage2State ( DataLoader passedLoader )
+	
+	public Asterage2State ( DataLoader passedLoader, SoundManager soundManager )
 	{
+		this.soundManager = soundManager;	//TODO: see comment above. Refactor!
 		dataLoader = passedLoader;
 		highScoreDirectory = new HighScoreDirectory( HighScoreDirectory.GAME_IDENTIFIER.ASTERAGE2,
 														dataLoader);
@@ -419,7 +425,7 @@ public class Asterage2State
 					else
 					{
 						//warp out pod and skip rest of loop.
-						gui.playSoundForEvent(SoundEvent.A2_WARPING_OUT);
+						soundManager.playSoundEvent(SoundEvent.A2_WARPING_OUT);
 						addSpaceEffect(new WarpOutEffect( currentTroll, WarpOutEffect.WarpEffectSize.SMALL ));
 						continue;
 					} //end else clause for pod which did not die of player damage.
@@ -433,7 +439,7 @@ public class Asterage2State
 																					currentTroll.getSpatialRadius() * 3);
 			
 				addSpaceEffect ( trollShipExplosion );
-				gui.playSoundForEvent(SoundEvent.A2_TROLL_DESTROYED);
+				soundManager.playSoundEvent(SoundEvent.A2_TROLL_DESTROYED);
 				
 			} //end if check for expiration and removal.
 		} //end for loop iterating through troll ships
