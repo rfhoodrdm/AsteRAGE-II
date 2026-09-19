@@ -6,8 +6,6 @@
 
 package com.rfhoodrdm.asterage2.controller;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.awt.event.KeyEvent;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -31,12 +29,14 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresSuperLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
+import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
 import com.rfhoodrdm.asterage2.state.Asterage1State;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
@@ -351,7 +351,7 @@ public class Asterage1Controller {
 				if (true == laserObject.checkLaserCooldown()) {
 					laserObject.fireLaser(playerShip, spaceObjectList);
 					laserObject.restartLaserCooldown();
-					gui.playSoundForEvent(SoundManager.SOUND_EVENT.GIANT_LASER_FIRE);
+					gui.playSoundForEvent(SoundEvent.GIANT_LASER_FIRE);
 
 					// apply the damage immediately.
 					// player ship gets damaged.
@@ -419,14 +419,14 @@ public class Asterage1Controller {
 		// If the tractor beam is targetting, i.e. reaching out to the player:
 		if (TrollMothership.TRACTOR_BEAM_STATUS.TARGETING == trollMothership.getTractorStatus()) {
 			// play the tractor beam sound, since it's on.
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.TRACTOR_BEAM_DEPLOYED);
+			gui.playSoundForEvent(SoundEvent.TRACTOR_BEAM_DEPLOYED);
 
 			// If the player becomes not alive during the targeting time, switch the beam
 			// off.
 			if (PlayerShip.SHIP_STATUS.ALIVE != playerShip.getShipStatus()) {
 				// turn it off and turn the sound off.
 				trollMothership.disengageTractor();
-				gui.haltSoundForEvent(SoundManager.SOUND_EVENT.TRACTOR_BEAM_DEPLOYED);
+				gui.haltSoundForEvent(SoundEvent.TRACTOR_BEAM_DEPLOYED);
 				return;
 			}
 
@@ -450,7 +450,7 @@ public class Asterage1Controller {
 		// if the tractor beam has siezed on a target:
 		if (TrollMothership.TRACTOR_BEAM_STATUS.TRACTORING_TARGET == trollMothership.getTractorStatus()) {
 			// play the tractor beam sound, since it's on.
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.TRACTOR_BEAM_DEPLOYED);
+			gui.playSoundForEvent(SoundEvent.TRACTOR_BEAM_DEPLOYED);
 
 			SpaceObject tractorTarget = trollMothership.getTractorTarget();
 			if (tractorTarget instanceof PlayerShip) {
@@ -483,7 +483,7 @@ public class Asterage1Controller {
 					new ShipDebrisExplosion(playerShip.getXPosition(), playerShip.getYPosition(),
 							ShipDebrisExplosion.DebrisExplosionOwner.PLAYER);
 			spaceObjectList.add(newExplosion);
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_DESTROYED); // imposing sound effect
+			gui.playSoundForEvent(SoundEvent.PLAYER_DESTROYED); // imposing sound effect
 
 			playerShip.resetTractorHullStress(); // reset hull stress back to max.
 
@@ -501,19 +501,19 @@ public class Asterage1Controller {
 		// beam off.
 		if (playerPod.getPlayerPodStatus() != PlayerPod.PLAYER_POD_STATUS.BEING_TRACTORED) {
 			trollMothership.disengageTractor(); // turn off the beam.
-			gui.haltSoundForEvent(SoundManager.SOUND_EVENT.TRACTOR_BEAM_DEPLOYED); // stop playing the sound.
+			gui.haltSoundForEvent(SoundEvent.TRACTOR_BEAM_DEPLOYED); // stop playing the sound.
 		}
 	}
 
 	private void playSoundForBullet(FiresBullets bulletObject) {
 		if (bulletObject instanceof PlayerShip) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_FIRES_BULLET);
+			gui.playSoundForEvent(SoundEvent.PLAYER_FIRES_BULLET);
 		} else if (bulletObject instanceof TrollScout) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_FIRES_BULLET);
+			gui.playSoundForEvent(SoundEvent.ENEMY_FIRES_BULLET);
 		} else if (bulletObject instanceof TrollMothership) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_FIRES_BULLET);
+			gui.playSoundForEvent(SoundEvent.ENEMY_FIRES_BULLET);
 		} else if (bulletObject instanceof TrollPod) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_FIRES_BULLET);
+			gui.playSoundForEvent(SoundEvent.ENEMY_FIRES_BULLET);
 		}
 	}
 
@@ -607,7 +607,7 @@ public class Asterage1Controller {
 
 		// Asteroid breaks up. Play the asteroid hit sound.
 		asteroid.killObject(spaceObjectList, asterage1State.getScoreStateObject());
-		gui.playSoundForEvent(SoundManager.SOUND_EVENT.ASTEROID_IMPACT);
+		gui.playSoundForEvent(SoundEvent.ASTEROID_IMPACT);
 
 		// award points only if it was a player bullet. Also, only player bullets may
 		// spawn the alien.
@@ -659,9 +659,9 @@ public class Asterage1Controller {
 		// if there are shield points left, play the shield damaged sound. If not, play
 		// the ship destroyed sound.
 		if (PlayerShip.SHIP_STATUS.ALIVE == playerShip.getShipStatus()) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_SHIELD_IMPACT);
+			gui.playSoundForEvent(SoundEvent.PLAYER_SHIELD_IMPACT);
 		} else {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_SHIP_DESTROYED);
+			gui.playSoundForEvent(SoundEvent.PLAYER_SHIP_DESTROYED);
 		}
 	}
 
@@ -693,9 +693,9 @@ public class Asterage1Controller {
 		// if there are shield points left, play the shield damaged sound. If not, play
 		// the ship destroyed sound.
 		if (trollScout.getCurrentShields() > 0) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_SHIELD_IMPACT);
+			gui.playSoundForEvent(SoundEvent.ENEMY_SHIELD_IMPACT);
 		} else {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_SHIP_DESTROYED);
+			gui.playSoundForEvent(SoundEvent.ENEMY_SHIP_DESTROYED);
 			asterage1State.getScoreStateObject().awardPoints(Asterage1ScoreState.SCORE_SYSTEM.DESTROY_TROLL_SHIP); // kill
 																													// points.
 
@@ -725,9 +725,9 @@ public class Asterage1Controller {
 		// if there are shield points left, play the shield damaged sound. If not, play
 		// the ship destroyed sound.
 		if (mothership.getCurrentShields() > 0.0) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_SHIELD_IMPACT);
+			gui.playSoundForEvent(SoundEvent.ENEMY_SHIELD_IMPACT);
 		} else {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_SHIP_DESTROYED);
+			gui.playSoundForEvent(SoundEvent.ENEMY_SHIP_DESTROYED);
 			asterage1State.getScoreStateObject().awardPoints(Asterage1ScoreState.SCORE_SYSTEM.DESTROY_TROLL_MOTHERSHIP); // kill
 																															// points.
 		}
@@ -763,9 +763,9 @@ public class Asterage1Controller {
 		// if there are shield points left, play the shield damaged sound. If not, play
 		// the ship destroyed sound.
 		if (PlayerShip.SHIP_STATUS.ALIVE == playerShip.getShipStatus()) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_SHIELD_IMPACT);
+			gui.playSoundForEvent(SoundEvent.PLAYER_SHIELD_IMPACT);
 		} else {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_SHIP_DESTROYED);
+			gui.playSoundForEvent(SoundEvent.PLAYER_SHIP_DESTROYED);
 		}
 
 	}
@@ -802,9 +802,9 @@ public class Asterage1Controller {
 		// if there are shield points left, play the shield damaged sound. If not, play
 		// the ship destroyed sound.
 		if (trollPod.getCurrentShields() > 0) {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_SHIELD_IMPACT);
+			gui.playSoundForEvent(SoundEvent.ENEMY_SHIELD_IMPACT);
 		} else {
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_SHIP_DESTROYED);
+			gui.playSoundForEvent(SoundEvent.ENEMY_SHIP_DESTROYED);
 			asterage1State.getScoreStateObject().awardPoints(Asterage1ScoreState.SCORE_SYSTEM.DESTROY_TROLL_SHIP); // kill
 																													// points.
 		}
@@ -834,7 +834,7 @@ public class Asterage1Controller {
 			// sound the promotion bell, and replace the current text message this instant.
 
 		asterage1State.promoteToNextLevel();
-		gui.playSoundForEvent(SoundManager.SOUND_EVENT.REWARD_EARNED);
+		gui.playSoundForEvent(SoundEvent.REWARD_EARNED);
 		makeNewMessageText("Level " + asterage1State.getLevel() + "!", MessageText.MESSAGE_COLOR.REWARD, asterage1State,
 				asterage1State.getSpaceObjectList());
 	}
@@ -968,7 +968,7 @@ public class Asterage1Controller {
 			// do it, and set the game state to in progress, which it must be by default.
 			asterage1State.spawnNewPlayerShip();
 			asterage1State.setGameStatus(Asterage1State.GAME_STATUS.IN_PROGRESS);
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.PLAYER_SHIP_APPEARS);
+			gui.playSoundForEvent(SoundEvent.PLAYER_SHIP_APPEARS);
 		} // end if clause to handle successful player respawn.
 	} // end function requestRespawnPlayerShip
 
@@ -1061,13 +1061,13 @@ public class Asterage1Controller {
 		// check to see if the random chance came in under the threshold.
 		if (randomRoll <= chanceForScout) {
 			asterage1State.spawnNewTrollScout(spaceObjectList);
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ENEMY_APPEARS);
+			gui.playSoundForEvent(SoundEvent.ENEMY_APPEARS);
 		}
 	}
 
 	private void spawnTrollMothership(ConcurrentLinkedQueue<SpaceObject> spaceObjectList) {
 		asterage1State.spawnNewTrollMothership(spaceObjectList);
-		gui.playSoundForEvent(SoundManager.SOUND_EVENT.BIG_ENEMY_APPEARS);
+		gui.playSoundForEvent(SoundEvent.BIG_ENEMY_APPEARS);
 	}
 
 	/**
@@ -1131,7 +1131,7 @@ public class Asterage1Controller {
 		if (playerScore > pointsNeededForAward) {
 			asterage1State.incrementExtraLives();
 			asterage1State.incrementLivesAwarded();
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.REWARD_EARNED);
+			gui.playSoundForEvent(SoundEvent.REWARD_EARNED);
 			makeNewMessageText("Extra Life!", MessageText.MESSAGE_COLOR.REWARD, asterage1State, spaceObjectList);
 		}
 	}
@@ -1152,7 +1152,7 @@ public class Asterage1Controller {
 			spaceObjectList.add(spawnedAlien);
 
 			asterage1State.setAlienHasSpawnedFlag();
-			gui.playSoundForEvent(SoundManager.SOUND_EVENT.ALIEN_EMERGES);
+			gui.playSoundForEvent(SoundEvent.ALIEN_EMERGES);
 
 		}
 	}

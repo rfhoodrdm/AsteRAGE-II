@@ -1,11 +1,13 @@
 package com.rfhoodrdm.asterage2.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.state.State;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class controller is the top level game logic implementation class.
@@ -13,7 +15,7 @@ import com.rfhoodrdm.asterage2.state.State;
  */
 
 
-
+@Component
 @Slf4j
 public class Controller
 {

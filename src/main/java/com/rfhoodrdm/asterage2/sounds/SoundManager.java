@@ -2,8 +2,11 @@ package com.rfhoodrdm.asterage2.sounds;
 
 import java.util.concurrent.Semaphore;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class determines when and for how long sounds and sound effects should be played for the client.
@@ -11,33 +14,29 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
  * of a song track.
  * 
  */
+@Component
+@Slf4j
 public class SoundManager
-	extends Thread
-{
+	implements Runnable {
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
 	
-	SoundPlayer soundPlayer;				//the reference to the actual sound player object.
-	Semaphore soundLock;					//semaphore protecting against concurrent access.
-	int trackNumber;						//current track number in the music sequence currently being played.
-	SOUNDTRACK_SEQUENCE currentSoundTrack;	//which set of songs is currently playing?
+	private Semaphore soundLock;					//semaphore protecting against concurrent access.
+	private int trackNumber;						//current track number in the music sequence currently being played.
+	private SOUNDTRACK_SEQUENCE currentSoundTrack;	//which set of songs is currently playing?
 	
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public SoundManager ( )
-	{
-		//create the SoundPlayer object.
-		soundPlayer = new SoundPlayer ( );
-		
+	public SoundManager()	{
 		soundLock = new Semaphore ( 1, true );			//concurrency lock set to 1 permit, fairness enforced.
-		
 		currentSoundTrack = SOUNDTRACK_SEQUENCE.NONE;	//no song playing initially.
 		trackNumber = 0;								//explicitly initialize to 0. We start counting from there.
-	} //end constructor
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -48,8 +47,7 @@ public class SoundManager
 	 * and directs the SoundPlayer to play the associated sound. If no sound is associated, then none is played.
 	 * @param theEvent Enumerated sound event for which we are playing a sound.
 	 */
-	public void playSoundEvent ( SoundManager.SOUND_EVENT theEvent )
-	{
+	public void playSoundEvent(SoundEvent theEvent) {
 		//switch statement selects the sound based on what event has occurred.
 		switch ( theEvent )
 		{
@@ -89,7 +87,7 @@ public class SoundManager
 				Sound.PLAYER_SHIP_APPEARS.play();
 				break;
 			case PLAYER_SHIP_DESTROYED:
-				stopSoundEvent(SoundManager.SOUND_EVENT.PLAYER_SHIELD_IMPACT );		//stop playing shield impact noise if we're dead.
+				stopSoundEvent(SoundEvent.PLAYER_SHIELD_IMPACT );		//stop playing shield impact noise if we're dead.
 				Sound.PLAYER_SHIP_DESTROYED.play();
 				break;
 			case ENEMY_SHIP_DESTROYED:	
@@ -177,15 +175,13 @@ public class SoundManager
 			default:
 				//play no sound.
 				break;
-		} //end switch statement to play the correct sound based on what event has happened.
-	} //end function playSoundEvent
+		} 
+	} 
 	
 	/**
 	 * Stops a sound from playing once the moment has passed.
-	 * @param theEvent 
 	 */
-	public void stopSoundEvent ( SoundManager.SOUND_EVENT theEvent )
-	{
+	public void stopSoundEvent ( SoundEvent theEvent ) {
 		switch ( theEvent )
 		{
 			case PLAYER_SHIELD_IMPACT:
@@ -202,13 +198,11 @@ public class SoundManager
 				
 			default:
 				//do nothing.
-				break;
-				
-		} //end switch statement based on what event has ended.
-	} //end function stopSoundEvent
+				break;	
+		} 
+	} 
 	
-	public void changeMusicSequence ( SOUNDTRACK_SEQUENCE chosenSequence )
-	{
+	public void changeMusicSequence ( SOUNDTRACK_SEQUENCE chosenSequence ) {
 		//acquire the lock.
 		soundLock.acquireUninterruptibly();
 		
@@ -229,7 +223,7 @@ public class SoundManager
 		//release the lock.
 		soundLock.release();
 		
-	} //end function changeMusicSequence
+	} 
     
     /*	**********************************************************************
 		********************		Functionality			******************
@@ -240,61 +234,51 @@ public class SoundManager
 	 * Changes in music tracks will trigger a silence, which causes this thread to start playing the next
 	 * song in the new sequence.
 	 */
-	public void run()
-	{
-		//loops forever, but exits when the system does.
-		while ( true )
-		{
+	@Override
+	public void run() {
+		
+		while ( true ) {
 			//Check if a new song needs to be played.
-			if (false == isSongPlaying() )
-			{
+			if (false == isSongPlaying() ) {
 				startSong();
 			} 
 			
-			//Then sleep a while.
-			//Must use a try block due to possible InterruptedException
 			try
-			{  Thread.sleep (GameConstants.THREAD_SLEEP_TIME); } //end try block to put thread to sleep.
-			catch (InterruptedException e)
-			{ //Don't care.
-			} //end catch block to deal with InterruptedExceptions when sleeping.
-		
-		} //end while loop to periodically wake up and check if a new song needs to begin.
-		
-	} //end function run
+			{  Thread.sleep (GameConstants.THREAD_SLEEP_TIME); } 
+			catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+                return;
+			}
+		} 
+	} 
 	
 	/**
 	 * Is there currently a music track being played?
 	 * @return Boolean value representing if there is a music track currently playing.
 	 */
-	private boolean isSongPlaying ()
-	{
-		for ( Sound currentSound: Sound.values() )
-		{
+	private boolean isSongPlaying ()	{
+		for ( Sound currentSound: Sound.values() ) {
 			//If there is a sound that is both playing, and is a music track,
 			//then return true.
-			if ( currentSound.isMusicTrack() && currentSound.isPlaying() )
-			{
+			if ( currentSound.isMusicTrack() && currentSound.isPlaying() ) {
 				return true;
-			} //end if to check for a music track playing.
-		} //end for loop to iterate through music tracks, checking if they are playing.
+			} 
+		} 
 		
 		//if we get this far, then there are no music tracks playing. Return false.
 		return false;
-		
-	} //end function isSongPlaying
+	} 
 	
 	
-	private void haltAllMusic ()
-	{
+	private void haltAllMusic ()	{
 		for ( Sound currentSound: Sound.values() )
 		{
 			if ( currentSound.isMusicTrack() && currentSound.isPlaying() )
 			{
 				currentSound.haltPlaying();
-			} //end if to check for a music track playing.
-		} //end for loop to iterate through music tracks, stopping them from playing.
-	} //end function haltAllMusic
+			} 
+		}
+	} 
 	
 	/**
 	 * Start the next appropriate song in the sequence, based on the sequence chosen and the track number.
@@ -304,8 +288,7 @@ public class SoundManager
 		//acquire the lock.
 		soundLock.acquireUninterruptibly();
 		
-		switch ( currentSoundTrack )
-		{
+		switch ( currentSoundTrack ) {
 			case ASTERAGE_1_TITLE_SCREEN:
 				Sound.ASTERAGE_CLASSIC_MAIN_THEME.playContinuously();
 				break;
@@ -347,66 +330,16 @@ public class SoundManager
 				//play no sound.
 				break;
 			
-		} //end switch based on current sound track.
+		} 
 		
 		//release the lock.
 		soundLock.release();
-	} //end function startSong
+	}
     
     /* **********************************************************************
 				    Inner Classes
        ********************************************************************** */
-	
-	public static enum SOUND_EVENT
-	{
-		//Title screen events.
-		TITLE_SCREEN_MENU_OPTION_CHANGED,
-		TITLE_SCREEN_MENU_GAME_SELECTED,
-		
-		//Asterage 1 game events.
-		PLAYER_FIRES_BULLET,
-		ENEMY_FIRES_BULLET,
-		ASTEROID_IMPACT,
-		PLAYER_SHIELD_IMPACT,
-		ENEMY_SHIELD_IMPACT,
-		REWARD_EARNED,
-		PLAYER_SHIP_APPEARS,
-		ENEMY_APPEARS,
-		BIG_ENEMY_APPEARS,
-		PLAYER_DESTROYED,
-		SMALL_ENEMY_DESTROYED,
-		GIANT_LASER_FIRE,
-		PLAYER_SHIP_DESTROYED,
-		ENEMY_SHIP_DESTROYED,
-		ALIEN_EMERGES,
-		WEAPON_POD_DESTROYED,
-		TRACTOR_BEAM_DEPLOYED,
-		
-		
-		//ASTERAGE 2 game events;
-		A2_ASTEROID_IMPACT,
-		A2_ENEMY_PLASMA_BOLT_FIRE,
-		A2_EXTRA_LIFE_AWARDED,
-		A2_MYTHICITE_PICKUP,
-		A2_PLAYER_DESTROYED,
-		A2_PLAYER_HOMING_MISSILES_FIRED,
-		A2_PLAYER_PLASMA_BOLT_FIRE,
-		A2_PLAYER_PURCHASE_ACCEPTED,
-		A2_PLAYER_PURCHASE_DENIED,
-		A2_PLAYER_SHIELD_IMPACT,
-		A2_PLAYER_SONIC_DISRUPTOR_ACTIVE,
-		A2_PLAYER_SPAWNS,
-		A2_SPECIAL_POWERUP_PICKUP,
-		A2_TROLL_APPEARS,
-		A2_TROLL_DESTROYED,
-		A2_TROLL_LASER_FIRED,
-		A2_TROLL_SHIELD_IMPACT,
-		A2_TROLL_MOTHERSHIP_APPEARS,
-		A2_VICTORY_FANFARE,
-		A2_WARPING_OUT;
-		
-	} //end enumeration SoundEvent definition
-	
+
 	/**
 	 * SOUNDTRACK_SEQUENCE inherently keeps track of which set of songs is being played.
 	 * It also has a property of how many songs are in the sound track, so we can increment the count when a song finishes,
@@ -428,18 +361,15 @@ public class SoundManager
 		ASTERAGE_2_CELEBRATION ( 1 ),
 		ASTERAGE_2_GAME_OVER ( 1 ),
 		ASTERAGE_2_VICTORY_FANFARE ( 1 );
-		
-		
+
 		private int trackCount;
 		
-		SOUNDTRACK_SEQUENCE ( int passedTrackCount )
-		{
+		SOUNDTRACK_SEQUENCE ( int passedTrackCount ) {
 			this.trackCount = passedTrackCount;
-		} //end function 
+		} 
 		
-		public int getTrackCount ()
-		{
+		public int getTrackCount () {
 			return trackCount;
-		} //end function 
-	} //end enumerated Soundtrack sequence definition
+		} 
+	} 
 }

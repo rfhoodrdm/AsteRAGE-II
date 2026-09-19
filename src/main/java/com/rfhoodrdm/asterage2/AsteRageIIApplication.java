@@ -7,11 +7,10 @@ import com.rfhoodrdm.asterage2.entry.AsteRAGE2;
 
 @SpringBootApplication
 public class AsteRageIIApplication {
-
+	
 	public static void main(String[] args) {
 		System.setProperty("java.awt.headless", "false");
 		SpringApplication.run(AsteRageIIApplication.class, args);
-		AsteRAGE2.initializeGame();
 	}
 
 }

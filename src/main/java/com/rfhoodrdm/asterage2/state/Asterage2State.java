@@ -6,7 +6,10 @@
 
 package com.rfhoodrdm.asterage2.state;
 
-import lombok.extern.slf4j.Slf4j;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
@@ -25,12 +28,10 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMothership;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
 import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.GUI;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
-import com.rfhoodrdm.asterage2.sounds.SoundManager;
+import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 
-import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -418,7 +419,7 @@ public class Asterage2State
 					else
 					{
 						//warp out pod and skip rest of loop.
-						gui.playSoundForEvent(SoundManager.SOUND_EVENT.A2_WARPING_OUT);
+						gui.playSoundForEvent(SoundEvent.A2_WARPING_OUT);
 						addSpaceEffect(new WarpOutEffect( currentTroll, WarpOutEffect.WarpEffectSize.SMALL ));
 						continue;
 					} //end else clause for pod which did not die of player damage.
@@ -432,7 +433,7 @@ public class Asterage2State
 																					currentTroll.getSpatialRadius() * 3);
 			
 				addSpaceEffect ( trollShipExplosion );
-				gui.playSoundForEvent(SoundManager.SOUND_EVENT.A2_TROLL_DESTROYED);
+				gui.playSoundForEvent(SoundEvent.A2_TROLL_DESTROYED);
 				
 			} //end if check for expiration and removal.
 		} //end for loop iterating through troll ships

@@ -1,21 +1,21 @@
 package com.rfhoodrdm.asterage2.dataloading.delegate;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Delegate responsible for loading BufferedImage assets.
  */
-
-
-
+@Component
 @Slf4j
 public class ImageLoaderDelegate {
 	
