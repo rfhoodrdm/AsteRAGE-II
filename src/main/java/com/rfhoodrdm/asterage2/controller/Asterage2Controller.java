@@ -76,6 +76,8 @@ public class Asterage2Controller
 	@Setter private Controller controller;
 	@Setter private Asterage2State asterage2State;
 	
+	private final SoundManager soundManager;
+	
 	public static final int WARP_OUT_COUNTDOWN_SHIP_WARP_EVENT = GameConstants.FRAMES_PER_SECOND * 2;	//at 2 seconds left.
 	public static final int WARP_OUT_COUNTDOWN_LEVEL_UP_EVENT = 0;										//when countdown expired.
 	
@@ -89,8 +91,8 @@ public class Asterage2Controller
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public Asterage2Controller() {
-		
+	public Asterage2Controller(SoundManager soundManager) {
+		this.soundManager = soundManager;
 	} 
 
 	/*	**********************************************************************
@@ -486,7 +488,7 @@ public class Asterage2Controller
 			} 
 			
 			//play the player plasma bolt sound effect
-			gui.playSoundForEvent(SoundEvent.A2_PLAYER_PLASMA_BOLT_FIRE);
+			soundManager.playSoundEvent(SoundEvent.A2_PLAYER_PLASMA_BOLT_FIRE);
 		} 
 		
 		
@@ -504,7 +506,7 @@ public class Asterage2Controller
 				if ( true == playerShip.checkShipInPlay())
 				{
 					createTrollTrackingPlasmaBolt( playerShip, currentTroll );
-					gui.playSoundForEvent(SoundEvent.A2_ENEMY_PLASMA_BOLT_FIRE);	//play sound effect for enemy fire
+					soundManager.playSoundEvent(SoundEvent.A2_ENEMY_PLASMA_BOLT_FIRE);	//play sound effect for enemy fire
 				} //end if check for in-play player ship.	
 			} 
 		} 
@@ -553,7 +555,7 @@ public class Asterage2Controller
 		newTrollLaserEffect.resetCoundownToMax();
 		
 		asterage2State.addSpaceEffect(newTrollLaserEffect);
-		gui.playSoundForEvent(SoundEvent.A2_TROLL_LASER_FIRED);
+		soundManager.playSoundEvent(SoundEvent.A2_TROLL_LASER_FIRED);
 		playerShip.takeDamage( TrollLaser.DAMAGE_RATING );
 	}
 	
@@ -617,7 +619,7 @@ public class Asterage2Controller
 				//Then apply damage to the troll ship.
 				currentHomingMissile.setExpiredFlag(true);
 				currentTroll.takeDamage(HomingMissile.HOMING_MISSILE_DAMAGE_RATING);
-				gui.playSoundForEvent(SoundEvent.A2_TROLL_SHIELD_IMPACT);
+				soundManager.playSoundEvent(SoundEvent.A2_TROLL_SHIELD_IMPACT);
 			} 
 		} 
 	}
@@ -637,7 +639,7 @@ public class Asterage2Controller
 				currentPlasmaBolt.setExpiredFlag(true);
 				double damageAmount = PlasmaBolt.DAMAGE_RATING;
 				playerShip.takeDamage( damageAmount );
-				gui.playSoundForEvent(SoundEvent.A2_PLAYER_SHIELD_IMPACT);
+				soundManager.playSoundEvent(SoundEvent.A2_PLAYER_SHIELD_IMPACT);
 			} 
 		} 
 	}
@@ -666,7 +668,7 @@ public class Asterage2Controller
 		plasmaBolt.setExpiredFlag(true);
 		currentTroll.takeDamage( PlasmaBolt.DAMAGE_RATING );
 		awardPoints( currentTroll.getPointValueHit() );
-		gui.playSoundForEvent(SoundEvent.A2_TROLL_SHIELD_IMPACT);
+		soundManager.playSoundEvent(SoundEvent.A2_TROLL_SHIELD_IMPACT);
 	} 
 	
 	private void checkAsteroidAndPlasmaBoltCollision()
@@ -693,7 +695,7 @@ public class Asterage2Controller
 		//The asteroid is damaged or expired, and spawns new asteroids.
 		currentPlasmaBolt.setExpiredFlag(true);				
 		currentAsteroid.takeDamage(PlasmaBolt.DAMAGE_RATING);		//asteroid marks itself as expired if that's true.
-		gui.playSoundForEvent(SoundEvent.A2_ASTEROID_IMPACT);
+		soundManager.playSoundEvent(SoundEvent.A2_ASTEROID_IMPACT);
 		
 		if ( currentPlasmaBolt.getPlasmaBoltType() == PlasmaBolt.PlasmaBoltType.PLAYER)	{
 			awardPoints( currentAsteroid.getPointValue() );				//award the score for the asteroid, if the plasma bolt was the player's.
@@ -717,7 +719,7 @@ public class Asterage2Controller
 				//player ship takes some damage.
 				double damageAmount = Asteroid.DAMAGE_RATING;
 				playerShip.takeDamage( damageAmount );
-				gui.playSoundForEvent(SoundEvent.A2_PLAYER_SHIELD_IMPACT);
+				soundManager.playSoundEvent(SoundEvent.A2_PLAYER_SHIELD_IMPACT);
 			} 
 		} 
 	} 
@@ -953,11 +955,11 @@ public class Asterage2Controller
 				//play the appropriate sound for the pickup:
 				if ( currentPowerUp instanceof Mythicite ) 
 				{ 
-					gui.playSoundForEvent(SoundEvent.A2_MYTHICITE_PICKUP); 
+					soundManager.playSoundEvent(SoundEvent.A2_MYTHICITE_PICKUP); 
 				}
 				else 
 				{ 
-					gui.playSoundForEvent(SoundEvent.A2_SPECIAL_POWERUP_PICKUP);
+					soundManager.playSoundEvent(SoundEvent.A2_SPECIAL_POWERUP_PICKUP);
 				}
 			} 
 		} 
@@ -1123,7 +1125,7 @@ public class Asterage2Controller
 		}
 
 		playerShip.setShipStatus(PlayerShip.Ship_Status.IN_PLAY);
-		gui.playSoundForEvent(SoundEvent.A2_PLAYER_SPAWNS);
+		soundManager.playSoundEvent(SoundEvent.A2_PLAYER_SPAWNS);
 
 	}
 
@@ -1138,7 +1140,7 @@ public class Asterage2Controller
 			asterage2State.resetTrollScoutCountdown();
 			int trollUpgradeLevel = calculateEnemyUpgradePoints(asterage2State.getPlayerShip());
 			asterage2State.addTrollShip(new TrollScoutShip(trollUpgradeLevel));
-			gui.playSoundForEvent(SoundEvent.A2_TROLL_APPEARS);
+			soundManager.playSoundEvent(SoundEvent.A2_TROLL_APPEARS);
 		}
 	}
 
@@ -1159,7 +1161,7 @@ public class Asterage2Controller
 			}
 		}
 
-		gui.playSoundForEvent(SoundEvent.A2_TROLL_MOTHERSHIP_APPEARS);
+		soundManager.playSoundEvent(SoundEvent.A2_TROLL_MOTHERSHIP_APPEARS);
 	}
 
 	/**
@@ -1198,10 +1200,10 @@ public class Asterage2Controller
 			degradeRandomShipSystem();							//player loses one random system.
 			spawnPlayerExplosion();								//display an explosion at the site of the player's death
 			
-			gui.playSoundForEvent(SoundEvent.A2_PLAYER_DESTROYED);
+			soundManager.playSoundEvent(SoundEvent.A2_PLAYER_DESTROYED);
 			
 			//halt anything to do with the sonic disruptor firing.
-			gui.haltSoundForEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);	//stop playing sonic disruptor sound
+			soundManager.stopSoundEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);	//stop playing sonic disruptor sound
 			playerShip.resetSonicDisruptorCooldown();
 			playerShip.setFiringSonicDisruptor(false);
 		} 
@@ -1303,10 +1305,10 @@ public class Asterage2Controller
 		//start or stop the sound effect for the player sonic disruptor, as appropriate.
 		if ( firingDisruptorFlag && shipInPlay ) {
 			playerShip.setFiringSonicDisruptor(true);
-			gui.playSoundForEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);
+			soundManager.playSoundEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);
 		} else {
 			playerShip.resetSonicDisruptorCooldown();			//if the flag is false (disruptor is turning off, then resest the cooldown until the next pulse.
-			gui.haltSoundForEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);
+			soundManager.stopSoundEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);
 			playerShip.setFiringSonicDisruptor(false);
 		}			
 	}
@@ -1330,7 +1332,7 @@ public class Asterage2Controller
 		//create a new player missile and add it to the lists.
 		HomingMissile newMissile = new HomingMissile( playerShip, HomingMissile.MissileType.PLAYER, trollTarget );
 		asterage2State.addHomingMissile(newMissile);
-		gui.playSoundForEvent(SoundEvent.A2_PLAYER_HOMING_MISSILES_FIRED);
+		soundManager.playSoundEvent(SoundEvent.A2_PLAYER_HOMING_MISSILES_FIRED);
 		
 	} 
 	
@@ -1393,7 +1395,7 @@ public class Asterage2Controller
 		if (	(powerUpCost > pointsAvailableToSpend)  || 
 				systemIsAtMaxLevel)	{
 			log.debug("Not enough points to purchase upgrade, or system at max level: {}", selectedPowerUp);
-			gui.playSoundForEvent(SoundEvent.A2_PLAYER_PURCHASE_DENIED);
+			soundManager.playSoundEvent(SoundEvent.A2_PLAYER_PURCHASE_DENIED);
 			return;
 		} 
 		
@@ -1407,7 +1409,7 @@ public class Asterage2Controller
 		
 		int pointsRemaining = pointsAvailableToSpend - powerUpCost;
 		asterage2State.setPowerUpPoints(pointsRemaining);
-		gui.playSoundForEvent(SoundEvent.A2_PLAYER_PURCHASE_ACCEPTED);
+		soundManager.playSoundEvent(SoundEvent.A2_PLAYER_PURCHASE_ACCEPTED);
 	}
 	
 	
@@ -1438,7 +1440,7 @@ public class Asterage2Controller
 			if (impactDetected)	{
 				//apply damage to the asteroid, award points for the hit, and generate any asteroids resulting.
 				currentAsteroid.takeDamage( SonicDisruptorEffect.DISRUPTOR_PULSE_DAMAGE );
-				gui.playSoundForEvent(SoundEvent.A2_ASTEROID_IMPACT);
+				soundManager.playSoundEvent(SoundEvent.A2_ASTEROID_IMPACT);
 				awardPoints( currentAsteroid.getPointValue() );				
 				newGeneratedObjects.addAll( generateNewAsteroidsFromImpact(currentAsteroid) );
 			} 
@@ -1456,7 +1458,7 @@ public class Asterage2Controller
 				//troll takes damage. Points are awarded.
 				trollShip.takeDamage(SonicDisruptorEffect.DISRUPTOR_PULSE_DAMAGE);
 				awardPoints( trollShip.getPointValueHit() );
-				gui.playSoundForEvent(SoundEvent.A2_TROLL_SHIELD_IMPACT);
+				soundManager.playSoundEvent(SoundEvent.A2_TROLL_SHIELD_IMPACT);
 			} 
 		} 
 		
@@ -1482,8 +1484,8 @@ public class Asterage2Controller
 			asterage2State.setGameState(GameState.WARPING_OUT);
 			showLevelUpMessage();
 			asterage2State.grantTrollScoutCountdownDeferment();
-			gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.NONE);		//stop music currently playing, and
-			gui.playSoundForEvent(SoundEvent.A2_VICTORY_FANFARE);	//play fanfare
+			soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.NONE);		//stop music currently playing, and
+			soundManager.playSoundEvent(SoundEvent.A2_VICTORY_FANFARE);	//play fanfare
 		} 
 	}
 
@@ -1499,8 +1501,8 @@ public class Asterage2Controller
 			WarpOutEffect warpOutEffect = new WarpOutEffect ( playerShip, WarpOutEffect.WarpEffectSize.NORMAL );
 			asterage2State.addSpaceEffect(warpOutEffect);
 			playerShip.setShipStatus(Ship_Status.UNSPAWNED);
-			gui.playSoundForEvent(SoundEvent.A2_WARPING_OUT);
-			gui.haltSoundForEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);	//stop playing sonic disruptor noise.
+			soundManager.playSoundEvent(SoundEvent.A2_WARPING_OUT);
+			soundManager.stopSoundEvent(SoundEvent.A2_PLAYER_SONIC_DISRUPTOR_ACTIVE);	//stop playing sonic disruptor noise.
 		} 
 		
 		if ( warpoutCountdown <= WARP_OUT_COUNTDOWN_LEVEL_UP_EVENT) {
@@ -1535,21 +1537,21 @@ public class Asterage2Controller
 		
 		switch ( soundTrackIndex ) {
 			case 3:
-				gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK4);
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK4);
 				break;
 				
 			case 2:
-				gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK3);
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK3);
 				break;
 			
 			case 1: 
-				gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK2);
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK2);
 				break;
 				
 			case 0: 
 			default:
 				//the first track is also the default in case we get into trouble.
-				gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK1);
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK1);
 				break;
 		} 
 	} 
@@ -1573,7 +1575,7 @@ public class Asterage2Controller
 			asterage2State.setRemainingShips( livesLeft + 1);
 			asterage2State.incrementExtraLivesAwarded();
 			showExtraLifeMessage();
-			gui.playSoundForEvent(SoundEvent.A2_EXTRA_LIFE_AWARDED);
+			soundManager.playSoundEvent(SoundEvent.A2_EXTRA_LIFE_AWARDED);
 		}
 	}
 	
@@ -1596,11 +1598,11 @@ public class Asterage2Controller
 			//check for a high score in the top 10.
 			long score = asterage2State.getScore();
 			if ( true == asterage2State.doesScoreRankTopTen( score ) ) {
-				gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_CELEBRATION);
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_CELEBRATION);
 				recordNewTop10ScoreEntry(score);
 			} else {
 				//standard game over.
-				gui.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_GAME_OVER);
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_GAME_OVER);
 			} 
 		} 
 	}

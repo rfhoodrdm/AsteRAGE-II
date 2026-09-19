@@ -41,7 +41,7 @@ public class AsteRAGE2 implements ApplicationRunner
 		
 		//Begin loading and initializing the main components of AsteRAGE 2.
 		//Pass data loader to modules which need to reference retrieved information.
-		State state = new State( dataLoader );	
+		State state = new State( dataLoader, soundManager );	
 		GUI gui = new GUI(soundManager);
 		
 		//Set references to other components from here.

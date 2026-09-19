@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +33,10 @@ public class Controller
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Controller() {
-		titleController = new TitleController();
-		asterage1Controller = new Asterage1Controller();
-		asterage2Controller = new Asterage2Controller();
+	public Controller(SoundManager soundManager) {
+		titleController = new TitleController(soundManager);
+		asterage1Controller = new Asterage1Controller(soundManager);
+		asterage2Controller = new Asterage2Controller(soundManager);
 		
 		//set the master controller reference right away
 		titleController.setController ( this ) ;
