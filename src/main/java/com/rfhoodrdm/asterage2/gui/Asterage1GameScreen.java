@@ -12,9 +12,9 @@ extends PanelTemplate
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	Asterage1HUD asterage1HUD;
-	Asterage1State asterage1State;
-	Asterage1GameBoard asterage1GameBoard;
+	private Asterage1HUD asterage1HUD;
+	private Asterage1State asterage1State;
+	private Asterage1GameBoard asterage1GameBoard;
 	
 	
 	/*	**********************************************************************
@@ -34,33 +34,34 @@ extends PanelTemplate
 		this.add( asterage1GameBoard );
 		this.add( asterage1HUD );
 		
-	} //end constructor
+	} 
 	
 	public void setAsterage1State ( Asterage1State passedState )
 	{
 		asterage1State = passedState;
 		asterage1HUD.setAsterage1State(passedState);
 		asterage1GameBoard.setAsterage1State ( passedState );
-	} //end function setAsterage1State
+	} 
+	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	
-	/**
-	 * Receive and pass on the directive to update the stat display.
-	 */
-	public void refreshStatDisplay()
-	{
-		asterage1HUD.refreshStatDisplay();
-	} //end function refresh.
+//	
+//	/**
+//	 * Receive and pass on the directive to update the stat display.
+//	 */
+//	private void refreshStatDisplay()
+//	{
+//		asterage1HUD.refreshStatDisplay();
+//	} 
 	
 	/**
 	 * Repaint the game board.
 	 */
-	public void repaintGameBoard()
-	{
+	public void repaintGameBoard() {
+		asterage1HUD.refreshStatDisplay();
 		asterage1GameBoard.repaintGameBoard();
-	} //end function repaintGUI
+	} 
 	
 	/*	**********************************************************************
 		********************		Functionality			******************

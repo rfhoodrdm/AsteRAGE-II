@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import static com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollScoutShip.TROLL_SCOUT_SPATIAL_RADIUS;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -17,10 +11,7 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
-/**
- *
- * @author roberthood
- */
+
 public class TrollWeaponPod
 extends TrollScoutShip
 {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
@@ -23,10 +18,7 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresSonicDisruptor;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.TakesDamage;
 import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 
-/**
- *
- * @author roberthood
- */
+
 public class PlayerShip
 extends SpaceObject
 implements FiresPlasmaBolts, FiresSonicDisruptor, DeploysShields, TakesDamage

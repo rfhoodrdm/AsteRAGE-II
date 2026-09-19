@@ -2,12 +2,12 @@
 package com.rfhoodrdm.asterage2.gui;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.controller.Controller;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
-import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
 
@@ -93,30 +93,24 @@ public class GUI
     /*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	/**
-	 * Refresh the title game menu instead of repainting the whole screen. It saves computation power.
-	 */
-	public void refreshTitleGameMenu() {
-		splashScreen.refreshTitleGameMenu();
-	} 
 	
-	/**
-	 * Repaint the entire splash screen, if something was added or changed.
-	 */
-	public void refreshSplashScreen() {
-		splashScreen.repaint();
-	} 
+	public void repaint() {
+		performOnEDT( () -> {
+			splashScreen.repaint();
+			asterage1GameScreen.repaintGameBoard();
+			asterage2GameScreen.updateGameDisplay();
+			asterage2GameScreen.repaint();
+		});
+	}
 	
-//	/**
-//	 * Takes in a request to play a sound.
-//	 */
-//	public void playSoundForEvent ( SoundEvent soundEvent )	{
-//		soundManager.playSoundEvent( soundEvent );
-//	} 
-//	
-//	public void haltSoundForEvent ( SoundEvent soundEvent )	{
-//		soundManager.stopSoundEvent(soundEvent);
-//	}
+	private void performOnEDT(Runnable task) {
+		if(SwingUtilities.isEventDispatchThread()) {
+			task.run();
+		} else {
+			SwingUtilities.invokeLater(task);
+		}
+	}
+	
 	
 	public void changeCurrentGuiShown()	{
 		//hide all of the GUI panels to avoid complex logic.
@@ -152,23 +146,6 @@ public class GUI
 				
 		} 
 	} 
-	
-	/**
-	 * Receive and pass forward request to update the Asterage 1 stat display
-	 */
-	public void refreshAsterage1StatDisplay() {
-		asterage1GameScreen.refreshStatDisplay();
-	} 
-	
-	public void repaintAsterage1GameBoard () {
-		asterage1GameScreen.repaintGameBoard();
-	}
-	
-	public void repaintAsteRAGE2Display() {
-		asterage2GameScreen.repaint();
-		asterage2GameScreen.updateGameDisplay();
-	} 
-	
 	
 	/**
 	 * Open a simple text field dialog box, posing a question to the player, and soliciting a text reply.

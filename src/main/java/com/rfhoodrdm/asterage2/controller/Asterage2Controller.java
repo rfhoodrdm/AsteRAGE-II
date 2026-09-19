@@ -149,7 +149,7 @@ public class Asterage2Controller
 				
 		} 
 
-		gui.repaintAsteRAGE2Display();				//redraw the game screen and update the hud
+		gui.repaint();				//redraw the game screen and update the hud
 	} 
 	
 	/**

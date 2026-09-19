@@ -26,6 +26,9 @@ extends JPanel
 						new Color( 255, 255, 255), new Color( 150, 150, 150) );
 		this.setBorder( etchedBorder );
 		
+		this.setIgnoreRepaint(false);
+		this.setDoubleBuffered(true);
+		
 	} //end constructor
 	
 }

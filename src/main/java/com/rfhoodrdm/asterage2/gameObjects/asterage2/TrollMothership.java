@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
@@ -22,13 +17,6 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
 import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.TROLL_MOTHERSHIP_DESTROYED;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
-
-/**
- *
- * @author roberthood
- */
-
-
 
 @Slf4j
 public class TrollMothership
