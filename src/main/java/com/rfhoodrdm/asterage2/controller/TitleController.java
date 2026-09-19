@@ -158,7 +158,7 @@ public class TitleController
 		TitleState.TITLE_SCREEN_ACTIVITY currentActivity = titleState.getCurrentActivity();
 		
 		//always-do tasks:
-		gui.refreshTitleGameMenu();			//refresh the appearance of the game selection menu.
+		gui.repaint();			//refresh the appearance of the game selection menu.
 		
 		//do different things based on what the current activity is.
 		// If the game has been selected, then update the countdown. 
@@ -171,7 +171,7 @@ public class TitleController
 		//else decrement the activity counter.
 		//redraw the screen. --Changed to redraw with every update to accomodate new star field pattern.
 		titleState.decrementTimeToNextActivity();
-		gui.refreshSplashScreen();
+		gui.repaint();
 	} 
 	
 	private void update_GameSelectedCountdown()

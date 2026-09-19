@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.rfhoodrdm.asterage2.gui;
 
@@ -23,10 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import com.rfhoodrdm.asterage2.state.Asterage2State;
 
-/**
- *
- * @author roberthood
- */
+
 public class AsteRAGE2GameBoard
 extends PanelTemplate
 {

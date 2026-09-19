@@ -99,10 +99,10 @@ public class Asterage1Controller {
 
 		}
 		// update the stats board to reflect the new values of the game state.
-		gui.refreshAsterage1StatDisplay();
+		gui.repaint();
 
 		// redraw the screen.
-		gui.repaintAsterage1GameBoard();
+		gui.repaint();
 	}
 
 	/**

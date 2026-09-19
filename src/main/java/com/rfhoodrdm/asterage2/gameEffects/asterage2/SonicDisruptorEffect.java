@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.rfhoodrdm.asterage2.gameEffects.asterage2;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +12,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
-
-/**
- *
- * @author roberthood
- */
-
-
 
 @Slf4j
 public class SonicDisruptorEffect

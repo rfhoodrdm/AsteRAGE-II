@@ -1,70 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package com.rfhoodrdm.asterage2.gui;
 
-import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import com.rfhoodrdm.asterage2.state.TitleState;
-import com.rfhoodrdm.asterage2.state.Asterage1State;
-import com.rfhoodrdm.asterage2.state.Asterage2State;
-import javax.swing.JTextPane;
-import javax.swing.JPanel;
+
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.StyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
-/**
- *
- * @author roberthood
- */
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
+import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.TitleState;
+
+import lombok.Setter;
+
 public class SplashScreen
-extends PanelTemplate
-{
+	extends PanelTemplate {
 	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
 	
 	//reference to top level component.
-	GUI gui;
-	TitleState titleState;
-	Asterage1State asterage1State;		//needed for high scores
-	Asterage2State asterage2State;		//needed for high scores
+	private GUI gui;
+	
+	@Setter
+	private TitleState titleState;
+	
+	@Setter
+	private Asterage1State asterage1State;		//needed for high scores
+	
+	@Setter
+	private Asterage2State asterage2State;		//needed for high scores
 	
 	//references to images used.
-	TitleGameMenu titleGameMenu;
-	BufferedImage titleGraphic;
+	private TitleGameMenu titleGameMenu;
+	private BufferedImage titleGraphic;
 	
 	//Story-displaying components.
-	StoryPane storyPane;
-	HighScorePanel highScorePanel;
+	private StoryPane storyPane;
+	private HighScorePanel highScorePanel;
 	
-	ConcurrentLinkedQueue<StarPoint> starPointList;
+	private ConcurrentLinkedQueue<StarPoint> starPointList;
+	
 	public static final int NUMBER_STARS_IN_FIELD = 100;
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public SplashScreen ( GUI passedGUI )
-	{
+	public SplashScreen ( GUI passedGUI ) {
 		super();
 		
 		//remember reference to top level component.
@@ -90,35 +90,12 @@ extends PanelTemplate
 		this.setLayout ( null );
 		
 		createNewStarPointList();
-	} //end constructor
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	/**
-	 * Refresh the title game menu instead of repainting the whole screen. It saves computation power.
-	 */
-	public void refreshTitleGameMenu()
-	{
-		//Get the necessary information out of the state.
-		TitleState.GAME_SELECTION currentGameSelection = titleState.getCurrentGameSelected();
-		titleGameMenu.refreshTitleGameMenu(currentGameSelection);
-	} //end function refreshTitleGameMenu
-	
-	public void setTitleState ( TitleState passedTitleState )
-	{
-		this.titleState = passedTitleState;
-	} //end function setState
-	
-	public void setAsterage1State ( Asterage1State passedState )
-	{
-		this.asterage1State = passedState;
-	} 
-	
-	public void setAsterage2State ( Asterage2State passedState )
-	{
-		this.asterage2State = passedState;
-	} 
+
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
@@ -132,11 +109,10 @@ extends PanelTemplate
 	protected void paintComponent ( Graphics g )
 	{
 		//invoke super class's paintComponent to redraw the frame.
-		//super.paintComponent(g); displayHighScore( g ); return;
 		super.paintComponent(g);	//call to super's paint
+		refreshTitleGameMenu();
 		
-		switch ( titleState.getCurrentActivity() )
-		{
+		switch ( titleState.getCurrentActivity() ) {
 			case DISPLAYING_TITLE:
 			default:
 				displayTitleGraphic( g );
@@ -149,52 +125,58 @@ extends PanelTemplate
 			case DISPLAYING_HIGH_SCORE:
 				displayHighScore( g );
 				break;
-		} //end switch based on activity
-		
-	} //end paintCompnent
+		} 
+	} 
 	
-	private void paintStarField ( Graphics g )
+	/**
+	 * Refresh the title game menu instead of repainting the whole screen. It saves computation power.
+	 */
+	private void refreshTitleGameMenu()
 	{
+		//Get the necessary information out of the state.
+		TitleState.GAME_SELECTION currentGameSelection = titleState.getCurrentGameSelected();
+		titleGameMenu.refreshTitleGameMenu(currentGameSelection);
+	}
+	
+	private void paintStarField ( Graphics g ) {
 		//advance the stars by 1 unit of time, for however fast they are traveling.
 		//draw them.
 		moveStars();
 		paintStars(g);
 		replaceExpiredStars();
-	} //end method paintStarField
+	} 
 	
-	private void replaceExpiredStars()
-	{
+	private void replaceExpiredStars() {
 		ArrayList<StarPoint> newStarList = new ArrayList<>();	//list of new stars we are going to add
 		
-		for ( StarPoint currentStar: starPointList )
-		{
+		for ( StarPoint currentStar: starPointList ) {
 			if ( currentStar.checkExpired() )
 			{
 				starPointList.remove(currentStar);
 				StarPoint newStar = StarPoint.createNewEdgeStar();
 				newStarList.add( newStar );
-			} //end if check to spawn a replacement star
-		} //end for loop iterating through stars.
+			} 
+		} 
 		
 		//add the new stars to the list of existing stars.
 		starPointList.addAll(newStarList);
-	} //end method replaceExpiredStars
+	} 
 	
 	private void moveStars()
 	{
 		for ( StarPoint currentStar: starPointList )
 		{
 			currentStar.moveStar();
-		} //end for loop iterating through stars in the list
-	} //end method moveStars
+		} 
+	} 
 	
 	private void paintStars( Graphics g )
 	{
 		for ( StarPoint currentStar: starPointList )
 		{
 			currentStar.paintStar(g);
-		} //end for loop iterating through stars in the list.
-	} //end method paintStars
+		}
+	} 
 	
 	private void createNewStarPointList()
 	{
@@ -202,8 +184,8 @@ extends PanelTemplate
 		for ( int count = 1;  count <= NUMBER_STARS_IN_FIELD;  ++count )
 		{
 			starPointList.add(StarPoint.createNewRandomStarPoint());
-		} //end for loop creating new stars
-	} //end method createNewStarPointList
+		} 
+	} 
 	
 	private void displayTitleGraphic( Graphics g )
 	{
@@ -213,10 +195,9 @@ extends PanelTemplate
 		
 		paintStarField(g);							//paint the star field background
 		g.drawImage(titleGraphic, 0, 0, null);		//draw the title graphic.
-	} //end function displayTitleGraphic
+	} 
 	
-	private void displayStory( Graphics g )
-	{
+	private void displayStory( Graphics g )	{
 		//hide the editor panes containing the other content.
 		highScorePanel.setVisible(false);
 		
@@ -230,8 +211,7 @@ extends PanelTemplate
 		storyPane.setVisible(true);
 	}
 	
-	private void displayHighScore( Graphics g )
-	{
+	private void displayHighScore( Graphics g )	{
 		//hide the editor panes containing the other content.
 		storyPane.setVisible(false);
 		
@@ -249,8 +229,7 @@ extends PanelTemplate
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-	public static class StarPoint 
-	{
+	public static class StarPoint {
 		private int xCoordinate;	//location
 		private int yCoordinate;	
 		
@@ -263,57 +242,50 @@ extends PanelTemplate
 			speed = (int) Math.floor( Math.random() * 4) + 1;	//from 1 to 4.
 		} //end constructor
 		
-		public static StarPoint createNewRandomStarPoint()
-		{
+		public static StarPoint createNewRandomStarPoint()	{
 			return new StarPoint(	(int) Math.floor( Math.random() * GUI.panelWidth ),
 									(int) Math.floor ( Math.random() * GUI.panelHeight ) );
 		} //end factory method creating a new random starpoint at a random location.
 		
-		public static StarPoint createNewEdgeStar()
-		{
+		public static StarPoint createNewEdgeStar()	{
 			//can spawn anywhere along top or right edge.
 			int locationRange = GUI.panelWidth + GUI.panelHeight;
 			int randomLocation = (int) Math.floor( Math.random() * locationRange );
 			
-			if ( randomLocation < GUI.panelWidth )
-			{
+			if ( randomLocation < GUI.panelWidth ) {
 				//then it's a top edge star.
 				return new StarPoint( randomLocation, 0 );
-			}
-			else
-			{
+			} else {
 				//else it's a right edge star
 				return new StarPoint ( GUI.panelWidth, randomLocation - GUI.panelWidth );
 			}
-		} //end method createNewEdgeStar
+		} 
 		
 		public boolean checkExpired ()
 		{
 			//if we've traveled off of the right edge or bottom edge, then this star has expired.
 			return (( xCoordinate < 0 ) || (yCoordinate > GUI.panelHeight));
-		} //end method checkExpired
+		} 
 		
 		public void paintStar( Graphics g )
 		{
 			g.setColor(Color.WHITE);
 			g.drawLine(xCoordinate-1, yCoordinate , xCoordinate+1, yCoordinate);
 			g.drawLine(xCoordinate, yCoordinate-1, xCoordinate, yCoordinate+1);
-		} //end method paintStar
+		} 
 		
 		public void moveStar()
 		{
 			xCoordinate -= speed;
 			yCoordinate += speed;
-		} //end method moveStar
-		
-	} //end class StarPoint definition
+		} 
+	}
 	
 	/**
 	 * Contains the gui components which display the AsteRAGE storyline/mission to the splash panel.
 	 */
 	private class StoryPane
-	extends JTextPane
-	{
+	extends JTextPane {
 		//constructor
 		public StoryPane()
 		{
@@ -476,6 +448,6 @@ extends PanelTemplate
 			} //end outer for loop
 			
 			add(highScoresTable );
-		} //end constructor
-	} //end inner class HighScorePanel definition
-} // end class SplashScreen definition
+		} 
+	} 
+}

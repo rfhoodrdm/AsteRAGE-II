@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package com.rfhoodrdm.asterage2.state;
 
@@ -33,14 +29,6 @@ import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 
 import lombok.extern.slf4j.Slf4j;
-
-
-/**
- *
- * @author roberthood
- */
-
-
 
 @Slf4j
 public class Asterage2State

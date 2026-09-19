@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package com.rfhoodrdm.asterage2.state;
 
@@ -18,10 +14,7 @@ import com.rfhoodrdm.asterage2.gameEffects.asterage1.MessageText;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- *
- * @author roberthood
- */
+
 public class Asterage1State
 {
 	/*	**********************************************************************

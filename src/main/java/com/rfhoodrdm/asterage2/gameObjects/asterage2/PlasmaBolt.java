@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
@@ -12,10 +8,6 @@ import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
 
-/**
- *
- * @author roberthood
- */
 public class PlasmaBolt
 extends SpaceObject
 implements Expires
