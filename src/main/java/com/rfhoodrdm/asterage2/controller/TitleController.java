@@ -6,18 +6,17 @@
 
 package com.rfhoodrdm.asterage2.controller;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.awt.event.KeyEvent;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
-import com.rfhoodrdm.asterage2.sounds.SoundManager;
+import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.state.TitleState;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 
 
@@ -219,7 +218,7 @@ public class TitleController
 		titleState.setCurrentGameSelected(nextGameSelection);
 		
 		//Play the menu selection changed sound.
-		gui.playSoundForEvent( SoundManager.SOUND_EVENT.TITLE_SCREEN_MENU_OPTION_CHANGED );
+		gui.playSoundForEvent( SoundEvent.TITLE_SCREEN_MENU_OPTION_CHANGED );
 	} 
 	
 	/**
@@ -231,6 +230,6 @@ public class TitleController
 		titleState.setGameSelected(true);
 		
 		//play the game selection sound.
-		gui.playSoundForEvent ( SoundManager.SOUND_EVENT.TITLE_SCREEN_MENU_GAME_SELECTED );
+		gui.playSoundForEvent ( SoundEvent.TITLE_SCREEN_MENU_GAME_SELECTED );
 	} 
 } 

@@ -1,24 +1,22 @@
 
 package com.rfhoodrdm.asterage2.gui;
 
-import lombok.extern.slf4j.Slf4j;
-
 import javax.swing.JOptionPane;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.controller.Controller;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * GUI is the top class in the graphical user interface. It holds the game frame, game panels,
  * and sound manager. It also contains references to the other modules.
  */
-
-
-
 @Slf4j
 public class GUI
 {
@@ -44,7 +42,7 @@ public class GUI
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public GUI ()	{
+	public GUI (SoundManager soundManager)	{
 		gameFrame = new GameFrame( this );
 		
 		splashScreen = new SplashScreen ( this );
@@ -53,14 +51,14 @@ public class GUI
 		asterage1GameScreen.setVisible( false );
 		asterage2GameScreen = new AsteRAGE2GameScreen();
 		asterage2GameScreen.setVisible(false);
-		soundManager = new SoundManager();
-		soundManager.start();								//start the sound manager.
 		
 		gameFrame.setIgnoreRepaint(false);
 		
 		gameFrame.add( splashScreen );
 		gameFrame.add ( asterage1GameScreen );
 		gameFrame.add( asterage2GameScreen );
+		
+		this.soundManager = soundManager;
 	} 
 	
 	public void showInitialGUI ()	{
@@ -115,12 +113,12 @@ public class GUI
 	/**
 	 * Takes in a request to play a sound.
 	 */
-	public void playSoundForEvent ( SoundManager.SOUND_EVENT soundEvent )
+	public void playSoundForEvent ( SoundEvent soundEvent )
 	{
 		soundManager.playSoundEvent( soundEvent );
 	} 
 	
-	public void haltSoundForEvent ( SoundManager.SOUND_EVENT soundEvent )
+	public void haltSoundForEvent ( SoundEvent soundEvent )
 	{
 		soundManager.stopSoundEvent(soundEvent);
 	}

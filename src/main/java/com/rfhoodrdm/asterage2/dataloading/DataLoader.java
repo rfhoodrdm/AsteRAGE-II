@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.rfhoodrdm.asterage2.dataloading;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+
+import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
@@ -29,10 +20,10 @@ import com.rfhoodrdm.asterage2.sounds.Sound;
 import com.rfhoodrdm.asterage2.state.HighScoreDirectory;
 import com.rfhoodrdm.asterage2.state.HighScoreEntry;
 
-/**
- *
- * @author roberthood
- */
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class DataLoader
 {
 	/*	**********************************************************************
@@ -59,13 +50,11 @@ public class DataLoader
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public DataLoader()
-	{
-		//create the loading delegates.
-		//TODO: rewire for injection, eventually.
-		imageLoaderDelegate = new ImageLoaderDelegate();
-		soundLoaderDelegate = new SoundLoaderDelegate();
-		dataLoaderPopup = new DataLoaderPopup();
+	public DataLoader(ImageLoaderDelegate imageLoaderDelegate, SoundLoaderDelegate soundLoaderDelegate, DataLoaderPopup dataLoaderPopup)	{
+		
+		this.imageLoaderDelegate = imageLoaderDelegate;
+		this.soundLoaderDelegate = soundLoaderDelegate;
+		this.dataLoaderPopup = dataLoaderPopup;
 
 		//show the loader that we have made upon game loading.
 		dataLoaderPopup.setVisible( true );

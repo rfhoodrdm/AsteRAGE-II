@@ -10,14 +10,14 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.exceptions.DataLoaderException;
 
 /**
  * Delegate responsible for loading sound clips.
  */
-
-
-
+@Component
 @Slf4j
 public class SoundLoaderDelegate {
 

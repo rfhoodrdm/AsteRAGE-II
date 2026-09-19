@@ -1,22 +1,19 @@
 package com.rfhoodrdm.asterage2.state;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.Semaphore;
+
+import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * State is the top level class in the game's "model" which holds the game state.
  * Holds information pertaining to the splash screen, as well as AsteRAGE 1 and 2.
  */
-
-
-
 @Slf4j
 public class State
 {
@@ -36,7 +33,6 @@ public class State
 	//state semaphore lock, protecting against concurrent access.
 	private Semaphore stateLock;
 	
-
 	@Getter
 	private CurrentState currentState;		//Which game state is the active one? Default is title screen.
 	

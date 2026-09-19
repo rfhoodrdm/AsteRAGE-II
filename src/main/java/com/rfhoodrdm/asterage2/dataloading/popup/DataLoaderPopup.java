@@ -8,10 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.sounds.Sound;
 
+@Component
 public class DataLoaderPopup {
 
 	private final Dimension loaderSize = new Dimension ( 500, 200 );
