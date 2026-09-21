@@ -1,6 +1,6 @@
 
 
-package com.rfhoodrdm.asterage2.gui;
+package com.rfhoodrdm.asterage2.gui.titlescreen;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,49 +11,57 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import org.springframework.stereotype.Component;
+
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
+import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import com.rfhoodrdm.asterage2.state.TitleState;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class TitleGameMenu
-extends PanelTemplate
-{
+	extends PanelTemplate
+	implements RequiresLoadedData {
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
 	
+	private static final long serialVersionUID = 7840000087939923937L;
 	public static final int titleMenuWidth = 410;
 	public static final int titleMenuHeight = 150;
 	
-	JLabel asterage1MenuOption;
-	JLabel asterage2MenuOption;
+	private JLabel asterage1MenuOption;
+	private JLabel asterage2MenuOption;
 	
-	JButton asterage1MenuSelectionIndicator;
-	JButton asterage2MenuSelectionIndicator;
+	private JButton asterage1MenuSelectionIndicator;
+	private JButton asterage2MenuSelectionIndicator;
 	
-	final int menuOptionWidth = 260;
-	final int menuOptionHeight = 75;
-	final int menuIndicatorWidth = 50;
-	final int menuIndicatorHeight = 50;
+	private final int menuOptionWidth = 260;
+	private final int menuOptionHeight = 75;
+	private final int menuIndicatorWidth = 50;
+	private final int menuIndicatorHeight = 50;
 	
-	final Dimension menuOptionDimension = new Dimension (menuOptionWidth, menuOptionHeight);
-	final Dimension menuSelectionIndicatorDimension = new Dimension ( menuIndicatorWidth, menuIndicatorHeight) ;
+	private final Dimension menuOptionDimension = new Dimension (menuOptionWidth, menuOptionHeight);
+	private final Dimension menuSelectionIndicatorDimension = new Dimension ( menuIndicatorWidth, menuIndicatorHeight) ;
 	
-	final int firstRowX = 25;
-	final int firstRowY = 20;
-	final int secondRowX = 100;
-	final int secondRowY = 80;
+	private final int firstRowX = 25;
+	private final int firstRowY = 20;
+	private final int secondRowX = 100;
+	private final int secondRowY = 80;
 	
-	Color menuTextColor = new Color ( 255, 0, 0);
-	Font menuTextFont = new Font("Skia", Font.BOLD, 22);
+	private Color menuTextColor = new Color ( 255, 0, 0);
+	private Font menuTextFont = new Font("Skia", Font.BOLD, 22);
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	/**
-	 * Constructor
-	 */
-	public TitleGameMenu ()
-	{
+
+	public TitleGameMenu ()	{
 		//set up the GUI components.
 		this.setLayout ( null );		//honor the coordinates of sub components.
 		int upperLeftX = (GUI.panelWidth/2) - ( titleMenuWidth / 2 );
@@ -62,8 +70,8 @@ extends PanelTemplate
 		
 		asterage1MenuOption = new JLabel();
 		asterage2MenuOption = new JLabel();
-		asterage1MenuSelectionIndicator = new JButton( new ImageIcon (Image.GAME_SELECTOR_ICON_WHITE.getImage() ) );
-		asterage2MenuSelectionIndicator = new JButton( new ImageIcon (Image.GAME_SELECTOR_ICON_WHITE.getImage() ) );
+		asterage1MenuSelectionIndicator = new JButton();
+		asterage2MenuSelectionIndicator = new JButton();
 		asterage1MenuSelectionIndicator.setBorderPainted(false);
 		asterage2MenuSelectionIndicator.setBorderPainted(false);
 		asterage1MenuSelectionIndicator.setVisible(false);
@@ -92,15 +100,21 @@ extends PanelTemplate
 		this.add(asterage1MenuSelectionIndicator);
 		this.add(asterage2MenuSelectionIndicator);
 		
-	} //end function TitleGameMenu contrusctor
+	} 
+	
+	@Override
+	public void loadRequiredData(DataLoader dataLoader) {
+		asterage1MenuSelectionIndicator.setIcon(new ImageIcon (Image.GAME_SELECTOR_ICON_WHITE.getImage()) );
+		asterage2MenuSelectionIndicator.setIcon(new ImageIcon (Image.GAME_SELECTOR_ICON_WHITE.getImage()) );
+	} 
+	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	public void refreshTitleGameMenu(TitleState.GAME_SELECTION currentGameSelection)
-	{
+	
+	public void refreshTitleGameMenu(TitleState.GAME_SELECTION currentGameSelection) {
 		//show and hide the appropriate buttons.
-		switch ( currentGameSelection )
-		{
+		switch ( currentGameSelection )	{
 			case ASTERAGE1:
 				asterage1MenuSelectionIndicator.setVisible( true );
 				asterage2MenuSelectionIndicator.setVisible( false );
@@ -109,8 +123,9 @@ extends PanelTemplate
 				asterage1MenuSelectionIndicator.setVisible( false );
 				asterage2MenuSelectionIndicator.setVisible( true );
 				break;
-		} //end function 
-	} //end function refreshTitleGameMenu
+		} 
+	}
+
 	
 	/*	**********************************************************************
 		********************		Functionality			******************

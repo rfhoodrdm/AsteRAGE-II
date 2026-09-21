@@ -62,13 +62,8 @@ public enum Sound {
 	A2_TRACK5_SKYS_THE_LIMIT("A2_TRACK5_SKY'S_THE_LIMIT.aif", SoundType.MUSIC_TRACK),
 	A2_TRACK6_SPACE_MINER_DIRGE("A2_TRACK6_SPACE_MINER_DIRGE.aif", SoundType.MUSIC_TRACK);
 
-	@Getter
-	final private String filename;
-	
-	@Getter
-	@Setter
-	private Clip clip;
-	
+	@Getter	final private String filename;
+	@Getter	@Setter	private Clip clip;
 	final private SoundType soundType;
 
 	Sound(String passedFilename, SoundType passedType) {
@@ -119,7 +114,6 @@ public enum Sound {
 
 	public boolean isPlaying() {
 		return clip.isRunning();
-
 	}
 
 	/**

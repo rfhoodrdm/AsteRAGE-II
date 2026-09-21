@@ -2,69 +2,73 @@
 
 package com.rfhoodrdm.asterage2.state;
 
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollScout;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.Asteroid;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollPod;
-import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.dataloading.DataLoader;
-import com.rfhoodrdm.asterage2.gameEffects.asterage1.MessageText;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.MessageText;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.Asteroid;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollPod;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollScout;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class Asterage1State
+	implements RequiresLoadedData
 {
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
 	//global game data.
-	int extraLives;					//number of lives remaining for the player.
-	int level;						//current game level.
-	int mythicite;					//how much mythicite collected.
-	int livesAwarded;				//how many 1-ups has the player earned?
-	boolean alienHasSpawnedFlag;	//has the alien appeared yet?
+	@Getter
+	private int extraLives;					//number of lives remaining for the player.
 	
-	Asterage1ScoreState asterage1ScoreState;	//tracks number of points accumulated.
-	DataLoader dataLoader;						//data loader reference
-	HighScoreDirectory highScoreDirectory;
-	GAME_STATUS gameStatus;
-	PlayerShip playerShip;
-	ConcurrentLinkedQueue<SpaceObject> spaceObjectList;
-	MessageText officialMessage;
+	@Getter
+	private int level;						//current game level.
+	private int mythicite;					//how much mythicite collected.
+	
+	@Getter
+	private int livesAwarded;				//how many 1-ups has the player earned?
+	
+	private boolean alienHasSpawnedFlag;	//has the alien appeared yet?
+	
+	private Asterage1ScoreState asterage1ScoreState;	//tracks number of points accumulated.
+	private HighScoreDirectory highScoreDirectory;
+	
+	@Getter @Setter
+	private GAME_STATUS gameStatus;
+	private PlayerShip playerShip;
+	private ConcurrentLinkedQueue<SpaceObject> spaceObjectList;
+	private MessageText officialMessage;		//TODO: Convert this to an optional. Right now we're using null as no-value, which is not safe.
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public Asterage1State( DataLoader passedLoader )
-	{
-		dataLoader = passedLoader;
+	public Asterage1State() {
 		asterage1ScoreState = new Asterage1ScoreState();
-		highScoreDirectory = new HighScoreDirectory(HighScoreDirectory.GAME_IDENTIFIER.ASTERAGE1,
-													dataLoader);
-		initializeAsterage1State();
 
-		//no initializing MessageText, we need that void if not used.
-	} //end constructor.
+		initializeAsterage1State();
+	} 
+	
+	@Override
+	public void loadRequiredData(DataLoader dataLoader) {
+		highScoreDirectory = new HighScoreDirectory(HighScoreDirectory.GAME_IDENTIFIER.ASTERAGE1,
+				dataLoader);
+	} 
+	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	/**
-	 * Get the current game status.
-	 * @return 
-	 */
-	public GAME_STATUS getGameStatus()
-	{
-		return this.gameStatus;
-	} //end fucntion getGameStatus
-	
-	public void setGameStatus ( GAME_STATUS newStatus)
-	{
-		this.gameStatus = newStatus;
-	} //end function setGameStatus
 	
 	/**
 	 * Advance the level count by 1, and modify the game state accordingly. E.g. make new asteroids.
@@ -99,48 +103,36 @@ public class Asterage1State
 		spawnAsteroidsForNewLevel();
 		this.officialMessage = null;
 		
-	} //end function initializeAsterage1State
+	}
 	
-	public int getLevel()
-	{
-		return this.level;
-	} //end function getScore
-	public int getScore ()
-	{
+	public int getScore ()	{
 		return asterage1ScoreState.getScore();
-	} //end function getScore
-	public Asterage1ScoreState getScoreStateObject ()
-	{
+	} 
+	
+	public Asterage1ScoreState getScoreStateObject ()	{
 		return this.asterage1ScoreState;
-	} //end function getScoreStateObject
-	public int getExtraLives ()
-	{
-		return this.extraLives;
-	} //end function getExtraLives
-	public void incrementExtraLives()
-	{
+	} 
+	
+	public void incrementExtraLives() {
 		this.extraLives += 1;
-	} //end function incrementExtraLives
-	public void decrementExtraLives()
-	{
+	} 
+	
+	public void decrementExtraLives() {
 		this.extraLives -= 1;
 	} 
-	public int getPlayerShields()
-	{
+	
+	public int getPlayerShields() {
 		return (int)Math.round( playerShip.getCurrentShields() );
-	} //end function getPlayerShields
-	public int getPlayerMythicite()
-	{
+	} 
+	
+	public int getPlayerMythicite()	{
 		return mythicite;
-	} //end function getPlayerMythicite
-	public void incrementLivesAwarded()
-	{
+	} 
+	
+	public void incrementLivesAwarded()	{
 		this.livesAwarded += 1;
 	} 
-	public int getLivesAwarded()
-	{
-		return this.livesAwarded;
-	} 
+	
 	public boolean getAlienHasSpawnedFlag ()
 	{
 		return this.alienHasSpawnedFlag;
@@ -324,12 +316,12 @@ public class Asterage1State
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-	public static enum GAME_STATUS
-	{
+	public static enum GAME_STATUS	{
 		NEW_GAME,
 		IN_PROGRESS,
 		PAUSE,
 		GAME_OVER;
 		
-	} //end enum GAME_STATUS definition.
+	}
+
 }

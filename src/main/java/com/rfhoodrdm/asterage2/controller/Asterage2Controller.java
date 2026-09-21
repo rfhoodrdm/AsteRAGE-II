@@ -48,9 +48,9 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMiningPod;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMothership;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollScoutShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
-import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
-import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard.PopUpMessageLabel.MessageType;
 import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
+import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard.PopUpMessageLabel.MessageType;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresTrollLaser;
@@ -72,10 +72,9 @@ public class Asterage2Controller
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	@Setter private GUI gui;
-	@Setter private Controller controller;
-	@Setter private Asterage2State asterage2State;
-	
+
+	private final GUI gui;
+	private final Asterage2State asterage2State;
 	private final SoundManager soundManager;
 	
 	public static final int WARP_OUT_COUNTDOWN_SHIP_WARP_EVENT = GameConstants.FRAMES_PER_SECOND * 2;	//at 2 seconds left.
@@ -91,7 +90,9 @@ public class Asterage2Controller
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public Asterage2Controller(SoundManager soundManager) {
+	public Asterage2Controller(GUI gui, Asterage2State asterage2State, SoundManager soundManager) {
+		this.gui = gui;
+		this.asterage2State = asterage2State;
 		this.soundManager = soundManager;
 	} 
 
@@ -148,9 +149,7 @@ public class Asterage2Controller
 				break;
 				
 		} 
-
-		gui.repaint();				//redraw the game screen and update the hud
-	} 
+	}
 	
 	/**
 	 * Entry point of the logic to determine how to react to key presses.
@@ -169,7 +168,7 @@ public class Asterage2Controller
 		} 
 	}
 	
-	public void beginNewGame()	{
+	public void resetGame()	{
 		asterage2State.initializeAsterage2State();		//initialize the state.
 		generateAsteroidsForLevel();					//set up the initial game board.
 		selectSoundTrackForLevel();						//play the correct soundtrack.
@@ -250,7 +249,10 @@ public class Asterage2Controller
 			case KeyEvent.VK_DELETE:
 			case KeyEvent.VK_BACK_SPACE:
 				boolean returningToMainMenu = gui.checkAsterage2AbortGameDialog();
-				if ( returningToMainMenu ) { controller.switchActiveState(CurrentState.TITLE_SCREEN); }
+				if ( returningToMainMenu ) { 
+					//TODO: Must find a new way to return to main menu after game over: due to dependency injection approach, we cannot access controller directly.
+//					controller.switchActiveState(CurrentState.TITLE_SCREEN); 
+					}
 				break;
 		} 
 	} 
@@ -1092,10 +1094,11 @@ public class Asterage2Controller
 	 * Examines game state and flags to see if spawning a ship should be performed.
 	 */
 	private void checkToSpawnShip() {
-		boolean requestToSpawnFlag = asterage2State.checkRequestToSpawnShipFlag();
+		boolean requestToSpawnFlag = asterage2State.isRequestToSpawnShipFlag();
 		if (false == requestToSpawnFlag) {
 			return;
-		} // nothing to do
+		} 
+		
 		asterage2State.setRequestToSpawnShipFlag(false); // set the request flag to false, since we've seen it.
 
 		// check the game state, to see if we're in a state to spawn a new ship.
@@ -1626,7 +1629,7 @@ public class Asterage2Controller
 	private void restartGameOnGameOver() {
 		//check to see if the game is in game-over state. If so, then reinitialize the state.
 		if ( asterage2State.getGameState() == GameState.GAME_OVER ) {
-			beginNewGame();
+			resetGame();
 		} 
 	} 
 	

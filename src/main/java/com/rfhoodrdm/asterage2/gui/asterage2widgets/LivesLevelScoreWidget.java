@@ -5,45 +5,54 @@ package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
-import java.text.DecimalFormat;
+
 import javax.swing.SwingConstants;
+
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.state.Asterage2State;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class LivesLevelScoreWidget
-extends BaseAsterageWidget
-{
+	extends BaseAsterageWidget {
+	
+	private static final long serialVersionUID = -9000888471240341608L;
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	HUDLabel levelDescriptionLabel;			//"Level:"
-	HUDLabel levelCountLabel;				//what actual level we are on
-	HUDLabel livesDescriptionLabel;			//"Lives:"
-	HUDLabel livesCountLabel;				//how many actual lives are left.
-	HUDLabel scoreDescriptionLabel;			//"Score:"
-	HUDLabel scoreCountLabel;				//shows the actual game score
+	
+	private final HUDLabel levelDescriptionLabel;		//"Level:"
+	private final HUDLabel levelCountLabel;				//what actual level we are on
+	private final HUDLabel livesDescriptionLabel;		//"Lives:"
+	private final HUDLabel livesCountLabel;				//how many actual lives are left.
+	private final HUDLabel scoreDescriptionLabel;		//"Score:"
+	private final HUDLabel scoreCountLabel;				//shows the actual game score
 	
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public LivesLevelScoreWidget()
-	{
+	public LivesLevelScoreWidget() {
 		super();
-		initializeSubComponents();
-	} //end constructor
-	
-	@Override
-	protected void initializeSubComponents()
-	{
+		
 		levelDescriptionLabel = new HUDLabel	("Lvl:",			HUDLabel.HUDLabelType.STANDARD);
 		levelCountLabel = new HUDLabel			("00",				HUDLabel.HUDLabelType.MONOSPACE);
 		livesDescriptionLabel = new HUDLabel	("Ships:",			HUDLabel.HUDLabelType.STANDARD);
 		livesCountLabel = new HUDLabel			("00",				HUDLabel.HUDLabelType.MONOSPACE);
 		scoreDescriptionLabel = new HUDLabel	("Score:",			HUDLabel.HUDLabelType.STANDARD);
 		scoreCountLabel = new HUDLabel			("000000000000",	HUDLabel.HUDLabelType.MONOSPACE);
+		
+		initializeSubComponents();
+	} 
+	
+	@Override
+	protected void initializeSubComponents() {
 		
 		//set left horizontal text alignment for the actual number count labels, and make them show white text
 		levelCountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -96,19 +105,17 @@ extends BaseAsterageWidget
 //		add( scoreDescriptionLabel);
 //		add( scoreCountLabel);
 		
-	} //end method initializeSubComponents
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
 
 	/**
-	 *
-	 * @param asterage2State
+	 * Displays current numerical game stats.
 	 */
 	@Override
-	public void updateDisplay( Asterage2State asterage2State )
-	{
+	public void updateDisplay( Asterage2State asterage2State )	{
 		int currentGameLevel = asterage2State.getGameLevel();
 		int currentShipsRemaining = asterage2State.getRemainingShips();
 		long currentScore = asterage2State.getScore();
@@ -116,16 +123,13 @@ extends BaseAsterageWidget
 		levelCountLabel.setText(""+ String.format("%02d", currentGameLevel) );
 		livesCountLabel.setText(""+ String.format("%02d", currentShipsRemaining) );
 		scoreCountLabel.setText(""+ String.format("%012d", currentScore));
-	} //end method updateDisplay
+	} 
 	
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
 	
-	
-	
-	
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
-} //end class LivesLevelScoreWidget
+} 

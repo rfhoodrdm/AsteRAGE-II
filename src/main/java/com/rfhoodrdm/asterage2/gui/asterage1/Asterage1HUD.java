@@ -1,6 +1,4 @@
-package com.rfhoodrdm.asterage2.gui;
-
-import com.rfhoodrdm.asterage2.gui.Image;
+package com.rfhoodrdm.asterage2.gui.asterage1;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,47 +8,59 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
+import org.springframework.stereotype.Component;
+
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.IconButtonTemplate;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import com.rfhoodrdm.asterage2.state.Asterage1State;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
  * Displays the game stats for the player during a game of AsteRAGE classic.
  */
+@Component
+@Slf4j
 public class Asterage1HUD
-extends PanelTemplate
-{
+	extends PanelTemplate
+	implements RequiresLoadedData {
+	
+	private static final long serialVersionUID = -1392377842957687827L;
+
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	Asterage1State asterage1State;
+	private final Asterage1State asterage1State;
 	
 	public final int hudWidth = 1200;
 	public final int hudHeight = 100;
 	
-	JLabel shieldLabel;
-	JLabel scoreLabel;
-	JLabel levelLabel;
-	JLabel mythiciteLabel;
+	private JLabel shieldLabel;
+	private JLabel scoreLabel;
+	private JLabel levelLabel;
+	private JLabel mythiciteLabel;
 	
-	JProgressBar shieldBar;
-	JProgressBar mythiciteBar;
-	JTextField scoreTextField;
-	JTextField levelTextField;
-	JTextField livesTextField;
+	private JProgressBar shieldBar;
+	private JProgressBar mythiciteBar;
+	private JTextField scoreTextField;
+	private JTextField levelTextField;
+	private JTextField livesTextField;
 	
-	ShipLivesIcon shipLivesIcon;
+	private ShipLivesIcon shipLivesIcon;
 	
-	Color hudTextColor = new Color ( 255, 0, 0);
-	Font hudTextFont = new Font("Skia", Font.BOLD, 20);
+	private Color hudTextColor = new Color ( 255, 0, 0);
+	private Font hudTextFont = new Font("Skia", Font.BOLD, 20);
 	
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Asterage1HUD()
-	{
+	
+	public Asterage1HUD(Asterage1State asterage1State) {
 		//set the location of this component.
 		this.setBounds (0, 590, 1200, 100 );
 		shieldLabel = new JLabel("Shields:");
@@ -62,7 +72,7 @@ extends PanelTemplate
 		scoreTextField = new JTextField();
 		levelTextField = new JTextField();
 		livesTextField = new JTextField();
-		shipLivesIcon = new ShipLivesIcon ( new ImageIcon (Image.EXTRA_LIFE_ICON.getImage() ) );
+		shipLivesIcon = new ShipLivesIcon();
 		
 		shieldLabel.setFont(hudTextFont);
 		scoreLabel.setFont(hudTextFont);
@@ -100,12 +110,14 @@ extends PanelTemplate
 		this.add(livesTextField);
 		this.add(shipLivesIcon);
 		
-	} //end constructor
+		this.asterage1State = asterage1State;
+	} 
 	
-	public void setAsterage1State ( Asterage1State passedState )
-	{
-		this.asterage1State = passedState;
-	} //end function setAsterage1State
+	@Override
+	public void loadRequiredData(DataLoader dataLoader) {
+		shipLivesIcon.setIcon(new ImageIcon (Image.EXTRA_LIFE_ICON.getImage()));
+	}
+
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
@@ -128,12 +140,18 @@ extends PanelTemplate
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
-	class ShipLivesIcon extends IconButtonTemplate
-	{
-		//constructor
-		ShipLivesIcon ( ImageIcon imageIcon)
-		{
-			super (imageIcon );
-		} //end function 
-	} //end class ShipLivesIcon
+	
+	class ShipLivesIcon extends IconButtonTemplate	{
+		
+		private static final long serialVersionUID = 8279452475872503820L;
+
+		ShipLivesIcon () {
+			super();
+		} 
+		
+		public void setIcon(ImageIcon imageIcon) {
+			setIcon(imageIcon);
+		}
+	} 
+
 }

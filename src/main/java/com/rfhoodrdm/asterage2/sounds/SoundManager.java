@@ -24,7 +24,6 @@ public class SoundManager
 		********************************************************************** */
 	
 	private Semaphore soundLock;					//semaphore protecting against concurrent access.
-	private int trackNumber;						//current track number in the music sequence currently being played.
 	private SOUNDTRACK_SEQUENCE currentSoundTrack;	//which set of songs is currently playing?
 	
 	
@@ -35,7 +34,6 @@ public class SoundManager
 	public SoundManager()	{
 		soundLock = new Semaphore ( 1, true );			//concurrency lock set to 1 permit, fairness enforced.
 		currentSoundTrack = SOUNDTRACK_SEQUENCE.NONE;	//no song playing initially.
-		trackNumber = 0;								//explicitly initialize to 0. We start counting from there.
 	} 
 	
 	/*	**********************************************************************
@@ -207,15 +205,13 @@ public class SoundManager
 		soundLock.acquireUninterruptibly();
 		
 		//check and see if there really has been a change
-		if ( chosenSequence == currentSoundTrack )
-		{
+		if ( chosenSequence == currentSoundTrack ) {
 			soundLock.release();
 			return;					//no need to change. Exit now.
 		}
 		
 		//otherwise, change the background music. set the new track to 0.
 		currentSoundTrack = chosenSequence;
-		trackNumber = 0;
 		
 		//finally, halt what is currently playing, so the manager starts playing the new track.
 		haltAllMusic ();

@@ -1,33 +1,37 @@
 package com.rfhoodrdm.asterage2.gui;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
+
+import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 
-import java.awt.Color;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * GameFrame is the main frame for the entire program gui. It is where the main panel is placed, which houses
  * the main title screen, and AsteRAGE 1 and AsteRAGE 2 game panels.
  */
+@Component
+@Slf4j
 public class GameFrame
-extends JFrame
-{
+	extends JFrame {
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
 	
-	private GUI gui;		//reference to top level component.
+	private static final long serialVersionUID = 4308661087062412979L;
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public GameFrame ( GUI passedGUI )
-	{
+	public GameFrame()	{
 		super ( GameConstants.GAME_NAME + " - " + 
-				GameConstants.GAME_VERSION);						//display game title and version in window.
-		this.gui = passedGUI;
+				GameConstants.GAME_VERSION);				
 		
 		//set the parameters of this component.
 		this.setSize( GUI.panelWidth , GUI.panelHeight + 25);	//use given component sizes. Add some pixels to accomodate menu bar size differences
@@ -37,7 +41,7 @@ extends JFrame
 		this.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );	//exit game on closing of window.
 		
 		this.setIgnoreRepaint(false);
-	} //end constructor.
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************

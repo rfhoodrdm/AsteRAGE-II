@@ -6,9 +6,12 @@ import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_PO
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SpaceEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.WarpOutEffect;
@@ -22,51 +25,61 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMiningPod;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollMothership;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
-import com.rfhoodrdm.asterage2.gui.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Component
 public class Asterage2State
-{
+	implements RequiresLoadedData {
+	public static int POP_UP_MESSAGE_MAX_EXPIRED_COUNTER = GameConstants.FRAMES_PER_SECOND;	//how long until message expires
+	public static int POP_UP_MESSAGE_CLEAR_TIME = GameConstants.FRAMES_PER_SECOND / 3;		//at what point in the countdown is the message cleared?
+	public static final int MAX_SPECIAL_ITEM_DROPS_PER_LEVEL = 2;
+	public static final long POINTS_REQUIRED_PER_EXTRA_LIFE = 20000;						//number of required points for each extra life.
+	public static final int MAX_WARP_OUT_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 5;	//5 seconds
+	public static final int MIN_SHIP_SYSTEM_LEVEL = 0;										//lower bound on ship system level
+	public static final int MAX_SHIP_SYSTEM_LEVEL = 2;										//how many times may a system be upgraded.
+	public static final int MAX_POWER_UP_POINTS = 5;		//how many points can the player possibly collect at once?
+	public static final int MIN_POWER_UP_POINTS = 0;		//lowest possible number of points the player may have at once.
+	public static final int MAX_TROLL_SCOUT_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 30;					//one every 30 seconds.
+	public static final int TROLL_SCOUT_COUNTDOWN_DEFERMENT_BONUS = GameConstants.FRAMES_PER_SECOND * 10;		//defer 10 seconds
+	public static final int TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 2;			//3 seconds worth
+
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
+	
 	private HighScoreDirectory highScoreDirectory;
 	private DataLoader dataLoader;
 	
 	//graphical display data members
 	private int frameNumber = 0;			//what redraw frame are we on? Out of however many frames per second.
 	
-	
 	//game stats data members
-	private int gameLevel;					//what level is currently being played?
-	private int remainingShips;				//how many ships does the player have left?
-	private int extraLivesAwarded;			//how many extra lives have been awarded already?
-	private long score;						//how many points has the player earned?
+	@Getter @Setter private int gameLevel;					//what level is currently being played?
+	@Getter @Setter private int remainingShips;				//how many ships does the player have left?
+	@Getter @Setter(AccessLevel.PRIVATE) private int extraLivesAwarded;			//how many extra lives have been awarded already?
+	@Getter @Setter private long score;						//how many points has the player earned?
 	private GameState gameState;			//what is the current state of the current game?
-	private boolean requestToSpawnShipFlag;	//set to true when the player requests to spawn the ship.
-	
-	public static final long POINTS_REQUIRED_PER_EXTRA_LIFE = 20000;		//number of required points for each extra life.
+	@Getter @Setter private boolean requestToSpawnShipFlag;	//set to true when the player requests to spawn the ship.
 	
 	private int warpOutCountdown;			//countdown timer to end of warp-out sequence.
-	public static final int MAX_WARP_OUT_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 5;	//5 seconds
-	
 	
 	//information about various ship's systems and upgrade levels.
-	public static final int MIN_SHIP_SYSTEM_LEVEL = 0;		//lower bound on ship system level
-	public static final int MAX_SHIP_SYSTEM_LEVEL = 2;		//how many times may a system be upgraded.
-	private int powerUpPoints;								//how many power up points have been collected.
-	public static final int MAX_POWER_UP_POINTS = 5;		//how many points can the player possibly collect at once?
-	public static final int MIN_POWER_UP_POINTS = 0;		//lowest possible number of points the player may have at once.
+	
+	private int powerUpPoints;										//how many power up points have been collected.
 	private PowerUpMenuOption currentSelectedPowerUpMenuOption;		//which option from the menu is currently selected?
 	
-	private Multi_Shot_Direction multiShotDirection;			//which side of the ship is the multi shot fired on?
-	
+	private Multi_Shot_Direction multiShotDirection;				//which side of the ship is the multi shot fired on?
 	
 	//List of In-Play Game objects
 	private PlayerShip playerShip;
@@ -77,23 +90,15 @@ public class Asterage2State
 	private ConcurrentLinkedQueue<SpaceEffect> spaceEffectList;		//list of space effects not attached to other objects.
 	private ConcurrentLinkedQueue<HomingMissile> homingMissileList;	//list of homing missiles currently on the screen.
 	
-	private boolean popUpMessageBeingShown;													//is a message currently on the screen.
-	private int popUpMessageExpiredCounter;													//countdown to expired message.
-	public static int POP_UP_MESSAGE_MAX_EXPIRED_COUNTER = GameConstants.FRAMES_PER_SECOND;	//how long until message expires
-	public static int POP_UP_MESSAGE_CLEAR_TIME = GameConstants.FRAMES_PER_SECOND / 3;		//at what point in the countdown is the message cleared?
-	
-	
-	//troll state objects and constants.
-	public static final int MAX_TROLL_SCOUT_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 30;	//one every 30 seconds.
-	public static final int TROLL_SCOUT_COUNTDOWN_DEFERMENT_BONUS = GameConstants.FRAMES_PER_SECOND * 10;	//defer 10 seconds
-	private int remainingTrollScoutCountdown;
-	
-	private int countSpecialItemsDroppedThisLevel;
-	public static final int MAX_SPECIAL_ITEM_DROPS_PER_LEVEL = 2;
+	private boolean popUpMessageBeingShown;		//is a message currently on the screen.
+	private int popUpMessageExpiredCounter;		//countdown to expired message.
+
+	//troll state objects 
+	@Getter @Setter private int remainingTrollScoutCountdown;
+	@Getter @Setter private int countSpecialItemsDroppedThisLevel;
 	
 	private boolean spawnedTrollMothershipRecently = false;
 	private boolean trollMothershipSpawnCountdownInProgress = false;
-	public static final int TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN = GameConstants.FRAMES_PER_SECOND * 2;	//3 seconds worth
 	private int currentTrollMothershipSpawnCountdown = TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN;
 	
 	private SoundManager soundManager; //TODO: this should not be called from state, perhaps. Refactor!
@@ -102,17 +107,18 @@ public class Asterage2State
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public Asterage2State ( DataLoader passedLoader, SoundManager soundManager )
-	{
+	public Asterage2State (SoundManager soundManager) {
 		this.soundManager = soundManager;	//TODO: see comment above. Refactor!
-		dataLoader = passedLoader;
-		highScoreDirectory = new HighScoreDirectory( HighScoreDirectory.GAME_IDENTIFIER.ASTERAGE2,
-														dataLoader);
 		initializeAsterage2State();
-	}  //end constructor
+	}  
 	
-	public void initializeAsterage2State()
-	{
+	@Override
+	public void loadRequiredData(DataLoader dataLoader) {
+		highScoreDirectory = new HighScoreDirectory( HighScoreDirectory.GAME_IDENTIFIER.ASTERAGE2,
+				dataLoader);
+	}
+	
+	public void initializeAsterage2State() {
 		//initialize the game state variables.
 		setGameLevel(1);													//default game level is 1.
 		setRemainingShips(3);												//starting number of lives 
@@ -141,38 +147,22 @@ public class Asterage2State
 		trollMothershipSpawnCountdownInProgress = false;				//set countdown-in-progress flag to false
 		currentTrollMothershipSpawnCountdown = 
 				TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN;					//reset countdown to max.
-	} //end method initializeAsterage2State
+	} 
 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	public int getGameLevel() { return this.gameLevel; }
-	public void setGameLevel( int passedGameLevel ) { this.gameLevel = passedGameLevel; }
-	
-	public int getRemainingShips() { return this.remainingShips; }
-	public void setRemainingShips( int passedRemainingShips ) { this.remainingShips = passedRemainingShips; }
-	
-	public long getScore() { return this.score;}
-	public void setScore( long passedScore ) { this.score = passedScore; }
-	
-	public boolean checkRequestToSpawnShipFlag()	{	return requestToSpawnShipFlag;	}
-	public void setRequestToSpawnShipFlag(boolean requestToSpawnShipFlag)	{	this.requestToSpawnShipFlag = requestToSpawnShipFlag;	}
-	
 	
 	public GameState getGameState() { return this.gameState; }
-	public void setGameState( GameState newGameState ) 
-	{ 
+	public void setGameState( GameState newGameState ) { 
 		this.gameState = newGameState; 
 		//if the state is WARPING OUT, then reset the warping out timer.
-		if ( GameState.WARPING_OUT == newGameState )
-		{
+		if ( GameState.WARPING_OUT == newGameState ) {
 			resetWarpingOutCountDown();
-		} //end if check for warping out state counter reset
-	} //end method setGameState
+		} 
+	} 
 	
-	public int getRemainingTrollScoutCountdown() { return this.remainingTrollScoutCountdown; }
-	public void setRemainingTrollScoutCountdown( int newCountDown ) { this.remainingTrollScoutCountdown = newCountDown; }
 	public void resetTrollScoutCountdown() { this.remainingTrollScoutCountdown = MAX_TROLL_SCOUT_COUNTDOWN; }
 	public void grantTrollScoutCountdownDeferment() { this.remainingTrollScoutCountdown += TROLL_SCOUT_COUNTDOWN_DEFERMENT_BONUS;}
 	public boolean checkTimeToSpawnTrollScout() { return ( 0 == getRemainingTrollScoutCountdown() ); }
@@ -191,7 +181,7 @@ public class Asterage2State
 		//decrement by 1, don't go below 0.
 		warpOutCountdown = ( warpOutCountdown > 0 ) ?
 				(warpOutCountdown - 1) : 0;				
-	} //end method decrementWarpoutCownDown
+	}
 
 	
 	public int getRemainingShieldPercentage() 
@@ -202,30 +192,25 @@ public class Asterage2State
 	} //end method getRemainingShieldPercentage
 	
 	public int getPowerUpPoints() { return this.powerUpPoints; } //return 5; }//debug code
-	public void setPowerUpPoints( int passedPowerUpPoints ) 
-	{
+	public void setPowerUpPoints( int passedPowerUpPoints ) {
 		//set the number of power up points.
 		//If the argument is below the minimum, use the minimum instead. 
 		//Likewise, if the argument is above the maximum, use the maximum instead.
 		if ( passedPowerUpPoints < MIN_POWER_UP_POINTS )	{	powerUpPoints = MIN_POWER_UP_POINTS;	}
 		else if ( passedPowerUpPoints > MAX_POWER_UP_POINTS )	{ powerUpPoints = MAX_POWER_UP_POINTS; }
 		else { powerUpPoints = passedPowerUpPoints; }
-	} //end method setPowerUpPoints
+	}
 	
 	
 	public PowerUpMenuOption getCurrentSelectedPowerUpMenuOption() { return this.currentSelectedPowerUpMenuOption; }
-	public void setCurrentSelectedPowerUpMenuOption ( PowerUpMenuOption passedOption ) 
-	{ 
-		if ( null != passedOption ) 
-		{
+	public void setCurrentSelectedPowerUpMenuOption ( PowerUpMenuOption passedOption ) 	{ 
+		if ( null != passedOption ) 		{
 			this.currentSelectedPowerUpMenuOption = passedOption;
-		} //end if check for null case
-	} //end method setCurrentSelectedPowerUpMenuOption
+		} 
+	} 
 	
 	/**
 	 * Check the current level of the system, if applicable.
-	 * @param whichSystem
-	 * @return 
 	 */
 	public boolean checkSystemAtMaxLevel( PowerUpMenuOption whichSystem )
 	{
@@ -249,15 +234,14 @@ public class Asterage2State
 			default: 
 				log.warn("Cannot check max level of system: {} is not recognized.", whichSystem);
 				return false;
-		} //end switch based on which system
-	} //end method checkSystemAtMaxLevel
+		} 
+	} 
 	
 	/**
 	 * Upgrade the system designated.
 	 * @param whichSystem 
 	 */
-	public void upgradeSystem( PowerUpMenuOption whichSystem )
-	{
+	public void upgradeSystem( PowerUpMenuOption whichSystem )	{
 		//check first to see if the system is at max level already, just to be safe.
 		if ( true == checkSystemAtMaxLevel(whichSystem)) 
 		{ 
@@ -539,8 +523,6 @@ public class Asterage2State
 	} //end method checkShipExplosionEffectOnBoard
 	
 	
-	private void setExtraLivesAwarded ( int livesAwardedTallyToSet ) { this.extraLivesAwarded = livesAwardedTallyToSet; }
-	public int getExtraLivesAwarded() { return this.extraLivesAwarded; }
 	public void incrementExtraLivesAwarded() { extraLivesAwarded += 1; }
 	public long getPointsRequiredForNextExtraLife() 
 	{ 
@@ -599,49 +581,38 @@ public class Asterage2State
 	public int getShieldGeneratorLevel()			{	return playerShip.getShieldGeneratorLevel();	}
 	public boolean checkGravityNetEquipped()		{	return playerShip.checkGravityNetEquipped();	}
 	
-	public void setHomingMissileLevel( int passedLevel )
-	{
-		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL))
-		{
+	public void setHomingMissileLevel( int passedLevel ) {
+		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL)) {
 			playerShip.setHomingMissileLevel(passedLevel);
-		} //end if check for out of bounds.
-	} //end method setHomingMissileLevel
+		} 
+	} 
 	
-	public void setMultiShopLevel( int passedLevel )
-	{
-		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL))
-		{
+	public void setMultiShopLevel( int passedLevel ) {
+		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL)) {
 			playerShip.setMultiShotLevel(passedLevel);
-		} //end if check for out of bounds.
-	} //end method setMultiShopLevel
+		} 
+	} 
 	
-	public void setDecelerationLevel( int passedLevel )
-	{
-		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL))
-		{
+	public void setDecelerationLevel( int passedLevel )	{
+		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL)) {
 			playerShip.setDecelerationLevel(passedLevel);
-		} //end if check for out of bounds.
-	} //end method setDecelerationLevel
+		} 
+	} 
 	
-	public void setShieldGeneratorLevel( int passedLevel )
-	{
-		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL))
-		{
+	public void setShieldGeneratorLevel( int passedLevel )	{
+		if ((passedLevel >= MIN_SHIP_SYSTEM_LEVEL) && (passedLevel <= MAX_SHIP_SYSTEM_LEVEL))		{
 			playerShip.setShieldGeneratorLevel(passedLevel);
-		} //end if check for out of bounds.
-	} //end method setShieldGeneratorLevel
+		} 
+	} 
 	
 	public void setSonicDisruptorEquipped( boolean passedEquippedValue ) { playerShip.setSonicDisruptorEquipped(passedEquippedValue); }
 	public void setGravityNetEquipped( boolean passedEquippedValue ) { playerShip.setGravityNetEquipped(passedEquippedValue); }
 	
-	
-	public int getSpecialItemDropCounter() { return this.countSpecialItemsDroppedThisLevel; }
-	public void setSpecialItemDropCounter( int newValue ) { this.countSpecialItemsDroppedThisLevel = newValue; }
 	public void incrementSpecialItemDropCounter() { this.countSpecialItemsDroppedThisLevel += 1; }
 	public boolean checkSpecialItemDropsLeftThisLevel() 
 	{
 		//return the value resulting from comparing to see if the number of drops is below the max for the level.
-		return ( getSpecialItemDropCounter() < this.MAX_SPECIAL_ITEM_DROPS_PER_LEVEL );
+		return ( getCountSpecialItemsDroppedThisLevel() < MAX_SPECIAL_ITEM_DROPS_PER_LEVEL );
 	} //end method specialItemDropsLeftThisLevel
 	public void resetSpecialItemDropCounter() { this.countSpecialItemsDroppedThisLevel = 0; }
 	
@@ -704,8 +675,7 @@ public class Asterage2State
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-	public static enum PowerUpMenuOption
-	{
+	public static enum PowerUpMenuOption {
 		//each enum should have an index to identify it. All indicies should be contiguous.
 		DECELERATION(0, 1),
 		HOMING_MISSILE(1, 2),
@@ -713,8 +683,8 @@ public class Asterage2State
 		EXTRA_POINTS(3, 4),
 		MULTISHOT(4, 5);
 		
-		int index;
-		int cost;
+		private int index;
+		private int cost;
 		
 		PowerUpMenuOption( int passedIndex,int passedCost )
 		{
@@ -723,14 +693,12 @@ public class Asterage2State
 		} //end constructor
 		
 		public int toInt() { return this.index; }
-		public static PowerUpMenuOption fromInt ( int indexToMatch ) 
-		{
+		
+		public static PowerUpMenuOption fromInt ( int indexToMatch ) {
 			//go through each option, looking for a match. 
 			//If no match found, throw an exception rather than returning null.
-			for ( PowerUpMenuOption currentOption : values() )
-			{
-				if ( indexToMatch == currentOption.toInt() ) 
-				{ 
+			for ( PowerUpMenuOption currentOption : values() )		{
+				if ( indexToMatch == currentOption.toInt() ) 	{ 
 					return currentOption; 
 				}
 			} //end for loop iterating through Power Up Menu Options
@@ -738,8 +706,7 @@ public class Asterage2State
 			throw new IllegalArgumentException ( "Cannot match Power Up option with index of : " + indexToMatch );
 		} //end menu from 
 		
-		public PowerUpMenuOption getNext() 
-		{
+		public PowerUpMenuOption getNext() 	{
 			//get the current index, and add one, adjusting for the limit.
 			int currentIndex = this.toInt();
 			int indexModulus = values().length;
@@ -748,8 +715,7 @@ public class Asterage2State
 			return fromInt ( indexToFind );
 		} //end method getNext
 		
-		public PowerUpMenuOption getPrevious()
-		{
+		public PowerUpMenuOption getPrevious()	{
 			//check if we are at 0. If so, then we go to the highest indexed item. If not, just subtract 1.
 			int currentIndex = this.toInt();
 			int maxIndex = values().length - 1;
@@ -764,15 +730,13 @@ public class Asterage2State
 	} //end enum PowerUpMenuOption
 	
 	
-	public static enum Multi_Shot_Direction
-	{
+	public static enum Multi_Shot_Direction	{
 		LEFT,
 		RIGHT;
 	} //end enum Multi Shot Direction
 	
 	
-	public static enum GameState
-	{
+	public static enum GameState	{
 		RUNNING,
 		PAUSE,
 		GAME_OVER,
@@ -780,8 +744,7 @@ public class Asterage2State
 	} //end enum GameState definition
 	
 	
-	public static enum POINT_AWARDS
-	{
+	public static enum POINT_AWARDS	{
 		LARGE_ASTEROID_HIT(10l),
 		MEDIUM_ASTEROID_HIT(10l),
 		SMALL_ASTEROID_HIT(10l),
@@ -798,4 +761,5 @@ public class Asterage2State
 		
 		public long getPointAward() { return this.pointAward; }
 	}
-} //end class Asterage2State
+
+} 

@@ -2,9 +2,10 @@ package com.rfhoodrdm.asterage2.state;
 
 import java.util.concurrent.Semaphore;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
-import com.rfhoodrdm.asterage2.sounds.SoundManager;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,23 +15,18 @@ import lombok.extern.slf4j.Slf4j;
  * Holds information pertaining to the splash screen, as well as AsteRAGE 1 and 2.
  */
 @Slf4j
+@Component
 public class State
 {
 	/*	**********************************************************************
 		*******************			Data Members			******************
-		********************************************************************** */
-	//references to other components.		
-	@Getter
-	private TitleState titleState;
-	
-	@Getter
-	private Asterage1State asterage1State;
-	
-	@Getter
-	private Asterage2State asterage2State;
+		********************************************************************** */	
+	private final TitleState titleState;
+	private final Asterage1State asterage1State;
+	private final Asterage2State asterage2State;
 	
 	//state semaphore lock, protecting against concurrent access.
-	private Semaphore stateLock;
+	private final Semaphore stateLock;
 	
 	@Getter
 	private CurrentState currentState;		//Which game state is the active one? Default is title screen.
@@ -39,22 +35,16 @@ public class State
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public State ( DataLoader passedLoader, SoundManager soundManager )
-	{
+	public State(TitleState titleState, Asterage1State asterage1State, Asterage2State asterage2State) {
+		this.titleState = titleState;
+		this.asterage1State = asterage1State;
+		this.asterage2State = asterage2State;
+		
 		//initialize the state semaphore lock to 1 permit, fairness enforced.
 		stateLock = new Semaphore ( 1, true );
 		
 		//the initial currently active state is the title screen.
-		 this.currentState = CurrentState.TITLE_SCREEN;
-		 
-		 //initialize all state objects.
-		 titleState = new TitleState();
-		 titleState.initializeTitleState();
-		 
-		 asterage1State = new Asterage1State( passedLoader );
-		 asterage1State.initializeAsterage1State();
-		 asterage2State = new Asterage2State( passedLoader, soundManager );
-		 asterage2State.initializeAsterage2State();
+		 this.currentState = CurrentState.TITLE_SCREEN; 
 	} 
 	
     /*	**********************************************************************
@@ -80,6 +70,6 @@ public class State
 		
 		//release the lock.
 		stateLock.release();
-	} 
+	}
 	
 }

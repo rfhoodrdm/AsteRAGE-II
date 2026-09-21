@@ -4,6 +4,8 @@ package com.rfhoodrdm.asterage2.controller;
 import java.awt.event.KeyEvent;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.Alien;
@@ -33,24 +35,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
+@Component
 public class Asterage1Controller {
 	/*
 	 * ********************************************************************** Data
 	 * Members ******************
 	 */
-	@Getter
-	@Setter
-	private GUI gui;
 
-	@Getter
-	@Setter
-	private Controller controller;
-
-	@Getter
-	@Setter
-	private Asterage1State asterage1State;
+	private final GUI gui;
+	private final Asterage1State asterage1State;
 
 	private int specialConditionCheckCounter = 1;
 	private int maxSpecialConditionCheckCounter = GameConstants.FRAMES_PER_SECOND; // 1 special update per second.
@@ -62,7 +56,9 @@ public class Asterage1Controller {
 	 ******************** Constructor ******************
 	 */
 
-	public Asterage1Controller(SoundManager soundManager) {
+	public Asterage1Controller(GUI gui, Asterage1State asterage1State, SoundManager soundManager) {
+		this.gui = gui;
+		this.asterage1State = asterage1State;
 		this.soundManager = soundManager;
 	}
 
@@ -98,11 +94,6 @@ public class Asterage1Controller {
 			incrementSpecialUpdateCounter();
 
 		}
-		// update the stats board to reflect the new values of the game state.
-		gui.repaint();
-
-		// redraw the screen.
-		gui.repaint();
 	}
 
 	/**
@@ -237,7 +228,8 @@ public class Asterage1Controller {
 			case KeyEvent.VK_DELETE:
 			case KeyEvent.VK_BACK_SPACE:
 				if (Asterage1State.GAME_STATUS.GAME_OVER == asterage1State.getGameStatus()) {
-					returnToTitleScreen();
+					//TODO: this is where we need to call a return to the title screen.
+					//returnToTitleScreen();
 				}
 				break;
 
@@ -640,7 +632,10 @@ public class Asterage1Controller {
 		playerShip.damageShields(amountDamage, spaceObjectList);
 		if (false == playerShip.hasShieldsAttached()) {
 			ShieldRing shieldRing = new ShieldRing(playerShip);
-			playerShip.attachShields(shieldRing);
+			playerShip.attachShields(shieldRing);//	@Getter
+//			@Setter
+//			private GUI gui;
+
 			spaceObjectList.add(shieldRing);
 		} else {
 			playerShip.renewShieldEffect();
@@ -1146,11 +1141,12 @@ public class Asterage1Controller {
 		}
 	}
 
-	/**
-	 * Quit game and return to title screen.
-	 */
-	private void returnToTitleScreen() {
-		controller.switchActiveState(CurrentState.TITLE_SCREEN);
-	}
+	//TODO: repair a way to transition back to title screen from game over. We had to sever the direct connection to the top-level controller due to DI rewiring.
+//	/**
+//	 * Quit game and return to title screen.
+//	 */
+//	private void returnToTitleScreen() {
+//		controller.switchActiveState(CurrentState.TITLE_SCREEN);
+//	}
 
 }

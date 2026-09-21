@@ -5,32 +5,30 @@ import org.springframework.stereotype.Component;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.GUI;
 
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * The GamePulse class is responsible for clock ticks that trigger game state
- * changes, as well as screen redraws. It is its own thread.
+ * changes, as well as screen redraws. 
  */
 @Component
+@RequiredArgsConstructor
 public class GamePulse
 	implements Runnable {
 	
     /*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-    private int restBetweenTicks;		//how much time between clock pulses.
+	
+    private int restBetweenTicks = 1000 / GameConstants.FRAMES_PER_SECOND;		//how much time between clock pulses.
     
 	//references to other components.
-    @Setter private Controller controller;
-    @Setter private GUI gui;
+    private final Controller controller;
+    private final GUI gui;
     
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-    public GamePulse() {
-		//Get the number of frames per second from the GameConstants object.
-		restBetweenTicks = 1000 / GameConstants.FRAMES_PER_SECOND;
-    }
     
     /*	**********************************************************************
 		********************		Class Interface			******************
@@ -59,6 +57,7 @@ public class GamePulse
 			}
 
 			controller.updateState();
+			gui.repaint();
 		} 
     }
 }

@@ -23,8 +23,8 @@ public class Controller
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-    private State state;
-    private GUI gui;
+    private final State state;
+    private final GUI gui;
 	
     private TitleController titleController;
     private Asterage1Controller asterage1Controller;
@@ -33,34 +33,37 @@ public class Controller
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Controller(SoundManager soundManager) {
-		titleController = new TitleController(soundManager);
-		asterage1Controller = new Asterage1Controller(soundManager);
-		asterage2Controller = new Asterage2Controller(soundManager);
+	public Controller(State state, GUI gui) {
+		this.state = state;
+		this.gui = gui;
+//		this.soundManager = soundManager;
 		
-		//set the master controller reference right away
-		titleController.setController ( this ) ;
-		asterage1Controller.setController( this );
-		asterage2Controller.setController( this );
+//		titleController = new TitleController(soundManager);
+//		asterage1Controller = new Asterage1Controller(soundManager);
+//		asterage2Controller = new Asterage2Controller(soundManager);
+//		
+//		//set the master controller reference right away
+//		titleController.setController ( this ) ;
+//		asterage1Controller.setController( this );
+//		asterage2Controller.setController( this );
 	} 
 	
-	public void setState ( State passedState ) {
-		this.state = passedState;
-		
-		//once we have the master state object, set all of our components' state references
-		titleController.setTitleState ( state.getTitleState() );	
-		asterage1Controller.setAsterage1State( state.getAsterage1State() );
-		asterage2Controller.setAsterage2State( state.getAsterage2State() );
-	} 
+//	public void setState ( State passedState )
+//		
+//		//once we have the master state object, set all of our components' state references
+//		titleController.setTitleState ( state.getTitleState() );	
+//		asterage1Controller.setAsterage1State( state.getAsterage1State() );
+//		asterage2Controller.setAsterage2State( state.getAsterage2State() );
+//	} 
 	
-	public void setGUI ( GUI passedGUI ) {
-		this.gui = passedGUI;
-		
-		//pass each controller subcomponent a reference to the high level gui object.
-		titleController.setGui(passedGUI);
-		asterage1Controller.setGui ( gui );
-		asterage2Controller.setGui( gui );
-	} 
+//	public void setGUI ( GUI passedGUI ) {
+//		this.gui = passedGUI;
+//		
+//		//pass each controller subcomponent a reference to the high level gui object.
+//		titleController.setGui(passedGUI);
+//		asterage1Controller.setGui ( gui );
+//		asterage2Controller.setGui( gui );
+//	} 
 	
     /*	**********************************************************************
 		********************		Class Interface			******************
@@ -96,16 +99,16 @@ public class Controller
 	/**
 	 * Organizes the switch of the current, officially active state between Title screen, Asterage 1, and Asterage 2.
 	 */
-	public void switchActiveState ( CurrentState newState ) {
-		//change and reinitialize the current active state.
-		state.changeCurrentActiveState( newState );
-		
-		//initialize the respective games.
-		asterage2Controller.beginNewGame();
-		
-		//show the correct gui components.
-		gui.changeCurrentGuiShown();
-	} 
+//	public void switchActiveState ( CurrentState newState ) {
+//		//change and reinitialize the current active state.
+//		state.changeCurrentActiveState( newState );
+//		
+//		//initialize the respective games.
+//		asterage2Controller.beginNewGame();
+//		
+//		//show the correct gui components.
+//		gui.changeCurrentGuiShown();
+//	} 
     /*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */

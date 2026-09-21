@@ -4,13 +4,21 @@ package com.rfhoodrdm.asterage2.gui;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.controller.Controller;
+import com.rfhoodrdm.asterage2.gui.asterage1.Asterage1GameScreen;
+import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
+import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameScreen;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
+import com.rfhoodrdm.asterage2.gui.titlescreen.SplashScreen;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
 
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,8 +26,8 @@ import lombok.extern.slf4j.Slf4j;
  * and sound manager. It also contains references to the other modules.
  */
 @Slf4j
-public class GUI
-{
+@Component
+public class GUI {
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
@@ -28,37 +36,33 @@ public class GUI
 	public final static int panelWidth = 1200;	    //height of one game panel.
     public final static int panelHeight = 700;	    //width of one game panel.
 	
-	//references to other components.
-	private Controller controller;
-	private State state;
+	private final State state;
 	
 	//references to GUI components.
-	private GameFrame gameFrame;
-	private SplashScreen splashScreen;
-	private Asterage1GameScreen asterage1GameScreen;
-	private AsteRAGE2GameScreen asterage2GameScreen;
-	private SoundManager soundManager;
+	private final GameFrame gameFrame;
+	private final SplashScreen splashScreen;
+	private final Asterage1GameScreen asterage1GameScreen;
+	private final AsteRAGE2GameScreen asterage2GameScreen;
+	private final SoundManager soundManager;
 	
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public GUI (SoundManager soundManager)	{
-		gameFrame = new GameFrame( this );
-		
-		splashScreen = new SplashScreen ( this );
-		splashScreen.setVisible ( true );
-		asterage1GameScreen = new Asterage1GameScreen();
-		asterage1GameScreen.setVisible( false );
-		asterage2GameScreen = new AsteRAGE2GameScreen();
-		asterage2GameScreen.setVisible(false);
-		
-		gameFrame.setIgnoreRepaint(false);
-		
-		gameFrame.add( splashScreen );
-		gameFrame.add ( asterage1GameScreen );
-		gameFrame.add( asterage2GameScreen );
-		
+	public GUI (State state, SoundManager soundManager, GameFrame gameFrame, 
+			SplashScreen splashScreen, Asterage1GameScreen asterage1GameScreen, AsteRAGE2GameScreen asterage2GameScreen) {
+		this.state = state;
 		this.soundManager = soundManager;
+		
+		this.gameFrame = gameFrame;
+		
+		this.splashScreen = splashScreen;
+		splashScreen.setVisible ( true );
+		
+		this.asterage1GameScreen = asterage1GameScreen;
+		asterage1GameScreen.setVisible( false );
+		
+		this.asterage2GameScreen = asterage2GameScreen;
+		asterage2GameScreen.setVisible(false);
 	} 
 	
 	public void showInitialGUI ()	{
@@ -66,29 +70,28 @@ public class GUI
 		changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_1_TITLE_SCREEN);
 		gameFrame.requestFocus();
 	}
+
+	//TODO: Make this the bridge between the GUI and the controller in postconstruction, above!
+//	public void setController ( Controller passedController ) 	{
+//		this.controller = passedController;
+//		
+//		//attach the key adapter to capture key presses and releases. Pass it the controller reference.
+//		GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
+//		gameFrame.addKeyListener ( gameKeyAdapter ); 
+//		gameKeyAdapter.setController(controller);
+//	}
 	
-	public void setController ( Controller passedController ) 	{
-		this.controller = passedController;
-		
-		//attach the key adapter to capture key presses and releases. Pass it the controller reference.
-		GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
-		gameFrame.addKeyListener ( gameKeyAdapter ); 
-		gameKeyAdapter.setController(controller);
-	}
-	
-	/**
-	 * Set the master state reference.
-	 */
-	public void setState ( State passedState )	{
-		this.state = passedState;
-		
-		//set the relevant state reference for all the GUI's top level subcomponents.
-		splashScreen.setTitleState( state.getTitleState() );
-		splashScreen.setAsterage1State( state.getAsterage1State() );
-		splashScreen.setAsterage2State( state.getAsterage2State() );
-		asterage1GameScreen.setAsterage1State ( state.getAsterage1State() );
-		asterage2GameScreen.setAsterage2State( state.getAsterage2State() );
-	}
+//	/**
+//	 * Set the master state reference.
+//	 */
+//	public void setState ( State passedState )	{
+//		this.state = passedState;
+//		
+//		//set the relevant state reference for all the GUI's top level subcomponents.
+
+//		asterage1GameScreen.setAsterage1State ( state.getAsterage1State() );
+//		asterage2GameScreen.setAsterage2State( state.getAsterage2State() );
+//	}
 	
     /*	**********************************************************************
 		********************		Class Interface			******************

@@ -1,72 +1,85 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
-import com.rfhoodrdm.asterage2.gui.Image;
-
-import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
-import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
-import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import javax.swing.ImageIcon;
+
+import org.springframework.stereotype.Component;
+
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.state.Asterage2State;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class ShipPowerupStatusWidget
-extends BaseAsterageWidget
-{
+	extends BaseAsterageWidget
+	implements RequiresLoadedData {
+	
+	private static final long serialVersionUID = -8750076912520138376L;
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
 	
-	PowerUpMenuIconWidget decelerationPowerup;		//does ship have advanced deceleration?
-	PowerUpMenuIconWidget shieldGeneratorPowerup;	//what level of shield regeneration does this ship have?
-	PowerUpMenuIconWidget multishopPowerup;			//what level of multishot does ship have.
+	private PowerUpMenuIconWidget decelerationPowerup;		//does ship have advanced deceleration?
+	private PowerUpMenuIconWidget shieldGeneratorPowerup;	//what level of shield regeneration does this ship have?
+	private PowerUpMenuIconWidget multishopPowerup;			//what level of multishot does ship have.
 	
-	PowerUpMenuIconWidget gravityNetPowerup;		//does ship have gravity net?
-	PowerUpMenuIconWidget homingMissilePowerup;		//does ship have homing missiles active?
-	PowerUpMenuIconWidget sonicDisruptorPowerup;	//does ship have sonic disruptor equipped?
+	private PowerUpMenuIconWidget gravityNetPowerup;		//does ship have gravity net?
+	private PowerUpMenuIconWidget homingMissilePowerup;		//does ship have homing missiles active?
+	private PowerUpMenuIconWidget sonicDisruptorPowerup;	//does ship have sonic disruptor equipped?
 	
-	ImageIcon homingMissileLevel0Icon;				//various stages of the homing missile upgrade
-	ImageIcon homingMissileLevel1Icon;	
-	ImageIcon homingMissileLevel2Icon;	
+	private ImageIcon homingMissileLevel0Icon;				//various stages of the homing missile upgrade
+	private ImageIcon homingMissileLevel1Icon;	
+	private ImageIcon homingMissileLevel2Icon;	
 	
-	ImageIcon multiShotLevel0Icon;					//various stages of multi shot powerup
-	ImageIcon multiShotLevel1Icon;
-	ImageIcon multiShotLevel2Icon;
+	private ImageIcon multiShotLevel0Icon;					//various stages of multi shot powerup
+	private ImageIcon multiShotLevel1Icon;
+	private ImageIcon multiShotLevel2Icon;
 	
-	ImageIcon sonicDisruptorIcon;					//icons for the states of the sonic disruptor upgrade
-	ImageIcon sonicDisruptorEnabledIcon;
+	private ImageIcon sonicDisruptorIcon;					//icons for the states of the sonic disruptor upgrade
+	private ImageIcon sonicDisruptorEnabledIcon;
 	
-	ImageIcon decelerationLevel0Icon;				//various stages of deceleration powerup
-	ImageIcon decelerationLevel1Icon;
-	ImageIcon decelerationLevel2Icon; 
+	private ImageIcon decelerationLevel0Icon;				//various stages of deceleration powerup
+	private ImageIcon decelerationLevel1Icon;
+	private ImageIcon decelerationLevel2Icon; 
 	
-	ImageIcon shieldGeneratorLevel0Icon;			//various stages of the shield generator powerup
-	ImageIcon shieldGeneratorLevel1Icon;
-	ImageIcon shieldGeneratorLevel2Icon;
+	private ImageIcon shieldGeneratorLevel0Icon;			//various stages of the shield generator powerup
+	private ImageIcon shieldGeneratorLevel1Icon;
+	private ImageIcon shieldGeneratorLevel2Icon;
 	
-	ImageIcon gravityNetIcon;						//icons for the states of the gravity net upgrade
-	ImageIcon gravityNetEnabledIcon;
+	private ImageIcon gravityNetIcon;						//icons for the states of the gravity net upgrade
+	private ImageIcon gravityNetEnabledIcon;
 	
 	
-	ConcurrentLinkedQueue<HUDExplosionEffect> hudExplosionList;		//list of explosion effects currently being drawn.
+	private final ConcurrentLinkedQueue<HUDExplosionEffect> hudExplosionList = new ConcurrentLinkedQueue<>();	//list of explosion effects currently being drawn.
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public ShipPowerupStatusWidget()
-	{
-		super();					//call to super's constructor
+	public ShipPowerupStatusWidget()	{
+		super();					
+	} 
+	
+
+	@Override
+	public void loadRequiredData(DataLoader dataLoader) {
 		initializeSubComponents();	//initialize the pieces of this widget
-	} //end constructor
+	}
 	
 	@Override
-	protected void initializeSubComponents()
-	{
+	protected void initializeSubComponents() {
 		//define the icons first
 		homingMissileLevel0Icon = new ImageIcon( Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_0.getImage() );			
 		homingMissileLevel1Icon = new ImageIcon( Image.A2_SYSTEM_ICON_HOMING_MISSILE_LEVEL_1.getImage() );		
@@ -133,12 +146,8 @@ extends BaseAsterageWidget
 		layoutInfo.gridx = 2;
 		layoutInfo.gridy = 1;
 		add ( gravityNetPowerup,layoutInfo );
-		
-		
-		//now make a clear list of hudExplosions.
-		hudExplosionList = new ConcurrentLinkedQueue<>();
-		
-	} //end method initializeSubComponents
+
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -146,11 +155,9 @@ extends BaseAsterageWidget
 	
 	/**
 	 *
-	 * @param asterage2State
 	 */
 	@Override
-	public void updateDisplay( Asterage2State asterage2State )
-	{
+	public void updateDisplay( Asterage2State asterage2State )	{
 		//query the state object for the relevant stats and display the appropriate icon.
 		int homingMissileSystemLevel = asterage2State.getHomingMissileLevel();
 		int multiShotSystemLevel = asterage2State.getMultishotLevel();
@@ -180,13 +187,12 @@ extends BaseAsterageWidget
 		shieldGeneratorPowerup.setIcon(shieldGeneratorIconToDisplay);
 		gravityNetPowerup.setIcon(gravityNetIconToDisplay);
 		
-	} //end method updateDisplay
+	} 
 	
 	
 	@Override
-	protected void paintComponent( Graphics g )
-	{
-		super.paintComponent(g); //call to super's paintcomponent
+	protected void paintComponent( Graphics g )	{
+		super.paintComponent(g);
 			
 		//for each explosion effect in our list, draw it. Then, age it 1 tick. Then, check if its expired. If so, remove it.
 		for ( HUDExplosionEffect currentEffect: hudExplosionList )
@@ -194,12 +200,11 @@ extends BaseAsterageWidget
 			currentEffect.paintObject(g);
 			currentEffect.decrementExpiredCountdownTimer();
 			if ( true == currentEffect.checkExpired() ) { hudExplosionList.remove(currentEffect); }
-		} //end for loop iterating through 
-	} //end void paintComponent
+		} 
+	} 
 	
 	
-	public void addHUDExplosion( SystemExplosionLocations whichSystemLocation )
-	{
+	public void addHUDExplosion( SystemExplosionLocations whichSystemLocation )	{
 		//calculate the location of the new explosion
 		int xLocation = 0;
 		int yLocation = 0;
@@ -234,47 +239,43 @@ extends BaseAsterageWidget
 				xLocation = gravityNetPowerup.getX() + (gravityNetPowerup.getWidth() / 2);
 				yLocation = gravityNetPowerup.getY() + (gravityNetPowerup.getHeight() / 2);
 				break;
-		} //end switch based on system location.
+		} 
 		
 		HUDExplosionEffect newEffect = new HUDExplosionEffect ( xLocation, yLocation, 30, 30 );
 		hudExplosionList.add(newEffect);
-	} //end method addHUDExplosion
+	}
 	
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
 	
-	private ImageIcon getHomingMissileSystemIcon(int homingMissileSystemLevel)
-	{
+	private ImageIcon getHomingMissileSystemIcon(int homingMissileSystemLevel)	{
 		//level 0 icon for 0 argument, and so forth. 
 		if ( 2 == homingMissileSystemLevel )	{	return homingMissileLevel2Icon;	}
 		else if ( 1 == homingMissileSystemLevel ) { return homingMissileLevel1Icon; }
 		else return homingMissileLevel0Icon;
-	} //end method getHomingMissileSystemIcon
+	}
 	
-	private ImageIcon getMultishotSystemIcon(int multiShotSystemLevel)
-	{
+	private ImageIcon getMultishotSystemIcon(int multiShotSystemLevel)	{
 		//level 0 icon for 0 argument, and so forth. 
 		if ( 2 == multiShotSystemLevel )	{	return multiShotLevel2Icon;	}
 		else if ( 1 == multiShotSystemLevel ) { return multiShotLevel1Icon; }
 		else return multiShotLevel0Icon;
-	} //end method getMultishotSystemIcon
+	} 
 	
-	private ImageIcon getDecelerationSystemIcon(int decelerationSystemLevel)
-	{
+	private ImageIcon getDecelerationSystemIcon(int decelerationSystemLevel)	{
 		//level 0 icon for 0 argument, and so forth. 
 		if ( 2 == decelerationSystemLevel )	{	return decelerationLevel2Icon;	}
 		else if ( 1 == decelerationSystemLevel ) { return decelerationLevel1Icon; }
 		else return decelerationLevel0Icon;
-	} //end method getDecelerationSystemIcon
+	} 
 	
-	private ImageIcon getShieldGeneratorSystemIcon(int shieldGeneratorSystemLevel)
-	{
+	private ImageIcon getShieldGeneratorSystemIcon(int shieldGeneratorSystemLevel)	{
 		//level 0 icon for 0 argument, and so forth. 
 		if ( 2 == shieldGeneratorSystemLevel )	{	return shieldGeneratorLevel2Icon;	}
 		else if ( 1 == shieldGeneratorSystemLevel ) { return shieldGeneratorLevel1Icon; }
 		else return shieldGeneratorLevel0Icon;
-	} //end method getShieldGeneratorSystemIcon
+	} 
 	
 	/*	**********************************************************************
 		********************		Inner Classes			******************
@@ -283,14 +284,12 @@ extends BaseAsterageWidget
 	/**
 	 * Officially label the systems which may be disabled/degraded.
 	 */
-	public static enum SystemExplosionLocations
-	{
+	public static enum SystemExplosionLocations	{
 		HOMING_MISSILE,
 		MULTI_SHOT,
 		SONIC_DISRUPTOR,
 		DECELERATOR,
 		SHIELD_GENERATOR,
 		GRAVITY_NET;
-	} //end enum SystemExplosionLocations definition
-	
-} //end class ShipPowerupStatusWidget definition
+	}
+}
