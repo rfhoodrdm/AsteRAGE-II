@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
@@ -15,6 +17,7 @@ import com.rfhoodrdm.asterage2.state.TitleState;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Component
 @Slf4j
 public class TitleController
 {

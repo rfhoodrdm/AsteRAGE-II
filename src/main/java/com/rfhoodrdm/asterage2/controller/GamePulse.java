@@ -44,9 +44,6 @@ public class GamePulse
      */
     @Override
     public void run() {
-		//now, after all is prepared, do the initial show of the gui.
-		//This is to prevent null pointer exceptions in painting, if we are relying on state to decide how to display things.
-		controller.showInitialState();
 		
 		while ( true ) {
 			try	{

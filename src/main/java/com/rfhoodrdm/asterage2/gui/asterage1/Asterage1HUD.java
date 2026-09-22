@@ -133,6 +133,7 @@ public class Asterage1HUD
 		this.shieldBar.setValue( asterage1State.getPlayerShields() );
 		this.mythiciteBar.setValue( asterage1State.getPlayerMythicite() );
 	}
+	
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
@@ -148,10 +149,6 @@ public class Asterage1HUD
 		ShipLivesIcon () {
 			super();
 		} 
-		
-		public void setIcon(ImageIcon imageIcon) {
-			setIcon(imageIcon);
-		}
 	} 
 
 }

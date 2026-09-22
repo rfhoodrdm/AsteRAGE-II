@@ -61,8 +61,8 @@ public class ShipPowerupStatusWidget
 	private ImageIcon gravityNetIcon;						//icons for the states of the gravity net upgrade
 	private ImageIcon gravityNetEnabledIcon;
 	
-	
 	private final ConcurrentLinkedQueue<HUDExplosionEffect> hudExplosionList = new ConcurrentLinkedQueue<>();	//list of explosion effects currently being drawn.
+	private boolean dataLoaded = false;
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
@@ -147,6 +147,7 @@ public class ShipPowerupStatusWidget
 		layoutInfo.gridy = 1;
 		add ( gravityNetPowerup,layoutInfo );
 
+		dataLoaded = true;
 	} 
 	
 	/*	**********************************************************************
@@ -158,6 +159,11 @@ public class ShipPowerupStatusWidget
 	 */
 	@Override
 	public void updateDisplay( Asterage2State asterage2State )	{
+		
+		if (dataLoaded == false) {
+			return;	//don't try to paint if we don't have icons.
+		}
+		
 		//query the state object for the relevant stats and display the appropriate icon.
 		int homingMissileSystemLevel = asterage2State.getHomingMissileLevel();
 		int multiShotSystemLevel = asterage2State.getMultishotLevel();

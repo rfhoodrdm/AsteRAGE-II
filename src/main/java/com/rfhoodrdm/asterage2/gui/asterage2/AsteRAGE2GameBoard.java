@@ -38,19 +38,17 @@ public class AsteRAGE2GameBoard
 	public static final int boardHeight = 600;
 	public static final Dimension gameBoardDimension = new Dimension (boardWidth, boardHeight);
 	
-	private PopUpMessageLabel popUpMessage;		//holder for messages on the game screen.
+	private PopUpMessageLabel popUpMessage;				//holder for messages on the game screen.
+	private final Asterage2State asterage2State;		//reference to game state object
 	
-	//references to other components
-	private Asterage2State asterage2State;		//reference to game state object
-	
-	private ArrayList<StarPoint> starList;					//list of stars to draw in the background
+	private ArrayList<StarPoint> starList;				//list of stars to draw in the background
 	public static final int numberOfStars = 100;		//how many stars to draw
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public AsteRAGE2GameBoard()	{
-		super();		//call to super class constructor
+	public AsteRAGE2GameBoard(Asterage2State asterage2State)	{
+		super();		
 		
 		//initialize starting parameters of the panel
 		this.setMaximumSize(gameBoardDimension);
@@ -64,19 +62,20 @@ public class AsteRAGE2GameBoard
 		
 		popUpMessage = new PopUpMessageLabel();			//make a new pop up message label, and add it to the game board.
 		add(popUpMessage);
+		
+		this.asterage2State = asterage2State;
 	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
 	
-	public void setAsterage2State( Asterage2State passedState )	{	asterage2State = passedState;	} 
-	public void repaintGameBoard ()	{ this.repaint(); }
+	public void repaintGameBoard ()	{ 
+		this.repaint(); 
+		}
 	
 	/**
 	 * Pass forward a message to display to the pop-up label.
-	 * @param message
-	 * @param whatType 
 	 */
 	public void setPopUpText( String message, PopUpMessageLabel.MessageType whatType ) { 
 		popUpMessage.setPopUpText(message, whatType);
@@ -106,11 +105,9 @@ public class AsteRAGE2GameBoard
 	 * Paints the animated field of stars.
 	 */
 	private void paintStarField( Graphics g ) {
-		//paint each star in the field by passing it a handle to the graphics object.
-		for ( StarPoint currentStar: starList )
-		{
+		for ( StarPoint currentStar: starList )	{
 			currentStar.paintStar( g, asterage2State.getFrameNumber() );		//have star draw itself
-		} //end for loop iterating through stars to draw
+		} 
 	}
 	
 	private void paintAsteroids( Graphics g ) {

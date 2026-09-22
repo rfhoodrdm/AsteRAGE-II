@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.rfhoodrdm.asterage2.common.constants.CurrentState;
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
@@ -63,9 +64,9 @@ import com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
 import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+@Component
 @Slf4j
 public class Asterage2Controller
 {

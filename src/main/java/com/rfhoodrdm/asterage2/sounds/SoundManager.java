@@ -46,133 +46,54 @@ public class SoundManager
 	 * @param theEvent Enumerated sound event for which we are playing a sound.
 	 */
 	public void playSoundEvent(SoundEvent theEvent) {
-		//switch statement selects the sound based on what event has occurred.
-		switch ( theEvent )
-		{
+
+		switch(theEvent)	{
 			//Title screen events.
-			case TITLE_SCREEN_MENU_OPTION_CHANGED:
-				Sound.MENU_OPTION_CHANGED.play();
-				break;
-				
-			case TITLE_SCREEN_MENU_GAME_SELECTED:
-				Sound.GAME_SELECTED.play();
-				break;
-			
+			case TITLE_SCREEN_MENU_OPTION_CHANGED ->	Sound.MENU_OPTION_CHANGED.play();
+			case TITLE_SCREEN_MENU_GAME_SELECTED ->		Sound.GAME_SELECTED.play();
 				
 			//Asterage 1 game events
-			case PLAYER_FIRES_BULLET:
-				Sound.PLAYER_BULLET_FIRE.play();
-				break;
-			case ENEMY_FIRES_BULLET:
-				Sound.ENEMY_BULLET_FIRE.play();
-				break;
-			case ASTEROID_IMPACT:
-				Sound.ASTEROID_IMPACT.play();
-				break;
-			case PLAYER_SHIELD_IMPACT:
-				Sound.PLAYER_SHIELD_IMPACT.playOnce();
-				break;
-			case ENEMY_SHIELD_IMPACT:
-				Sound.ENEMY_SHIELD_IMPACT.playOnce();
-				break;
-			case ENEMY_APPEARS:
-				Sound.ENEMY_APPEARS.play();
-				break;
-			case REWARD_EARNED:
-				Sound.REWARD_EARNED.play();
-				break;
-			case PLAYER_SHIP_APPEARS:
-				Sound.PLAYER_SHIP_APPEARS.play();
-				break;
-			case PLAYER_SHIP_DESTROYED:
+			case PLAYER_FIRES_BULLET ->		Sound.PLAYER_BULLET_FIRE.play();
+			case ENEMY_FIRES_BULLET ->		Sound.ENEMY_BULLET_FIRE.play();
+			case ASTEROID_IMPACT ->			Sound.ASTEROID_IMPACT.play();
+			case PLAYER_SHIELD_IMPACT -> 	Sound.PLAYER_SHIELD_IMPACT.playOnce();
+			case ENEMY_SHIELD_IMPACT ->		Sound.ENEMY_SHIELD_IMPACT.playOnce();
+			case ENEMY_APPEARS ->			Sound.ENEMY_APPEARS.play();
+			case REWARD_EARNED ->			Sound.REWARD_EARNED.play();
+			case PLAYER_SHIP_APPEARS ->		Sound.PLAYER_SHIP_APPEARS.play();
+			case PLAYER_SHIP_DESTROYED -> {
 				stopSoundEvent(SoundEvent.PLAYER_SHIELD_IMPACT );		//stop playing shield impact noise if we're dead.
 				Sound.PLAYER_SHIP_DESTROYED.play();
-				break;
-			case ENEMY_SHIP_DESTROYED:	
-			case WEAPON_POD_DESTROYED:		
-				Sound.ENEMY_SHIP_DESTROYED.play();
-				break;
-			case GIANT_LASER_FIRE:
-				Sound.GIANT_LASER_FIRE.play();
-				break;
-			case ALIEN_EMERGES:
-				Sound.ALIEN_EMERGES.play();
-				break;
-			case BIG_ENEMY_APPEARS:
-				Sound.BIG_ENEMY_APPEARS.play();
-				break;
-			case TRACTOR_BEAM_DEPLOYED:
-				Sound.TRACTOR_BEAM_DEPLOYED.playOnce();
-				break;
+			}
+			case GIANT_LASER_FIRE ->		Sound.GIANT_LASER_FIRE.play();
+			case ALIEN_EMERGES -> 			Sound.ALIEN_EMERGES.play();
+			case BIG_ENEMY_APPEARS ->		Sound.BIG_ENEMY_APPEARS.play();
+			case TRACTOR_BEAM_DEPLOYED ->	Sound.TRACTOR_BEAM_DEPLOYED.playOnce();
+			case ENEMY_SHIP_DESTROYED, WEAPON_POD_DESTROYED -> 	
+											Sound.ENEMY_SHIP_DESTROYED.play();
 			
 				
 			// ASTERAGE 2 GAME EVENTS:
-			case A2_ASTEROID_IMPACT:
-				Sound.A2_Asteroid_Impact.play();
-				break;
-			case A2_EXTRA_LIFE_AWARDED:
-				Sound.A2_EXTRA_LIFE_AWARDED.play();
-				break;
-			case A2_ENEMY_PLASMA_BOLT_FIRE:
-				Sound.A2_ENEMY_PLASMA_BOLT_FIRE.play();
-				break;
-			case A2_MYTHICITE_PICKUP:
-				Sound.A2_Mythicite_Pickup.play();
-				break;
-			case A2_PLAYER_DESTROYED:
-				Sound.A2_Player_Destroyed.play();
-				break;
-			case A2_PLAYER_HOMING_MISSILES_FIRED:
-				Sound.A2_PLAYER_HOMING_MISSILES_FIRED.play();
-				break;
-			case A2_PLAYER_PLASMA_BOLT_FIRE:
-				Sound.A2_PLAYER_PLASMA_BOLT_FIRE.play();
-				break;
-			case A2_PLAYER_PURCHASE_ACCEPTED:
-				Sound.A2_Special_Power_Up_Pickup.play();
-				break;
-			case A2_PLAYER_PURCHASE_DENIED:
-				Sound.A2_Purchase_Denied.play();
-				break;
-			case A2_PLAYER_SHIELD_IMPACT:
-				Sound.A2_Player_Shield_Impact.playOnce();
-				break;
-			case A2_PLAYER_SONIC_DISRUPTOR_ACTIVE:
-				Sound.A2_Player_Sonic_Disruptor_Active.playContinuously();
-				break;
-			case A2_PLAYER_SPAWNS:
-				Sound.A2_PLAYER_SPAWNS.play();
-				break;
-			case A2_SPECIAL_POWERUP_PICKUP:
-				Sound.A2_Special_Power_Up_Pickup.play();
-				break;
-			case A2_TROLL_APPEARS:
-				Sound.A2_Troll_Appears.play();
-				break;
-			case A2_TROLL_DESTROYED:
-				Sound.A2_Troll_Destroyed.play();
-				break;
-			case A2_TROLL_LASER_FIRED:
-				Sound.A2_TROLL_LASER_FIRED.play();
-				break;
-			case A2_TROLL_SHIELD_IMPACT:
-				Sound.A2_Troll_Shield_Impact.play();
-				break;
-				
-			case A2_TROLL_MOTHERSHIP_APPEARS:
-				Sound.A2_Troll_Mothership_Appears.play();
-				break;
-				
-			case A2_VICTORY_FANFARE:
-				Sound.A2_Victory_Fanfare.play();
-				break;
-			case A2_WARPING_OUT:
-				Sound.A2_Warping_Out.play();
-				break;
-				
-			default:
-				//play no sound.
-				break;
+			case A2_ASTEROID_IMPACT -> 					Sound.A2_Asteroid_Impact.play();
+			case A2_EXTRA_LIFE_AWARDED -> 				Sound.A2_EXTRA_LIFE_AWARDED.play();
+			case A2_ENEMY_PLASMA_BOLT_FIRE -> 			Sound.A2_ENEMY_PLASMA_BOLT_FIRE.play();
+			case A2_MYTHICITE_PICKUP -> 				Sound.A2_Mythicite_Pickup.play();
+			case A2_PLAYER_DESTROYED -> 				Sound.A2_Player_Destroyed.play();
+			case A2_PLAYER_HOMING_MISSILES_FIRED -> 	Sound.A2_PLAYER_HOMING_MISSILES_FIRED.play();
+			case A2_PLAYER_PLASMA_BOLT_FIRE	-> 			Sound.A2_PLAYER_PLASMA_BOLT_FIRE.play();
+			case A2_PLAYER_PURCHASE_ACCEPTED -> 		Sound.A2_Special_Power_Up_Pickup.play();
+			case A2_PLAYER_PURCHASE_DENIED ->			Sound.A2_Purchase_Denied.play();
+			case A2_PLAYER_SHIELD_IMPACT	-> 			Sound.A2_Player_Shield_Impact.playOnce();
+			case A2_PLAYER_SONIC_DISRUPTOR_ACTIVE -> 	Sound.A2_Player_Sonic_Disruptor_Active.playContinuously();
+			case A2_PLAYER_SPAWNS -> 					Sound.A2_PLAYER_SPAWNS.play();
+			case A2_SPECIAL_POWERUP_PICKUP -> 			Sound.A2_Special_Power_Up_Pickup.play();
+			case A2_TROLL_APPEARS -> 					Sound.A2_Troll_Appears.play();
+			case A2_TROLL_DESTROYED ->					Sound.A2_Troll_Destroyed.play();
+			case A2_TROLL_LASER_FIRED -> 				Sound.A2_TROLL_LASER_FIRED.play();
+			case A2_TROLL_SHIELD_IMPACT	-> 				Sound.A2_Troll_Shield_Impact.play();
+			case A2_TROLL_MOTHERSHIP_APPEARS -> 		Sound.A2_Troll_Mothership_Appears.play();				
+			case A2_VICTORY_FANFARE	-> 					Sound.A2_Victory_Fanfare.play();
+			case A2_WARPING_OUT -> 						Sound.A2_Warping_Out.play();
 		} 
 	} 
 	
@@ -180,23 +101,11 @@ public class SoundManager
 	 * Stops a sound from playing once the moment has passed.
 	 */
 	public void stopSoundEvent ( SoundEvent theEvent ) {
-		switch ( theEvent )
-		{
-			case PLAYER_SHIELD_IMPACT:
-				Sound.PLAYER_SHIELD_IMPACT.haltPlaying();
-				break;
-			
-			case TRACTOR_BEAM_DEPLOYED:
-				Sound.TRACTOR_BEAM_DEPLOYED.haltPlaying();
-				break;
-				
-			case A2_PLAYER_SONIC_DISRUPTOR_ACTIVE:
-				Sound.A2_Player_Sonic_Disruptor_Active.haltPlaying();
-				break;
-				
-			default:
-				//do nothing.
-				break;	
+		switch ( theEvent )	{
+			case PLAYER_SHIELD_IMPACT -> 				Sound.PLAYER_SHIELD_IMPACT.haltPlaying();
+			case TRACTOR_BEAM_DEPLOYED -> 				Sound.TRACTOR_BEAM_DEPLOYED.haltPlaying();
+			case A2_PLAYER_SONIC_DISRUPTOR_ACTIVE ->	Sound.A2_Player_Sonic_Disruptor_Active.haltPlaying();				
+			default -> {}
 		} 
 	} 
 	
@@ -285,47 +194,18 @@ public class SoundManager
 		soundLock.acquireUninterruptibly();
 		
 		switch ( currentSoundTrack ) {
-			case ASTERAGE_1_TITLE_SCREEN:
-				Sound.ASTERAGE_CLASSIC_MAIN_THEME.playContinuously();
-				break;
-				
-			case ASTERAGE_1_GAME_OVER:
-				Sound.ASTERAGE_CLASSIC_GAME_OVER_THEME.playContinuously();
-				break;
-				
-			case ASTERAGE_1_HIGH_SCORE:
-				Sound.ASTERAGE_CLASSIC_CELEBRATION.playContinuously();
-				break;
-				
-			case ASTERAGE_2_TRACK1:
-				Sound.A2_TRACK1_AsteRAGE_Begins.playContinuously();
-				break;
-				
-			case ASTERAGE_2_TRACK2:
-				Sound.A2_TRACK2_ASTRAL_JOURNEY.playContinuously();
-				break;
-				
-			case ASTERAGE_2_TRACK3:
-				Sound.A2_TRACK3_DESCENT.playContinuously();
-				break;
-				
-			case ASTERAGE_2_TRACK4:
-				Sound.A2_TRACK4_NOSTALGIA.playContinuously();
-				break;
-				
-			case ASTERAGE_2_CELEBRATION:
-				Sound.A2_TRACK5_SKYS_THE_LIMIT.playContinuously();
-				break;
-				
-			case ASTERAGE_2_GAME_OVER:
-				Sound.A2_TRACK6_SPACE_MINER_DIRGE.playContinuously();
-				break;
+			case ASTERAGE_1_TITLE_SCREEN -> Sound.ASTERAGE_CLASSIC_MAIN_THEME.playContinuously();
+			case ASTERAGE_1_GAME_OVER -> 	Sound.ASTERAGE_CLASSIC_GAME_OVER_THEME.playContinuously();
+			case ASTERAGE_1_HIGH_SCORE ->	Sound.ASTERAGE_CLASSIC_CELEBRATION.playContinuously();
+			case ASTERAGE_2_TRACK1 ->		Sound.A2_TRACK1_AsteRAGE_Begins.playContinuously();
+			case ASTERAGE_2_TRACK2 ->		Sound.A2_TRACK2_ASTRAL_JOURNEY.playContinuously();
+			case ASTERAGE_2_TRACK3 ->		Sound.A2_TRACK3_DESCENT.playContinuously();
+			case ASTERAGE_2_TRACK4 ->		Sound.A2_TRACK4_NOSTALGIA.playContinuously();
+			case ASTERAGE_2_CELEBRATION ->	Sound.A2_TRACK5_SKYS_THE_LIMIT.playContinuously();
+			case ASTERAGE_2_GAME_OVER ->	Sound.A2_TRACK6_SPACE_MINER_DIRGE.playContinuously();
 			
-			case NONE:
-			default:
-				//play no sound.
-				break;
-			
+			case NONE -> {}
+			default -> 	{}
 		} 
 		
 		//release the lock.

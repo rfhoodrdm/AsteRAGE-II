@@ -1,24 +1,22 @@
 
 package com.rfhoodrdm.asterage2.gui;
 
+import java.awt.event.KeyListener;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
-import com.rfhoodrdm.asterage2.controller.Controller;
 import com.rfhoodrdm.asterage2.gui.asterage1.Asterage1GameScreen;
 import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameScreen;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
-import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.gui.titlescreen.SplashScreen;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
 
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -28,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class GUI {
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
@@ -52,46 +51,23 @@ public class GUI {
 			SplashScreen splashScreen, Asterage1GameScreen asterage1GameScreen, AsteRAGE2GameScreen asterage2GameScreen) {
 		this.state = state;
 		this.soundManager = soundManager;
-		
 		this.gameFrame = gameFrame;
-		
 		this.splashScreen = splashScreen;
-		splashScreen.setVisible ( true );
-		
 		this.asterage1GameScreen = asterage1GameScreen;
-		asterage1GameScreen.setVisible( false );
-		
 		this.asterage2GameScreen = asterage2GameScreen;
-		asterage2GameScreen.setVisible(false);
+	} 
+	
+
+	public void registerKeyListener(KeyListener gameKeyAdapter) {
+		gameFrame.addKeyListener(gameKeyAdapter);
 	} 
 	
 	public void showInitialGUI ()	{
 		gameFrame.setVisible( true );
 		changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_1_TITLE_SCREEN);
 		gameFrame.requestFocus();
+		changeCurrentGuiShown();
 	}
-
-	//TODO: Make this the bridge between the GUI and the controller in postconstruction, above!
-//	public void setController ( Controller passedController ) 	{
-//		this.controller = passedController;
-//		
-//		//attach the key adapter to capture key presses and releases. Pass it the controller reference.
-//		GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
-//		gameFrame.addKeyListener ( gameKeyAdapter ); 
-//		gameKeyAdapter.setController(controller);
-//	}
-	
-//	/**
-//	 * Set the master state reference.
-//	 */
-//	public void setState ( State passedState )	{
-//		this.state = passedState;
-//		
-//		//set the relevant state reference for all the GUI's top level subcomponents.
-
-//		asterage1GameScreen.setAsterage1State ( state.getAsterage1State() );
-//		asterage2GameScreen.setAsterage2State( state.getAsterage2State() );
-//	}
 	
     /*	**********************************************************************
 		********************		Class Interface			******************
@@ -114,7 +90,6 @@ public class GUI {
 		}
 	}
 	
-	
 	public void changeCurrentGuiShown()	{
 		//hide all of the GUI panels to avoid complex logic.
 		splashScreen.setVisible(false);
@@ -127,26 +102,18 @@ public class GUI {
 		
 		//show the gui corresponding to the active state.
 		//start the initial music sequence.
-		switch ( currentState )
-		{
-			case TITLE_SCREEN:
+		switch ( currentState )	{
+			case TITLE_SCREEN -> {
 				splashScreen.setVisible( true );
 				changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_1_TITLE_SCREEN);
-				break;
-			
-			case ASTERAGE_1:
+			}
+			case ASTERAGE_1 -> {
 				asterage1GameScreen.setVisible ( true );
 				changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.NONE);
-				break;
-			
-			case ASTERAGE_2:
+			}
+			case ASTERAGE_2 -> {
 				asterage2GameScreen.setVisible( true );
-				break;
-			
-			default:
-				//error
-				break;
-				
+			}
 		} 
 	} 
 	
@@ -201,5 +168,6 @@ public class GUI {
 	
 	private void changeMusicSequence( SoundManager.SOUNDTRACK_SEQUENCE newSequence ) {
 		soundManager.changeMusicSequence(newSequence);
-	} 
+	}
+
 }

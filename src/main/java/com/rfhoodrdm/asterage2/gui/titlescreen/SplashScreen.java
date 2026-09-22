@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
@@ -20,7 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class SplashScreen
-	extends PanelTemplate {
+	extends PanelTemplate
+	implements RequiresLoadedData {
 	
 	/*	**********************************************************************
 		*******************			Data Members			******************
@@ -60,10 +63,9 @@ public class SplashScreen
 		this.setLayout ( null );
 	} 
 	
-
-	public void referenceDataPostLoad() {
-		//remember references to images we use to paint.
-		titleGraphic = Image.TITLE_GRAPHIC.getImage();
+	@Override
+	public void loadRequiredData(DataLoader dataLoader) {
+		titleGraphic = Image.TITLE_GRAPHIC.getImage();	
 	}
 	
 	/*	**********************************************************************
@@ -139,5 +141,4 @@ public class SplashScreen
 		paintStarFieldBackground(g);							
 		highScorePanel.setVisible(true);
 	}
-
 }

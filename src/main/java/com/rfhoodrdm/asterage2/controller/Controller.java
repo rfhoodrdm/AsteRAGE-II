@@ -26,53 +26,26 @@ public class Controller
     private final State state;
     private final GUI gui;
 	
-    private TitleController titleController;
-    private Asterage1Controller asterage1Controller;
-    private Asterage2Controller asterage2Controller;
+    private final TitleController titleController;
+    private final Asterage1Controller asterage1Controller;
+    private final Asterage2Controller asterage2Controller;
 	
     /*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public Controller(State state, GUI gui) {
+	public Controller(State state, GUI gui, 
+			TitleController titleController, Asterage1Controller asterage1Controller, Asterage2Controller asterage2Controller) {
 		this.state = state;
 		this.gui = gui;
-//		this.soundManager = soundManager;
-		
-//		titleController = new TitleController(soundManager);
-//		asterage1Controller = new Asterage1Controller(soundManager);
-//		asterage2Controller = new Asterage2Controller(soundManager);
-//		
-//		//set the master controller reference right away
-//		titleController.setController ( this ) ;
-//		asterage1Controller.setController( this );
-//		asterage2Controller.setController( this );
+		this.titleController = titleController;
+		this.asterage1Controller = asterage1Controller;
+		this.asterage2Controller = asterage2Controller;
 	} 
-	
-//	public void setState ( State passedState )
-//		
-//		//once we have the master state object, set all of our components' state references
-//		titleController.setTitleState ( state.getTitleState() );	
-//		asterage1Controller.setAsterage1State( state.getAsterage1State() );
-//		asterage2Controller.setAsterage2State( state.getAsterage2State() );
-//	} 
-	
-//	public void setGUI ( GUI passedGUI ) {
-//		this.gui = passedGUI;
-//		
-//		//pass each controller subcomponent a reference to the high level gui object.
-//		titleController.setGui(passedGUI);
-//		asterage1Controller.setGui ( gui );
-//		asterage2Controller.setGui( gui );
-//	} 
+
 	
     /*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-
-	public void showInitialState () {
-		//show the initial screen.
-		gui.showInitialGUI();	
-	} 
 	
 	/**
 	 * This method invokes the state update logic for the corresponding active game state.
@@ -80,19 +53,10 @@ public class Controller
 	public void updateState () {
 		CurrentState whatState = state.getCurrentState();
 		
-		//update the currently active state.
 		switch ( whatState ) {
-			case TITLE_SCREEN:
-				titleController.updateState();
-				break;
-				
-			case ASTERAGE_1:
-				asterage1Controller.updateAsterage1State();
-				break;
-			
-			case ASTERAGE_2:
-				asterage2Controller.updateState();
-				break;
+			case TITLE_SCREEN -> titleController.updateState();
+			case ASTERAGE_1 ->	asterage1Controller.updateAsterage1State();
+			case ASTERAGE_2 ->	asterage2Controller.updateState();
 		} 
 	} 
 	
@@ -115,32 +79,17 @@ public class Controller
 	
 	/**
 	 * Receives key press and release events from the keyboard input module, and decides
-	 * how to process them, according to which is the active state. Only the active state should be
+	 * how to process them, according to which is the active state. Only the active controller should be
 	 * receiving keyboard input.
 	 */
-	public void processKeyEvent ( int keyCode, GameKeyAdapter.GAME_KEY_EVENT whichEvent )
-	{
-		//get the current active controller, by fetching which state is currently active.
-		//we need to deliver the key event to that controller.
+	public void processKeyEvent ( int keyCode, GameKeyAdapter.GAME_KEY_EVENT whichEvent ) {
+		
+		log.debug("Processing key event. Code: {}    Event Type: {}", keyCode, whichEvent);
 		CurrentState currentActiveState = state.getCurrentState();
-		switch ( currentActiveState )
-		{
-			case TITLE_SCREEN:
-				titleController.processKeyEvent ( keyCode, whichEvent );
-				break;
-				
-			case ASTERAGE_1:
-				asterage1Controller.processKeyEvent ( keyCode, whichEvent );
-				break;
-				
-			case ASTERAGE_2:
-				asterage2Controller.processKeyEvent ( keyCode, whichEvent );
-				break;
-			
-			default:
-				//we shouldn't get here. If so, then we are very much in error.
-				log.error("Received keyboard input designated for an unknown game controller.");
-				
-		} 
+		switch (currentActiveState) {
+			case TITLE_SCREEN 	-> titleController.processKeyEvent ( keyCode, whichEvent );
+			case ASTERAGE_1 	-> asterage1Controller.processKeyEvent ( keyCode, whichEvent );
+			case ASTERAGE_2 	-> asterage2Controller.processKeyEvent ( keyCode, whichEvent );
+		}
 	} 
 } 

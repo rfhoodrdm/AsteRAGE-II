@@ -56,12 +56,14 @@ public class UpgradesMenuWidget
 	private ImageIcon multiShotOptionIcon;
 	private ImageIcon multiShotOptionSelectedIcon;
 	
+	private boolean dataLoaded = false;
+	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
 	public UpgradesMenuWidget()	{
-		super();					
+		super();		
 	} 
 	
 	@Override
@@ -88,11 +90,11 @@ public class UpgradesMenuWidget
 		multiShotPowerUp = new PowerUpMenuIconWidget( multiShotOptionIcon );
 		
 		initializeSubComponents();	//initialize the pieces of this widget
+		dataLoaded = true;
 	}
 	
 	@Override
-	protected void initializeSubComponents()
-	{
+	protected void initializeSubComponents() {
 		//set basic layout info, and common layout attributes.
 		GridBagLayout upgradesMenuLayout = new GridBagLayout();
 		this.setLayout(upgradesMenuLayout);
@@ -141,6 +143,11 @@ public class UpgradesMenuWidget
 	 */
 	@Override
 	public void updateDisplay( Asterage2State asterage2State )	{
+		
+		if (dataLoaded == false) {
+			return;	//don't try to paint if we don't have icons.
+		}
+		
 		//get the currently selected powerup from the state object, and show the appropriate icons for all menu options.
 		PowerUpMenuOption currentlySelectedOption = asterage2State.getCurrentSelectedPowerUpMenuOption();
 		
