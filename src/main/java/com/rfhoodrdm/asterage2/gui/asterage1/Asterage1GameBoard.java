@@ -1,6 +1,7 @@
 package com.rfhoodrdm.asterage2.gui.asterage1;
 
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.stereotype.Component;
@@ -68,6 +69,7 @@ public class Asterage1GameBoard
 		}
 
 		asterage1State.getPlayerShip().paintToBoard(g); //paint the ship last.
+		Toolkit.getDefaultToolkit().sync();	//flush repaints, to cure stuttering.
 	}
 	
 	/*	**********************************************************************

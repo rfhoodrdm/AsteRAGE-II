@@ -2,6 +2,7 @@ package com.rfhoodrdm.asterage2.controller;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.stereotype.Component;
@@ -146,7 +147,6 @@ public class TitleController
 	private void updateTitleState () {
 		//always-do tasks:
 		moveStars();
-		replaceExpiredStars();
 		
 		//do different things based on what the current activity is.
 		// If the game has been selected, then update the countdown. 
@@ -214,26 +214,13 @@ public class TitleController
 	} 
 	
 	
-	private void replaceExpiredStars() {
-		ArrayList<StarPoint> newStarList = new ArrayList<>();	//list of new stars we are going to add
-		ConcurrentLinkedQueue<StarPoint> starPointList =  titleState.getStarPointList();
-		
-		for ( StarPoint currentStar: starPointList ) {
-			if ( currentStar.checkExpired() ) {
-				starPointList.remove(currentStar);
-				StarPoint newStar = StarPoint.createNewEdgeStar();
-				newStarList.add( newStar );
-			} 
-		} 
-		
-		//add the new stars to the list of existing stars.
-		starPointList.addAll(newStarList);
-	} 
-	
 	private void moveStars()	{
-		ConcurrentLinkedQueue<StarPoint> starPointList =  titleState.getStarPointList();
+		List<StarPoint> starPointList =  titleState.getStarPointList();
 		for ( StarPoint currentStar: starPointList )		{
 			currentStar.moveStar();
+			if ( currentStar.checkExpired() ) {
+				currentStar.reset();
+			} 
 		} 
 	} 
 
