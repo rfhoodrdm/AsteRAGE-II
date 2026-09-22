@@ -1,74 +1,75 @@
-package com.rfhoodrdm.asterage2.gui;
+package com.rfhoodrdm.asterage2.gui.asterage1;
 
-import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
-import java.awt.Color;
-import com.rfhoodrdm.asterage2.state.Asterage1State;
 import java.awt.Graphics;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
+import com.rfhoodrdm.asterage2.state.Asterage1State;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * The game board where the space objects are drawn for the Asterage 1 game.
  */
+@Component
+@Slf4j
 public class Asterage1GameBoard
-extends PanelTemplate
-{
+	extends PanelTemplate {
+	
+	private static final long serialVersionUID = -5205117325386321906L;
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
+	
 	public final int boardWidth = 1200;
 	public final int boardHeight = 600;
 	
-	Asterage1State asterage1State;
+	private final Asterage1State asterage1State;
+	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public Asterage1GameBoard()
-	{
+	public Asterage1GameBoard(Asterage1State asterage1State) {
 		this.setBounds( 0, 0, boardWidth, boardHeight );
 		//this.setBorder( null );								//get rid of the border; it's painting funny.
+		this.asterage1State = asterage1State;
 	} //end constructor
 	
-	public void setAsterage1State ( Asterage1State passedState )
-	{
-		this.asterage1State = passedState;
-	} //end function setAsterage1State
+
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
-	public void repaintGameBoard()
-	{
+	
+	public void repaintGameBoard() {
 		this.repaint();
-	} //end function repaintGameBoard
+	} 
+	
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
 	@Override
 	protected void paintComponent( Graphics g )
 	{
-		//call super class paint 
 		super.paintComponent(g);
 		
-		//grab the list of SpaceObjects and paint them to the screen.
 		ConcurrentLinkedQueue<SpaceObject> spaceObjectList = asterage1State.getSpaceObjectList();
-		for ( SpaceObject currentObject : spaceObjectList )
-		{
-			//check if the current object is the player ship. We draw that last, below.
-			if ( currentObject instanceof PlayerShip )
-			{
-				continue;	//skip this iteration.
+		for ( SpaceObject currentObject : spaceObjectList )	{
+			if ( currentObject instanceof PlayerShip ) {
+				continue;	//player ship goes last, to show it on the very top.
 			} 
-			//else
-			currentObject.paintToBoard( g );
 			
-		} //end for loop iterating through the list.
-		
-		//paint the ship last.
-		asterage1State.getPlayerShip().paintToBoard(g);
-		
-		
-	} //end function paintComponent.
+			currentObject.paintToBoard( g );
+		}
+
+		asterage1State.getPlayerShip().paintToBoard(g); //paint the ship last.
+	}
+	
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */

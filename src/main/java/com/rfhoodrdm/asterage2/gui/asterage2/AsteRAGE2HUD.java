@@ -1,6 +1,12 @@
 
 
-package com.rfhoodrdm.asterage2.gui;
+package com.rfhoodrdm.asterage2.gui.asterage2;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.LivesLevelScoreWidget;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.PowerPointsWidget;
@@ -8,51 +14,55 @@ import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShieldsWidget;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.UpgradesMenuWidget;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import com.rfhoodrdm.asterage2.state.Asterage2State;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class AsteRAGE2HUD
-extends PanelTemplate
-{
+	extends PanelTemplate {
+	
+	private static final long serialVersionUID = -5777319684397180053L;
+
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
+	
 	public static final Dimension hudDimension = new Dimension (1200, 100);
 	
-	//references to other components
-	Asterage2State asterage2State;		//reference to game state object
+	private final Asterage2State asterage2State;		
 	
-	LivesLevelScoreWidget livesLevelScoreWidget;		//shows lives, level and score
-	ShieldsWidget shieldsWidget;						//shows remaining shield strength
-	UpgradesMenuWidget upgradesMenuWidget;				//shows purchasable upgrades
-	PowerPointsWidget powerPointsWidget;				//shows accumulated power points
-	ShipPowerupStatusWidget shipPowerupStatusWidget;	//shows which power-ups have been acquired and/or purchased.
+	private final LivesLevelScoreWidget livesLevelScoreWidget;		//shows lives, level and score
+	private final ShieldsWidget shieldsWidget;						//shows remaining shield strength
+	private final UpgradesMenuWidget upgradesMenuWidget;			//shows purchasable upgrades
+	private final PowerPointsWidget powerPointsWidget;				//shows accumulated power points
+	private final ShipPowerupStatusWidget shipPowerupStatusWidget;	//shows which power-ups have been acquired and/or purchased.
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public AsteRAGE2HUD()
-	{
-		super();	//call to super class's constructor
-		this.setMaximumSize(hudDimension);
-		this.setMinimumSize(hudDimension);
-		this.setPreferredSize(hudDimension);
-		this.setSize(hudDimension);
+	
+	public AsteRAGE2HUD(Asterage2State asterage2State )	{
+		super();
 		
-		initSubComponents();
-	} //end constructor
-	
-	
-	private void initSubComponents()
-	{ 
+		this.asterage2State = asterage2State;
 		livesLevelScoreWidget = new LivesLevelScoreWidget();
 		shieldsWidget = new ShieldsWidget();
 		upgradesMenuWidget = new UpgradesMenuWidget();
 		powerPointsWidget = new PowerPointsWidget();
 		shipPowerupStatusWidget = new ShipPowerupStatusWidget();
 		
+		this.setMaximumSize(hudDimension);
+		this.setMinimumSize(hudDimension);
+		this.setPreferredSize(hudDimension);
+		this.setSize(hudDimension);
+		
+		initSubComponents();
+	} 
+	
+	
+	private void initSubComponents()	{ 
 		GridBagLayout hudLayout = new GridBagLayout();
 		setLayout( hudLayout );
 		GridBagConstraints layoutInfo = new GridBagConstraints();
@@ -88,45 +98,38 @@ extends PanelTemplate
 		layoutInfo.weightx = 0.1;
 		layoutInfo.weighty = 0.1;
 		add( shipPowerupStatusWidget, layoutInfo );
-	
-		
-	} //end method initSubComponents
+
+	} 
+
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
 	
-	public void setAsterage2State( Asterage2State passedState )	{	asterage2State = passedState;	} 
-	
 	/**
 	 * Have each HUD widget update the data that it is currently displaying
 	 */
-	public void updateGameDisplay()
-	{
+	public void updateGameDisplay()	{
 		livesLevelScoreWidget.updateDisplay( asterage2State );
 		shieldsWidget.updateDisplay( asterage2State );
 		upgradesMenuWidget.updateDisplay( asterage2State );
 		powerPointsWidget.updateDisplay( asterage2State );
 		shipPowerupStatusWidget.updateDisplay( asterage2State );
-	} //end method updateGameDisplay
+	} 
 	
-	public void addHUDExplosion( ShipPowerupStatusWidget.SystemExplosionLocations whichSystemLocation )
-	{
+	public void addHUDExplosion( ShipPowerupStatusWidget.SystemExplosionLocations whichSystemLocation )	{
 		shipPowerupStatusWidget.addHUDExplosion(whichSystemLocation);
-	} //end method addHUDExplision
+	}
 	
-	public void addPowerUpPointsHUDExplosion()
-	{
+	public void addPowerUpPointsHUDExplosion()	{
 		powerPointsWidget.addPowerUpPointsHUDExplosion();
-	} //end method addPowerUpPointsHUDExplosion
+	} 
 	
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
-	
-	
-	
+
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-} //end class AsteRAGE2HUD definition
+} 

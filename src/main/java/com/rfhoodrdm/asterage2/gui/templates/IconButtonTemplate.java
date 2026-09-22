@@ -8,15 +8,15 @@ import java.awt.Color;
  * The are designed to be instantiated by passing an Image to the constructor, just as their JButton predecessors.
  */
 public class IconButtonTemplate
-extends JButton
-{
+	extends JButton {
+	
+	private static final long serialVersionUID = -6455829273274783270L;
+
 	/**
 	 * Constructor sets up common attributes for all IconButtons
-	 * @param imageIcon 
 	 */
-	public IconButtonTemplate ( ImageIcon imageIcon)
-	{
-		super ( imageIcon );				//invoke superclass constructor with image icon.
+	public IconButtonTemplate() {
+		super();							//invoke superclass constructor with image icon.
 		
 		this.setFocusable( false );			//make not focusable.
 		this.setBorderPainted(false);		//dont show the border, so clear the background too. Just the icon.
@@ -24,6 +24,9 @@ extends JButton
 		this.setBackground( new Color ( 0,0,0,0) );
 		this.setForeground( new Color ( 0,0,0,0) );
 		
-	} //end constructor
+	}
 	
+	public void setImageIcon (ImageIcon imageIcon) {
+		this.setIcon(imageIcon);
+	}
 }

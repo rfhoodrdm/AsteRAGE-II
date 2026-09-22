@@ -2,60 +2,72 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
-import com.rfhoodrdm.asterage2.gui.Image;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.DECELERATION;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.EXTRA_POINTS;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.HOMING_MISSILE;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.MULTISHOT;
+import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.SHIELD_GENERATOR;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import com.rfhoodrdm.asterage2.gui.GUI;
+
 import javax.swing.ImageIcon;
+
+import org.springframework.stereotype.Component;
+
+import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
 
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.*;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Component
+@Slf4j
 public class UpgradesMenuWidget
-extends BaseAsterageWidget
-{
+	extends BaseAsterageWidget
+	implements RequiresLoadedData {
+
+	private static final long serialVersionUID = -1350672135335095017L;
 
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	HUDLabel powerUpMenuDescription;		//"Select:"
+	private HUDLabel powerUpMenuDescription;				//"Select:"
 	
-	PowerUpMenuIconWidget decelerationPowerUp;		//power up to slow down the ship
-	PowerUpMenuIconWidget shieldGeneratorPowerUp;	//power up for increased shield regeneration
-	PowerUpMenuIconWidget homingMissileShotPowerUp;	//power up to shoot a guided missile at the aliens
-	PowerUpMenuIconWidget extraLifePowerUp;			//power up for an extra life.
-	PowerUpMenuIconWidget multiShotPowerUp;			//power up to shoot multiple shots at once.
+	private PowerUpMenuIconWidget decelerationPowerUp;		//power up to slow down the ship
+	private PowerUpMenuIconWidget shieldGeneratorPowerUp;	//power up for increased shield regeneration
+	private PowerUpMenuIconWidget homingMissileShotPowerUp;	//power up to shoot a guided missile at the aliens
+	private PowerUpMenuIconWidget extraLifePowerUp;			//power up for an extra life.
+	private PowerUpMenuIconWidget multiShotPowerUp;			//power up to shoot multiple shots at once.
 	
-	ImageIcon decelerationOptionIcon; 
-	ImageIcon decerationOptionSelectedIcon;
-	ImageIcon shieldGeneratorOptionIcon;
-	ImageIcon shieldGeneratorOptionSelectedIcon;
+	private ImageIcon decelerationOptionIcon; 
+	private ImageIcon decerationOptionSelectedIcon;
+	private ImageIcon shieldGeneratorOptionIcon;
+	private ImageIcon shieldGeneratorOptionSelectedIcon;
 	
-	ImageIcon homingMissileOptionIcon;
-	ImageIcon homingMissileOptionSelectedIcon;
-	ImageIcon extraLifeOptionIcon;
-	ImageIcon extraLifeOptionSelectedIcon;
+	private ImageIcon homingMissileOptionIcon;
+	private ImageIcon homingMissileOptionSelectedIcon;
+	private ImageIcon extraLifeOptionIcon;
+	private ImageIcon extraLifeOptionSelectedIcon;
 	
-	ImageIcon multiShotOptionIcon;
-	ImageIcon multiShotOptionSelectedIcon;
+	private ImageIcon multiShotOptionIcon;
+	private ImageIcon multiShotOptionSelectedIcon;
+	
+	private boolean dataLoaded = false;
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public UpgradesMenuWidget()
-	{
-		super();					//call to super's constructor
-		initializeSubComponents();	//initialize the pieces of this widget
-	} //end constructor
+	public UpgradesMenuWidget()	{
+		super();		
+	} 
 	
 	@Override
-	protected void initializeSubComponents()
-	{
+	public void loadRequiredData(DataLoader dataLoader) {
 		decelerationOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_DECELERATION.getImage() );
 		decerationOptionSelectedIcon = new ImageIcon( Image.A2_POWER_UP_ICON_DECELERATION_SELECTED.getImage() );
 		shieldGeneratorOptionIcon = new ImageIcon( Image.A2_POWER_UP_ICON_SHIELD_GENERATOR.getImage() );
@@ -77,6 +89,12 @@ extends BaseAsterageWidget
 		extraLifePowerUp = new PowerUpMenuIconWidget( extraLifeOptionIcon );
 		multiShotPowerUp = new PowerUpMenuIconWidget( multiShotOptionIcon );
 		
+		initializeSubComponents();	//initialize the pieces of this widget
+		dataLoaded = true;
+	}
+	
+	@Override
+	protected void initializeSubComponents() {
 		//set basic layout info, and common layout attributes.
 		GridBagLayout upgradesMenuLayout = new GridBagLayout();
 		this.setLayout(upgradesMenuLayout);
@@ -115,18 +133,21 @@ extends BaseAsterageWidget
 		layoutInfo.weightx = 0.1;
 		layoutInfo.anchor = GridBagConstraints.CENTER;
 		add ( multiShotPowerUp, layoutInfo );
-	} //end method initializeSubComponents
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
 		********************************************************************** */
 	/**
 	 *
-	 * @param asterage2State
 	 */
 	@Override
-	public void updateDisplay( Asterage2State asterage2State )
-	{
+	public void updateDisplay( Asterage2State asterage2State )	{
+		
+		if (dataLoaded == false) {
+			return;	//don't try to paint if we don't have icons.
+		}
+		
 		//get the currently selected powerup from the state object, and show the appropriate icons for all menu options.
 		PowerUpMenuOption currentlySelectedOption = asterage2State.getCurrentSelectedPowerUpMenuOption();
 		
@@ -150,8 +171,8 @@ extends BaseAsterageWidget
 						?	multiShotOptionSelectedIcon : multiShotOptionIcon;
 		multiShotPowerUp.setIcon(multiShotIconToDisplay);
 		
-	} //end method updateDisplay
-	
+	} 
+
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
@@ -159,5 +180,4 @@ extends BaseAsterageWidget
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
-	
-} //end class UpgradesMenuWidget
+} 
