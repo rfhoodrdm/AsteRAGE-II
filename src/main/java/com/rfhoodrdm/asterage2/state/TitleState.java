@@ -1,7 +1,7 @@
 
 package com.rfhoodrdm.asterage2.state;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class TitleState {
 	
 	public static final int NUMBER_STARS_IN_FIELD = 100;
 	
-	@Getter	private final ConcurrentLinkedQueue<StarPoint> starPointList = new ConcurrentLinkedQueue<>();
+	@Getter	private final ArrayList<StarPoint> starPointList = new ArrayList<>();
 	@Getter	private int timeToGameStart;
 	private int timeToNextActivity;
 	private TITLE_SCREEN_ACTIVITY currentActivity;

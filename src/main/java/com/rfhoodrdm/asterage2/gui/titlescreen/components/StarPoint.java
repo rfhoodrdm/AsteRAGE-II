@@ -10,30 +10,49 @@ public class StarPoint {
 	private int xCoordinate; 
 	private int yCoordinate;
 	private int speed; 
-
-	private StarPoint(int passedXLocation, int passedYLocation) {
-		xCoordinate = passedXLocation;
-		yCoordinate = passedYLocation;
-		speed = (int) Math.floor(Math.random() * 4) + 1; // from 1 to 4.
+	
+	private StarPoint() {
+		randomizePositionAndSpeed();
 	}
 
+	private StarPoint(int xLocation, int yLocation) {
+		setPosition(xLocation, yLocation);
+		randomizeSpeed();
+	}
+	
+	private void randomizeSpeed() {
+		speed = (int) Math.floor(Math.random() * 4) + 1; // from 1 to 4.
+	}
+	
+	private void setPosition(int x, int y) {
+		this.xCoordinate = x;
+		this.yCoordinate = y;
+	}
+	
 	public static StarPoint createNewRandomStarPoint() {
-		return new StarPoint((int) Math.floor(Math.random() * GUI.panelWidth),
-				(int) Math.floor(Math.random() * GUI.panelHeight));
+		return new StarPoint();
 	} 
-
-	public static StarPoint createNewEdgeStar() {
+	
+	public void reset() {
 		// can spawn anywhere along top or right edge.
 		int locationRange = GUI.panelWidth + GUI.panelHeight;
 		int randomLocation = (int) Math.floor(Math.random() * locationRange);
-
-		if (randomLocation < GUI.panelWidth) {
+		
+		if (randomLocation < GUI.panelWidth) {	
 			// then it's a top edge star.
-			return new StarPoint(randomLocation, 0);
+			setPosition(randomLocation, 0);
 		} else {
 			// else it's a right edge star
-			return new StarPoint(GUI.panelWidth, randomLocation - GUI.panelWidth);
+			setPosition(GUI.panelWidth, randomLocation - GUI.panelWidth);
 		}
+		
+		randomizeSpeed();
+	}
+
+	private void randomizePositionAndSpeed() {
+		xCoordinate = (int) Math.floor(Math.random() * GUI.panelWidth);
+		yCoordinate = (int) Math.floor(Math.random() * GUI.panelHeight);
+		randomizeSpeed();
 	}
 
 	public boolean checkExpired() {

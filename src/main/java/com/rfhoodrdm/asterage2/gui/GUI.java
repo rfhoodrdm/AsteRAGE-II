@@ -75,10 +75,14 @@ public class GUI {
 	
 	public void repaint() {
 		performOnEDT( () -> {
-			splashScreen.repaint();
-			asterage1GameScreen.repaintGameBoard();
-			asterage2GameScreen.updateGameDisplay();
-			asterage2GameScreen.repaint();
+		     switch (state.getCurrentState()) {
+	         case TITLE_SCREEN -> splashScreen.repaint();
+	         case ASTERAGE_1 -> asterage1GameScreen.repaintGameBoard();
+	         case ASTERAGE_2 -> {
+	             asterage2GameScreen.updateGameDisplay();
+	             asterage2GameScreen.repaint();
+	        	}
+		     }
 		});
 	}
 	

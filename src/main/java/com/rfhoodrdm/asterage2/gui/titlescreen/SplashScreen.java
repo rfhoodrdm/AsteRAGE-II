@@ -3,6 +3,7 @@
 package com.rfhoodrdm.asterage2.gui.titlescreen;
 
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import org.springframework.stereotype.Component;
@@ -34,7 +35,6 @@ public class SplashScreen
 	private final TitleState titleState;
 	private BufferedImage titleGraphic;
 	
-	//Story-displaying components.
 	private final TitleGameMenu titleGameMenu;
 	private final StoryPane storyPane;
 	private final HighScorePanel highScorePanel;
@@ -82,39 +82,27 @@ public class SplashScreen
 	 */
 	@Override
 	protected void paintComponent ( Graphics g ) {
-
 		super.paintComponent(g);	
 		refreshTitleGameMenu();
-		
+		paintStars(g);
+
 		switch ( titleState.getCurrentActivity() ) {
-			case DISPLAYING_TITLE:
-			default:
-				displayTitleGraphic( g );
-				break;
-				
-			case DISPLAYING_STORY:
-				displayStory( g );
-				break;
-				
-			case DISPLAYING_HIGH_SCORE:
-				displayHighScore( g );
-				break;
+			case DISPLAYING_STORY -> 		displayStory(g);
+			case DISPLAYING_HIGH_SCORE -> 	displayHighScore( g );
+			case DISPLAYING_TITLE	->		displayTitleGraphic( g );
 		} 
+		
+		Toolkit.getDefaultToolkit().sync();	//flush repaints, to cure stuttering.
 	} 
 	
 	/**
 	 * Refresh the title game menu instead of repainting the whole screen. It saves computation power.
 	 */
-	private void refreshTitleGameMenu()
-	{
-		//Get the necessary information out of the state.
+	private void refreshTitleGameMenu()	{
+
 		TitleState.GAME_SELECTION currentGameSelection = titleState.getCurrentGameSelected();
 		titleGameMenu.refreshTitleGameMenu(currentGameSelection);
 	}
-	
-	private void paintStarFieldBackground ( Graphics g ) {
-		paintStars(g);
-	} 
 	
 	private void paintStars( Graphics g ) {
 		for ( StarPoint currentStar: titleState.getStarPointList())		{
@@ -125,20 +113,17 @@ public class SplashScreen
 	private void displayTitleGraphic( Graphics g )	{
 		storyPane.setVisible(false); 		//hide the editor panes containing the other content.
 		highScorePanel.setVisible(false);
-		
-		paintStarFieldBackground(g);							
+								
 		g.drawImage(titleGraphic, 0, 0, null);		//draw the title graphic.
 	} 
 	
 	private void displayStory( Graphics g )	{
-		highScorePanel.setVisible(false); 		//hide the editor panes containing the other content.
-		paintStarFieldBackground(g);							
+		highScorePanel.setVisible(false); 		//hide the editor panes containing the other content.							
 		storyPane.setVisible(true);
 	}
 	
 	private void displayHighScore( Graphics g )	{
-		storyPane.setVisible(false); //hide the editor panes containing the other content.		
-		paintStarFieldBackground(g);							
+		storyPane.setVisible(false); //hide the editor panes containing the other content.									
 		highScorePanel.setVisible(true);
 	}
 }

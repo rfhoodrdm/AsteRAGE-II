@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -99,6 +100,8 @@ public class AsteRAGE2GameBoard
 		paintSpaceEffects(g);		//paint space effects that do not belong to other objects.
 		
 		paintPlayerShip(g);			//paint the player ship. Do this last.
+		
+		Toolkit.getDefaultToolkit().sync();	//flush repaints, to cure stuttering.
 	} 
 	
 	/**
