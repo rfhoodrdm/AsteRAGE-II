@@ -1,12 +1,12 @@
-package com.rfhoodrdm.asterage2.controller;
+package com.rfhoodrdm.asterage2.controller.asterage2;
 
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.DECELERATION;
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.GRAVITY_NET;
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.HOMING_MISSILES;
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.MULTISHOT;
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.MYTHICITE;
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.SHIELD_GENERATOR;
-import static com.rfhoodrdm.asterage2.controller.Asterage2Controller.Ship_System_Destruction_Target.SONIC_DISRUPTOR;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.DECELERATION;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.GRAVITY_NET;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.HOMING_MISSILES;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.MULTISHOT;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.MYTHICITE;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.SHIELD_GENERATOR;
+import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.SONIC_DISRUPTOR;
 import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_PURPLE;
 import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_RED;
 import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_TAN;
@@ -58,9 +58,10 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresTrollLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
-import com.rfhoodrdm.asterage2.state.Asterage2State;
-import com.rfhoodrdm.asterage2.state.Asterage2State.GameState;
-import com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.GameState;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.MultiShotDirection;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.PowerUpMenuOption;
 import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
@@ -145,6 +146,7 @@ public class Asterage2Controller
 				moveAndRotateObjects();						//move and rotate all objects on the game board
 				ageObjects();								//age objects like space effects that last a finite amount of time.
 				removeExpiredObjects();						//remove expired plasma bolts, etc.
+				
 				doWarpoutCountdownSequence ();				//Perform the warp-out sequence of events.
 				advancePopUpMessageExpiration();			//advance pop-up message countdown to expiration
 				break;
@@ -171,7 +173,7 @@ public class Asterage2Controller
 	
 	public void resetGame()	{
 		asterage2State.initializeAsterage2State();		//initialize the state.
-		generateAsteroidsForLevel();					//set up the initial game board.
+		showCurrentLevelMessage();						//show what level we've just entered.
 		selectSoundTrackForLevel();						//play the correct soundtrack.
 	} 
 	
@@ -258,8 +260,7 @@ public class Asterage2Controller
 		} 
 	} 
 	
-	private void processKeyUpEvent ( int keyCode )
-	{
+	private void processKeyUpEvent ( int keyCode )	{
 		PlayerShip playerShip = asterage2State.getPlayerShip();
 		
 		switch ( keyCode )	{
@@ -298,124 +299,6 @@ public class Asterage2Controller
 				break;
 			
 		} 
-	} 
-	
-	/**
-	 * Check the keystroke against our list of used keys. 
-	 * If the key is used, return true. Else return false.
-	 * @param key
-	 * @return Boolean value representing the decision of if the key is a used key. True = yes, false = no.
-	 */
-	@Deprecated
-	private boolean checkIfKeyUsed ( int  keyCode )	{
-		switch ( keyCode )
-		{
-			case 'w':
-			case 's':
-			case 'a':
-			case 'd':
-			case 'k':
-			case KeyEvent.VK_SPACE:
-				return true;
-			
-			default:
-				System.out.println("Key code: " + keyCode + " not used.");
-				return false;
-		} 
-	} 
-	
-	private void generateAsteroidsForLevel() {	
-		//add one large white asteroid's worth of points to the point card for each level.
-		//max of 78, since with the two extra starting asteroids, that makes 80, for 10 large purple asteroids.
-		int asteroidPoints = asterage2State.getGameLevel() * LARGE_WHITE.generationPointValue();
-		asteroidPoints = ( asteroidPoints >= (78 * LARGE_WHITE.generationPointValue()) ) ? 
-						78 * LARGE_WHITE.generationPointValue() :
-						asteroidPoints;
-		
-		AsteroidPointCard pointCard = new AsteroidPointCard();		//make a new asteroid point card, and add base asteroids.
-		pointCard.addBaseStartingAsteroids();
-		pointCard.creditPoints(asteroidPoints);
-		
-		//go through the while loop, incrementing the number of asteroids that we're going to spawn for this level.
-		while ( pointCard.getRemainingPointsToSpend() >= LARGE_WHITE.generationPointValue() )	{
-			pointCard.addToAsteroidCount(LARGE_WHITE, 1);
-		} 
-		
-		final int LARGE_ASTEROID_CAP = 10;
-		final int EXCHANGE_RATE = 2;
-		
-		//if we have too many large white asteroids, switch some out for large tans.
-		//exchange large whites for 1 large tan as long as we are able.
-		boolean tooManyLargeAsteroids = pointCard.getAsteroidCount(LARGE_WHITE) > LARGE_ASTEROID_CAP;
-		boolean haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_WHITE) >= EXCHANGE_RATE;
-		while( tooManyLargeAsteroids && haveExchangeAvailable )	{
-			pointCard.decrementFromAsteroidCount(LARGE_WHITE, EXCHANGE_RATE);
-			pointCard.addToAsteroidCount(LARGE_TAN, 1);
-			
-			//recheck conditions to continue
-			tooManyLargeAsteroids = (pointCard.getAsteroidCount(LARGE_WHITE) + pointCard.getAsteroidCount(LARGE_TAN)) > LARGE_ASTEROID_CAP;
-			haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_WHITE) >= EXCHANGE_RATE;
-		}
-		
-		//similarly, if we have too many tan asteroids, switch some out for large red ones.
-		//exchange large tan asteroids for 1 large red as long as we are able.
-		tooManyLargeAsteroids = pointCard.getAsteroidCount(LARGE_TAN) > LARGE_ASTEROID_CAP;
-		haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_TAN) >= EXCHANGE_RATE;
-		while( tooManyLargeAsteroids && haveExchangeAvailable )	{
-			pointCard.decrementFromAsteroidCount(LARGE_TAN, EXCHANGE_RATE);
-			pointCard.addToAsteroidCount(LARGE_RED, 1);
-			
-			//recheck conditions to continue
-			tooManyLargeAsteroids = (pointCard.getAsteroidCount(LARGE_TAN) + pointCard.getAsteroidCount(LARGE_RED)) > LARGE_ASTEROID_CAP;
-			haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_TAN) >= EXCHANGE_RATE;
-		} 
-		
-		
-		//lastly, if we have too many red asteroids, switch some out for large purple ones.
-		//exchange large red asteroids for purple ones as long as we are able.
-		tooManyLargeAsteroids = pointCard.getAsteroidCount(LARGE_RED) > LARGE_ASTEROID_CAP;
-		haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_RED) >= EXCHANGE_RATE;
-		while ( tooManyLargeAsteroids && haveExchangeAvailable ) {
-			pointCard.decrementFromAsteroidCount(LARGE_RED, EXCHANGE_RATE);
-			pointCard.addToAsteroidCount(LARGE_PURPLE, 1);
-			
-			//recheck conditions to continue
-			tooManyLargeAsteroids = (pointCard.getAsteroidCount(LARGE_RED) + pointCard.getAsteroidCount(LARGE_PURPLE)) > LARGE_ASTEROID_CAP;
-			haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_RED) >= EXCHANGE_RATE;
-		}
-		
-		//generate the asteroids for this level and add them to the game board.
-		ArrayList<SpaceObject> generatedAsteroids = generateAsteroidsFromPointCard ( pointCard, null );
-		for ( SpaceObject currentObject : generatedAsteroids )	{
-			asterage2State.addSpaceObjectToLists(currentObject);
-		}
-		
-		showCurrentLevelMessage();		//show what level we've just entered.
-		
-		//lines to add troll ships for testing.
-		//asterage2State.addTrollShip( new TrollScoutShip(0) );			// add troll ship for debugging								
-		//asterage2State.addTrollShip( new TrollWeaponPod(null) );		// add a loose troll weapon pod for debugging.
-		//asterage2State.addTrollShip( new TrollMiningPod(0.0, 0.0) );	// add a new mining pod for debugging.	
-		//asterage2State.beginMothershipSpawnCountdown();				// add troll mothership for debugging.
-	} 
-	
-	private ArrayList<SpaceObject> generateAsteroidsFromPointCard ( AsteroidPointCard pointCard, SpaceObject parentObject ) {
-		ArrayList<SpaceObject> generatedAsteroids = new ArrayList<>();
-		
-		//go through and create as many asteroid of each type as the score card says we must.
-		for ( Asteroid.Asteroid_Type_Size currentTypeAndSize : Asteroid.Asteroid_Type_Size.values() ) {
-			for ( int count = 1;	count <= pointCard.getAsteroidCount(currentTypeAndSize);	++count )
-			{
-				double randomXCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.boardWidth);
-				double randomYCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.boardHeight);			
-				Asteroid newAsteroid = (null != parentObject) ?
-						new Asteroid ( parentObject, currentTypeAndSize ) :
-						new Asteroid(randomXCoordinate, randomYCoordinate, currentTypeAndSize);
-				generatedAsteroids.add( newAsteroid );
-			} 
-		} 
-		
-		return generatedAsteroids;
 	} 
 	
 	private void moveAndRotateObjects()	{
@@ -479,7 +362,7 @@ public class Asterage2Controller
 			for ( int count = 1;	count <= numberOfMultiShots;  ++count ) {
 				//calculate the angle for which we should fire this multi shot. 
 				//Toggle the direction in any case (we'll come back a 2nd time for the 2nd shot in case of level 2 system.)
-				int variationDegree = (Asterage2State.Multi_Shot_Direction.RIGHT == asterage2State.getMultiShotDirection() ) ?
+				int variationDegree = (MultiShotDirection.RIGHT.equals(asterage2State.getMultiShotDirection()) ) ?
 						PlasmaBolt.MULTISHOT_ARC_VARIATION : (-1 * PlasmaBolt.MULTISHOT_ARC_VARIATION);
 				int multiShotAngle = playerShip.getFacingAngleDegrees() + variationDegree; 
 				PlasmaBolt multiShotPlasmaBolt = 
@@ -493,7 +376,6 @@ public class Asterage2Controller
 			//play the player plasma bolt sound effect
 			soundManager.playSoundEvent(SoundEvent.A2_PLAYER_PLASMA_BOLT_FIRE);
 		} 
-		
 		
 		//now check troll ships.
 		for ( TrollBaseShip currentTroll: asterage2State.getTrollShipList() ) {
@@ -515,17 +397,13 @@ public class Asterage2Controller
 		} 
 	} 
 	
-	
 	private void checkToFireTrollLasers() {
-		//get a reference to the player ship, as we may need it later.
 		PlayerShip playerShip = asterage2State.getPlayerShip();
 		
 		//iterate through each troll ship on the game board
 		//checking to see if they are equipped with a laser and ready to fire.
-		for ( TrollBaseShip currentTroll : asterage2State.getTrollShipList() )
-		{
-			if ( currentTroll instanceof FiresTrollLaser )
-			{
+		for ( TrollBaseShip currentTroll : asterage2State.getTrollShipList() ) {
+			if ( currentTroll instanceof FiresTrollLaser ) {
 				//decrement the cooldown of the troll laser, and then see if the ship is ready to fire.
 				FiresTrollLaser laserTroll = (FiresTrollLaser) currentTroll;
 				laserTroll.decrementTrollLaserCooldown();
@@ -539,8 +417,7 @@ public class Asterage2Controller
 					//fire the weapon! Then reset the cooldown of the laser.
 					createNewTrollLaserEffect( playerShip, currentTroll);
 					currentTroll.resetTrollLaserCooldown();
-				} 
-				else if ( laserReadyToFire ) {
+				} else if ( laserReadyToFire ) {
 					//else if we either don't have a weapon equipped, or else the player ship
 					//is not in play currently, just reset the laser cooldown and consider this a missed opportunity.
 					currentTroll.resetTrollLaserCooldown();
@@ -564,13 +441,13 @@ public class Asterage2Controller
 	
 	/**
 	 * Remove all other objects from the game board that have a status of expired.
+	 * TODO: refactor this into one pass instead of picking out objects by type.
 	 */
 	private void removeExpiredObjects()	{
 		asterage2State.removeExpiredPlasmaBolts();
 		asterage2State.removeExpiredAsteroids();
 		asterage2State.removeExpiredTrollShips(this, gui);
 		asterage2State.removeExpiredPowerUps();
-		asterage2State.removeExpiredEffects();
 		asterage2State.removeExpiredHomingMissiles();
 	}
 	
@@ -586,8 +463,6 @@ public class Asterage2Controller
 	 * 
 	 */
 	private void checkCollisions() {
-
-		
 		checkAsteroidAndPlasmaBoltCollision();
 		checkAsteroidAndPlayerShipCollision();
 		checkPowerUpAndPlayerShipCollision();
@@ -626,7 +501,6 @@ public class Asterage2Controller
 			} 
 		} 
 	}
-	
 	
 	private void checkPlayerAndPlasmaBoltCollision() {
 		//first check to see if the player ship is in play. If not, no collision is possible.
@@ -731,8 +605,7 @@ public class Asterage2Controller
 	 * Generates a list of new asteroids to add to the game board after a collision.
 	 * Also decides if power ups or special systems drop onto the game board.
 	 */
-	private ArrayList<SpaceObject> generateNewAsteroidsFromImpact( Asteroid parentAsteroid )
-	{
+	private ArrayList<SpaceObject> generateNewAsteroidsFromImpact( Asteroid parentAsteroid ) {
 		ArrayList<SpaceObject> generatedObjectList = new ArrayList<>();
 		//if ( false == parentAsteroid.checkExpired() ) { return generatedObjectList; }	//Only generate asteroids if the parent is expired.
 		
@@ -758,7 +631,8 @@ public class Asterage2Controller
 					pointCard.addToAsteroidCount(SMALL_PURPLE, 1);
 					break;
 					
-					
+				default: 
+					break;
 			} 
 		} else {
 			//generate a full complement of asteroids.
@@ -834,7 +708,7 @@ public class Asterage2Controller
 		} 
 		
 		//spawn the asteroids.
-		generatedObjectList.addAll( generateAsteroidsFromPointCard(pointCard, parentAsteroid) );
+		generatedObjectList.addAll( asterage2State.generateAsteroidsFromPointCard(pointCard, parentAsteroid) );
 		
 		//random chance of PowerUp spawning from asteroids.
 		if ( checkPowerUpSpawnChance() ) {
@@ -864,21 +738,19 @@ public class Asterage2Controller
 
 		int currentGameLevel = asterage2State.getGameLevel();
 		if (	currentGameLevel >= TrollMothership.TROLL_MINING_SHIP_LEVEL_SPAWN_THRESHOLD &&
-				false == asterage2State.getSpawnedTrollMothershipRecently() &&
+				false == asterage2State.isSpawnedTrollMothershipRecently() &&
 				false == asterage2State.checkMothershipSpawnCountdownActive()	&&
 				false == asterage2State.checkMothershipOrTrollMiningPodInPlay()	&&
 				TrollMothership.TROLL_MINING_SHIP_RANDOM_SPAWN_THRESHOLD >= RandomizedNumbers.random10000() ) {
 			return true;
 		} 
-		
-		//else no.
+
 		return false;
 	}
 	
 	private void checkToAdvanceTrollMothershipCountdown() {
 		boolean timeToSpawnMothership = asterage2State.advanceTrollMothershipSpawnCountdown();		//advance the countdown, if one is active.
-		if ( timeToSpawnMothership )
-		{
+		if ( timeToSpawnMothership ) {
 			spawnTrollMothership();
 		} 
 	} 
@@ -1468,12 +1340,11 @@ public class Asterage2Controller
 		
 		//reset the cooldown after checking for impacts.
 		playerShip.resetSonicDisruptorCooldown();
-		
 	} 
 	
 	private void ageObjects() {
 		//age objects that have finite lifespans. E.g. space effects, and the pop-up message.
-		asterage2State.ageSpaceEffects();
+		asterage2State.ageSpaceEffectsAndRemoveExpired();
 	} 
 	
 	private void checkForLevelComplete() {
@@ -1496,7 +1367,7 @@ public class Asterage2Controller
 	private void doWarpoutCountdownSequence () {
 		//first decrement the countdown by 1. Then perform the sequence of events for warp-out.
 		asterage2State.decrementWarpingOutCountDown();
-		int warpoutCountdown = asterage2State.getWarpingOutCountDown();
+		int warpoutCountdown = asterage2State.getWarpOutCountdown();
 		PlayerShip playerShip = asterage2State.getPlayerShip();
 		
 		if (	(warpoutCountdown <= WARP_OUT_COUNTDOWN_SHIP_WARP_EVENT) &&
@@ -1518,7 +1389,8 @@ public class Asterage2Controller
 	
 	private void performStageLevelUp() {
 		asterage2State.setGameLevel( asterage2State.getGameLevel() + 1);	//advance the level counter.
-		generateAsteroidsForLevel();										//make the asteroids for this level
+		asterage2State.generateAsteroidsForLevel();							//make the asteroids for this level
+		showCurrentLevelMessage();											//show what level we've just entered.
 		asterage2State.resetSpecialItemDropCounter();						//reset counter to drop special items
 		selectSoundTrackForLevel();											//play the soundtrack for the current game level.
 	
@@ -1560,7 +1432,6 @@ public class Asterage2Controller
 		} 
 	} 
 	
-	
 	/**
 	 * Responsible for awarding points to the score, and for handling other logic, such as awarding extra lives.
 	 * All points awarded should be done through this method.
@@ -1594,7 +1465,7 @@ public class Asterage2Controller
 
 		boolean shipDestroyed = asterage2State.getPlayerShip().checkShipIsDestroyed();
 		boolean noLivesLeft = (asterage2State.getRemainingShips() <= 0 );
-		boolean gameStateWasRunning = ( asterage2State.getGameState() == Asterage2State.GameState.RUNNING );
+		boolean gameStateWasRunning = ( asterage2State.getGameState() == GameState.RUNNING );
 		boolean shipExplosionOnBoard = asterage2State.checkShipExplosionEffectOnBoard();
 		if ( shipDestroyed && noLivesLeft && gameStateWasRunning && !shipExplosionOnBoard) {
 			//gave is now over. Set game state to Game over.
@@ -1639,10 +1510,9 @@ public class Asterage2Controller
 		//if the counter shows expired, and a message is being displayed, clear the message.
 		asterage2State.decrementPopUpCountdown();
 		
-		boolean showingMessage = asterage2State.checkPopUpMessageBeingShown();
-		boolean timeToClearMessage = asterage2State.getPopUpMessageRemainingCountdown() < asterage2State.POP_UP_MESSAGE_CLEAR_TIME;
-		if ( showingMessage && timeToClearMessage )
-		{
+		boolean showingMessage = asterage2State.isPopUpMessageBeingShown();
+		boolean timeToClearMessage = asterage2State.getPopUpMessageRemainingCountdown() < Asterage2State.POP_UP_MESSAGE_CLEAR_TIME;
+		if ( showingMessage && timeToClearMessage )	{
 			gui.setAsterage2PopUpText("", AsteRAGE2GameBoard.PopUpMessageLabel.MessageType.INFO);
 		}
 	}

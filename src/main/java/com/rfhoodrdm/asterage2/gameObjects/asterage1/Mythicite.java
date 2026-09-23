@@ -4,10 +4,6 @@ import com.rfhoodrdm.asterage2.gui.Image;
 import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 
-/**
- * Mythicite is the objective of the Trololo's mission. Collect as much as possible!
- * @author roberthood
- */
 public class Mythicite
 extends SpaceObject
 {

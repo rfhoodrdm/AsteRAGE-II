@@ -5,14 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShieldEffect;
+
+import static com.rfhoodrdm.asterage2.state.asterage2.PointsAwards.*;
+
 import java.util.ArrayList;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.DeploysShields;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresPlasmaBoltsAtIntervals;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresTrollLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
-
-import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.*;
 
 
 @Slf4j

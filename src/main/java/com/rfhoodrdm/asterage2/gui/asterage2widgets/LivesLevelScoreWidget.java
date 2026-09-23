@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 
 import org.springframework.stereotype.Component;
 
-import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
 import lombok.extern.slf4j.Slf4j;
 

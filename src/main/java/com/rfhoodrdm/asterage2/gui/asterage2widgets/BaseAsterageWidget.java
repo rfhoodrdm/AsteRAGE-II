@@ -3,7 +3,7 @@ package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
 import javax.swing.JPanel;
 
-import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
 /**
  * Base class of Widgets for the HUD display in AsteRAGE 2

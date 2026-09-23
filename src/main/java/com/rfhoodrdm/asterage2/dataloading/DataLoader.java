@@ -17,8 +17,8 @@ import com.rfhoodrdm.asterage2.dataloading.delegate.SoundLoaderDelegate;
 import com.rfhoodrdm.asterage2.dataloading.popup.DataLoaderPopup;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.sounds.Sound;
-import com.rfhoodrdm.asterage2.state.HighScoreDirectory;
-import com.rfhoodrdm.asterage2.state.HighScoreEntry;
+import com.rfhoodrdm.asterage2.state.highscore.HighScoreDirectory;
+import com.rfhoodrdm.asterage2.state.highscore.HighScoreEntry;
 
 import lombok.extern.slf4j.Slf4j;
 

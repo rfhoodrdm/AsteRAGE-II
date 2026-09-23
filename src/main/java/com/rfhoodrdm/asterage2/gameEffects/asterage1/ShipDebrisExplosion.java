@@ -13,7 +13,6 @@ import java.awt.image.AffineTransformOp;
 /**
  * The ShipDebrisExplosion effect shows a bunch of debris flying out from a central location.
  * It is used when a player or troll ship is destroyed.
- * @author roberthood
  */
 public class ShipDebrisExplosion
 extends SpaceEffect

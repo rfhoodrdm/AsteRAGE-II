@@ -2,11 +2,8 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.DECELERATION;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.EXTRA_POINTS;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.HOMING_MISSILE;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.MULTISHOT;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption.SHIELD_GENERATOR;
+import static com.rfhoodrdm.asterage2.state.asterage2.constants.PowerUpMenuOption.*;
+
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,8 +16,8 @@ import org.springframework.stereotype.Component;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.state.Asterage2State;
-import com.rfhoodrdm.asterage2.state.Asterage2State.PowerUpMenuOption;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.PowerUpMenuOption;
 
 import lombok.extern.slf4j.Slf4j;
 

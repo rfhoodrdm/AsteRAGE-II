@@ -7,14 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.GetsDestroyed;
-import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
-
-/**
- * Represents either a small, medium, or large asteroid object.
- * @author roberthood
- */
-
-
+import com.rfhoodrdm.asterage2.state.asterage1.Asterage1ScoreState;
 
 @Slf4j
 public class Asteroid

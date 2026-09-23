@@ -23,15 +23,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.state.HighScoreEntry;
-
-
-/**
- * Loads and saves the high score lists.
- * @author roberthood
- */
-
-
+import com.rfhoodrdm.asterage2.state.highscore.HighScoreEntry;
 
 @Slf4j
 public class HighScoreXMLHandler
@@ -59,8 +51,7 @@ public class HighScoreXMLHandler
 		ArrayList<HighScoreEntry> highScoreList = new ArrayList<>();
 		
 		//Try to read in the file.
-		try
-		{
+		try	{
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder(); 
 			Document doc = db.parse(new File(filenameToLoad));
@@ -68,8 +59,7 @@ public class HighScoreXMLHandler
 			NodeList highScoreEntryNodeList = doc.getElementsByTagName( GameConstants.HIGH_SCORE_ENTRY_NODE );
 			
 			//iterate through the node list, pick out each piece of information, make an entry, and add it to the list.
-			for ( int index = 0; index < highScoreEntryNodeList.getLength();	++index )
-			{
+			for ( int index = 0; index < highScoreEntryNodeList.getLength();	++index ) {
 				Node currentNode = highScoreEntryNodeList.item ( index );
 				NamedNodeMap attributes = currentNode.getAttributes();
 				String name = attributes.getNamedItem( GameConstants.HIGH_SCORE_NAME_ATTRIBUTE ).getNodeValue();
@@ -79,41 +69,28 @@ public class HighScoreXMLHandler
 				HighScoreEntry newEntry = new HighScoreEntry(name, level, points);
 				highScoreList.add( newEntry );
 				log.debug("Loaded high score entry: {} / {} / {}", name, level, points);
-				
-			} //end for loop iterating through the high score list.
-			
-		} //end try block
-		catch (ParserConfigurationException e) 
-		{
+			} 			
+		} catch (ParserConfigurationException e) {
 			log.warn("ParserConfigurationException thrown when trying to load high score file: {}", filenameToLoad, e);
-			return new ArrayList<>();	//returns an empty list. 
-		}
-		catch ( SAXException e )
-		{
+			return new ArrayList<>();	
+		} catch ( SAXException e ) {
 			log.warn("SAXException thrown when trying to load high score file: {}", filenameToLoad, e);
-			return new ArrayList<>();	//returns an empty list. 
-		}
-		catch ( IOException e )
-		{
+			return new ArrayList<>();	
+		} catch ( IOException e ) {
 			log.warn("IOException thrown when trying to load high score file: {}", filenameToLoad, e);
-			return new ArrayList<>();	//returns an empty list. 
+			return new ArrayList<>();
 		} 
-		
-		//If we have reached this far, return the high score list we have made.
+
 		return highScoreList;
-	} //end loadXML function definition
+	} 
 	
 	
 	/**
 	 * Takes a high score list, and the name of the file to save to, and creates a new XML file representing
 	 * the high score list.
-	 * @param highScoreList
-	 * @param fileName 
 	 */
-	public static void saveXML ( ArrayList<HighScoreEntry> highScoreList, String fileNameToSave )
-	{
-		try
-		{
+	public static void saveXML ( ArrayList<HighScoreEntry> highScoreList, String fileNameToSave ) {
+		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder(); 
 			Document doc = db.newDocument();
@@ -123,8 +100,7 @@ public class HighScoreXMLHandler
 			doc.appendChild( rootElement );
 			
 			//create the high score entries.
-			for ( HighScoreEntry currentEntry: highScoreList )
-			{
+			for ( HighScoreEntry currentEntry: highScoreList ) {
 				String name = currentEntry.getHighScoreName();
 				String level = "" + currentEntry.getHighScoreLevel();
 				String points = "" + currentEntry.getHighScorePoints();
@@ -135,7 +111,7 @@ public class HighScoreXMLHandler
 				highScoreElement.setAttribute(GameConstants.HIGH_SCORE_POINTS_ATTRIBUTE, points);
 				
 				rootElement.appendChild(highScoreElement);
-			} //end for loop iterating through high score entries.
+			} 
 			
 			//Create the XML data, and write to a file.
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -147,16 +123,12 @@ public class HighScoreXMLHandler
 			
 			log.debug("Save to file: {} completed!", fileNameToSave);
 			
-		} //end try block
-		catch (ParserConfigurationException e) 
-		{
+		} catch (ParserConfigurationException e) {
 			log.warn("ParserConfigurationException thrown when trying to save high score file: {}", fileNameToSave, e);
-		}
-		catch ( TransformerException e )
-		{
+		} catch ( TransformerException e ) {
 			log.warn("TransformerException thrown when trying to save high score file: {}", fileNameToSave, e);
 		}
-	} //end function saveXML definition
+	} 
 	
 	
 	/*	**********************************************************************

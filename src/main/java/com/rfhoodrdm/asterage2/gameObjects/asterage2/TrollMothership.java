@@ -3,6 +3,8 @@ package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
 import lombok.extern.slf4j.Slf4j;
 
+import static com.rfhoodrdm.asterage2.state.asterage2.PointsAwards.TROLL_MOTHERSHIP_DESTROYED;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -15,7 +17,6 @@ import java.util.List;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.PursuesPlayer;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.TROLL_MOTHERSHIP_DESTROYED;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 @Slf4j

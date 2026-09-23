@@ -1,6 +1,6 @@
 
 
-package com.rfhoodrdm.asterage2.state;
+package com.rfhoodrdm.asterage2.state.asterage1;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -15,6 +15,8 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollPod;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollScout;
+import com.rfhoodrdm.asterage2.state.highscore.HighScoreDirectory;
+import com.rfhoodrdm.asterage2.state.highscore.HighScoreDirectory.GAME_IDENTIFIER;
 
 import lombok.Getter;
 import lombok.Setter;

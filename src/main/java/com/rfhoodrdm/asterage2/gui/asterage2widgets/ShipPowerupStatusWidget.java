@@ -15,7 +15,7 @@ import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
 import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -21,7 +21,7 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.PowerUpBaseObject;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
-import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.rfhoodrdm.asterage2.controller;
+package com.rfhoodrdm.asterage2.controller.title;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import com.rfhoodrdm.asterage2.gui.titlescreen.components.StarPoint;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
-import com.rfhoodrdm.asterage2.state.TitleState;
+import com.rfhoodrdm.asterage2.state.title.TitleState;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,7 +52,8 @@ public class TitleController
 	}
 	
 	/**
-	 * Entry point of the logic to determine how to react to key presses.
+	 * Entry point to determine reaction to a key event.
+	 * First, decide if we care about that particular key, then determine if it was a key-up or key-down event.
 	 */
 	public void processKeyEvent ( int keyCode, GameKeyAdapter.GAME_KEY_EVENT whichEvent ) {
 		//First, filter out keystrokes that are not used, so we don't try to process them.
@@ -60,16 +61,9 @@ public class TitleController
 			return;	
 		}
 		
-		//Key up, or key down?
 		switch ( whichEvent ) {
-			case UP:
-				processKeyUpEvent( keyCode );
-				break;
-			case DOWN:
-				processKeyDownEvent( keyCode );
-				break;
-			default:
-				return;
+			case UP -> 		processKeyUpEvent( keyCode );
+			case DOWN ->	processKeyDownEvent( keyCode );
 		} 
 	}
 	
@@ -77,6 +71,10 @@ public class TitleController
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
+	
+	/**
+	 * Placeholder for key up event processing.
+	 */
 	private void processKeyUpEvent ( int keyCode ) {
 		//For State: SELECTING_GAME
 		//For state: GAME_SELECTED_COUNTDOWN
@@ -88,8 +86,7 @@ public class TitleController
 		//Is a game currently selected, and the game is counting down to start? If so, we don't accept
 		//any more input. But if not, then we toggle the selected game.
 		if ( false == titleState.isGameSelected() )	{
-			switch ( keyCode )
-			{ 
+			switch ( keyCode ) { 
 				case KeyEvent.VK_W:
 				case KeyEvent.VK_S:
 				case KeyEvent.VK_D:
@@ -109,7 +106,6 @@ public class TitleController
 				case KeyEvent.VK_SPACE:
 					menuSelectGame();
 					break;
-
 			}
 		} 
 	} 
@@ -117,8 +113,6 @@ public class TitleController
 	/**
 	 * Check the keystroke against our list of used keys. 
 	 * If the key is used, return true. Else return false.
-	 * @param key
-	 * @return Boolean value representing the decision of if the key is a used key. True = yes, false = no.
 	 */
 	private boolean checkIfKeyUsed ( int keyCode )
 	{
@@ -144,18 +138,19 @@ public class TitleController
 		} 
 	} 
 	
+	/**
+	 * Always animate the star background.
+	 * Then, depending on whether a game has been selected or not, 
+	 * either update the countdown or switch to the game screen in question.
+	 */
 	private void updateTitleState () {
-		//always-do tasks:
+
 		moveStars();
-		
-		//do different things based on what the current activity is.
-		// If the game has been selected, then update the countdown. 
-		if ( titleState.isGameSelected() )		{
+
+		if ( titleState.isGameSelected() ) {
 			update_GameSelectedCountdown();
 			return;
 		}
-		
-		//else decrement the activity counter.
 		titleState.decrementTimeToNextActivity();
 	} 
 	
@@ -174,6 +169,7 @@ public class TitleController
 				switchActiveState( CurrentState.ASTERAGE_1 );
 			} else if ( gameSelection == TitleState.GAME_SELECTION.ASTERAGE2 ) {
 				switchActiveState( CurrentState.ASTERAGE_2 );
+				soundManager.changeMusicSequence(SoundManager.SOUNDTRACK_SEQUENCE.ASTERAGE_2_TRACK1);	//TODO: possibly refactor this to somewhere more sensible?
 			} else {
 				//shouldn't reach here, because we've selected neither AsteRAGE 1 nor AsteRAGE 2. Make a note in the error log
 				log.error("Cannot switch to game: Game selection is unknown.");
@@ -183,9 +179,8 @@ public class TitleController
 	
 	private void switchActiveState(CurrentState newState) {
 		state.changeCurrentActiveState( newState );
-		gui.changeCurrentGuiShown();
+		gui.changeCurrentGuiShown();					
 	}
-
 
 	/**
 	 * Change the currently active menu selection.
@@ -213,7 +208,6 @@ public class TitleController
 		soundManager.playSoundEvent ( SoundEvent.TITLE_SCREEN_MENU_GAME_SELECTED );
 	} 
 	
-	
 	private void moveStars()	{
 		List<StarPoint> starPointList =  titleState.getStarPointList();
 		for ( StarPoint currentStar: starPointList )		{
@@ -223,5 +217,4 @@ public class TitleController
 			} 
 		} 
 	} 
-
 } 

@@ -18,7 +18,7 @@ import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
-import com.rfhoodrdm.asterage2.state.TitleState;
+import com.rfhoodrdm.asterage2.state.title.TitleState;
 
 import lombok.extern.slf4j.Slf4j;
 

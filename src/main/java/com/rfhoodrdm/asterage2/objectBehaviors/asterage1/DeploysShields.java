@@ -5,7 +5,6 @@ import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 
 /**
  * Presents all methods involving interacting with an object's shields.
- * @author roberthood
  */
 public interface DeploysShields
 {

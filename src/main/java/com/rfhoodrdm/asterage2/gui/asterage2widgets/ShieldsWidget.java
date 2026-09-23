@@ -8,7 +8,7 @@ import java.awt.Insets;
 
 import javax.swing.JProgressBar;
 
-import com.rfhoodrdm.asterage2.state.Asterage2State;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
 
 public class ShieldsWidget

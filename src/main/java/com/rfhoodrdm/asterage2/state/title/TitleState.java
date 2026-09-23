@@ -1,5 +1,5 @@
 
-package com.rfhoodrdm.asterage2.state;
+package com.rfhoodrdm.asterage2.state.title;
 
 import java.util.ArrayList;
 

@@ -4,10 +4,6 @@ package com.rfhoodrdm.asterage2.objectBehaviors.asterage2;
 
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
 
-/**
- *
- * @author roberthood
- */
 public interface FiresSonicDisruptor
 {
 	public void setFiringSonicDisruptor( boolean firingDisruptorFlag );		//turn the sonic disruptor on or off

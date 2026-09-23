@@ -6,9 +6,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.state.asterage1.Asterage1State;
+
 import java.awt.Font;
 import java.awt.FontMetrics;
-import com.rfhoodrdm.asterage2.state.Asterage1State;
 
 /**
  *

@@ -3,12 +3,13 @@
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
+
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JProgressBar;
-import com.rfhoodrdm.asterage2.state.Asterage2State;
 
 
 public class PowerPointsWidget

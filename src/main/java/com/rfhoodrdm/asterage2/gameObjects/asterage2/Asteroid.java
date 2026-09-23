@@ -2,13 +2,15 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import com.rfhoodrdm.asterage2.gui.Image;
+import static com.rfhoodrdm.asterage2.state.asterage2.PointsAwards.LARGE_ASTEROID_HIT;
+import static com.rfhoodrdm.asterage2.state.asterage2.PointsAwards.MEDIUM_ASTEROID_HIT;
+import static com.rfhoodrdm.asterage2.state.asterage2.PointsAwards.SMALL_ASTEROID_HIT;
 
-import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.image.BufferedImage;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.TakesDamage;
-import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.*;
 
 
 public class Asteroid

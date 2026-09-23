@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * This interface presents all of the functions related to a spaceobject that shoots the troll super laser.
- * @author roberthood
  */
 public interface FiresSuperLaser
 {

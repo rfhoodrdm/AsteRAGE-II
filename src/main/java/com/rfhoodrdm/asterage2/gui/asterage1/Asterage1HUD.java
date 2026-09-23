@@ -15,7 +15,7 @@ import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.gui.templates.IconButtonTemplate;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
-import com.rfhoodrdm.asterage2.state.Asterage1State;
+import com.rfhoodrdm.asterage2.state.asterage1.Asterage1State;
 
 import lombok.extern.slf4j.Slf4j;
 
