@@ -1,17 +1,16 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import com.rfhoodrdm.asterage2.gui.Image;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.GravityNetEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShieldEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
-import com.rfhoodrdm.asterage2.gui.GUI;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import java.awt.image.BufferedImage;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.DeploysShields;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresPlasmaBolts;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresSonicDisruptor;

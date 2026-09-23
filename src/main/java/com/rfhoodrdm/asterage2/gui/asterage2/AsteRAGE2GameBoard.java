@@ -1,18 +1,13 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-
 import org.springframework.stereotype.Component;
 
-import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SpaceEffect;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.HomingMissile;
@@ -20,6 +15,8 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlasmaBolt;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.PlayerShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.PowerUpBaseObject;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollBaseShip;
+import com.rfhoodrdm.asterage2.gui.asterage2.components.PopUpMessageLabel;
+import com.rfhoodrdm.asterage2.gui.asterage2.components.StarPoint;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
@@ -174,90 +171,6 @@ public class AsteRAGE2GameBoard
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-	public static class PopUpMessageLabel 
-	extends JLabel {
-		public PopUpMessageLabel() {
-			Dimension messageSize = new Dimension ( boardWidth, 100 );
-			setSize(messageSize); setPreferredSize(messageSize); setMinimumSize(messageSize); setMaximumSize(messageSize);
-			setLocation( 0, (boardHeight/2) );
-			setFont ( new java.awt.Font( GameConstants.gameFont, Font.BOLD, GameConstants.Asterage2HUDFontSize ));
-			setHorizontalAlignment(CENTER);
-		} 
-		
-		public static enum MessageType {
-			REWARD	( new Color (0x33, 0x99, 0x33) ),
-			INFO	( new Color (0x33, 0x99, 0xCC) ),
-			WARNING	( new Color (0xCC, 0x00, 0x00) );
-			
-			Color associatedColor;	//what color is associated with this message
-			MessageType( Color passedColor ) { this.associatedColor = passedColor; }
-			
-			public Color getAssociatedColor() { return this.associatedColor; }
-		}
-		
-		public void setPopUpText( String message, MessageType whatType ) {
-			//set the message text and associated color
-			setText(message);
-			setForeground( whatType.getAssociatedColor() );
-		}
-	} 
 	
-	public static class StarPoint {
-		//data members.
-		private int xCoord = 0;					//x coordinate on game board
-		private int yCoord = 0;					//y coordinate on game board
-		Color starColor = Color.WHITE;			//what color to draw on field?
-		Color baseColor = getBaseStarColor();	//what is the basic color of the star?
-		
-		/**
-		 * Constructor
-		 * @param passedXCoord
-		 * @param passedYCoord 
-		 */
-		public StarPoint ( int passedXCoord, int passedYCoord ) {
-			//remember the location set when made
-			this.xCoord = passedXCoord;
-			this.yCoord = passedYCoord;
-		} 
-		
-		public void paintStar ( Graphics g, int frameNumber ) {
-			//draw as two lines crossing.
-			checkChangeStarColor ( frameNumber );
-			g.setColor( starColor );
-			
-			g.drawLine(xCoord -1, yCoord, xCoord+1, yCoord);
-			g.drawLine(xCoord, yCoord-1, xCoord, yCoord+1);
-		} 
-		
-		private void checkChangeStarColor( int frameNumber ) {
-			//see if we should randomly change the star color.
-			boolean changeStarColor = ( frameNumber % 3 ) == 0;
-			if ( changeStarColor ) {
-				starColor = getNewRandomStarColor ();
-			} 
-		}
-		
-		private Color getNewRandomStarColor () {
-			int randomChance = (int) Math.floor ( Math.random() * 100 ) ;
-			if ( randomChance < 1 )	return Color.LIGHT_GRAY;
-			if ( randomChance < 2 )	return Color.CYAN;
-			if ( randomChance < 3 ) return Color.ORANGE;
-			if ( randomChance < 4 )	return Color.YELLOW;
-			if ( randomChance < 5 ) return Color.WHITE;
-			if ( randomChance < 6 )	return Color.BLACK;
-			
-			return baseColor;		//else just return the base color
-		}
-		
-		private static Color getBaseStarColor () {
-			int randomChance = (int) Math.floor ( Math.random() * 100 ) ;
-	
-			if ( randomChance < 1 )		return Color.RED;
-			if ( randomChance < 2 )		return Color.ORANGE;
-			if ( randomChance < 3 )		return Color.CYAN;
-			if ( randomChance < 30 )	return Color.YELLOW;
-			return Color.WHITE;
-		} 
-	} 
-	
+
 }

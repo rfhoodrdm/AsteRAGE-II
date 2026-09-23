@@ -17,7 +17,6 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.state.asterage1.Asterage1State;
 import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Component

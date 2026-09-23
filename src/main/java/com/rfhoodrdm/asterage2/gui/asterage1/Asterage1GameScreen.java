@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
-import com.rfhoodrdm.asterage2.state.asterage1.Asterage1State;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,8 +20,8 @@ public class Asterage1GameScreen
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	private Asterage1HUD asterage1HUD;
-	private Asterage1GameBoard asterage1GameBoard;
+	private final Asterage1HUD asterage1HUD;
+	private final Asterage1GameBoard asterage1GameBoard;
 	
 	
 	/*	**********************************************************************

@@ -12,30 +12,28 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
  * Base class of an HUD label, to display text on the HUD.
  */
 public class HUDLabel
-extends JLabel
-{
+	extends JLabel {
+	
+	private static final long serialVersionUID = -6043460682914310528L;
 	HUDLabelType whatType = HUDLabelType.STANDARD;
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public HUDLabel( String textToDisplay, HUDLabelType passedType )
-	{
+	public HUDLabel( String textToDisplay, HUDLabelType passedType ) {
 		super( textToDisplay );
 		whatType = passedType;
 		setCommonAttributes();
-	} //end construtor with string to display text
+	} 
 	
-	public HUDLabel( HUDLabelType passedType )
-	{
+	public HUDLabel( HUDLabelType passedType ) {
 		super();
 		whatType = passedType;
 		setCommonAttributes();
-	} //end constructor with no argument
+	} 
 	
-	private void setCommonAttributes()
-	{
+	private void setCommonAttributes() {
 		String fontNameSelected = ( whatType == HUDLabelType.STANDARD ) ?
 					GameConstants.gameFont  : GameConstants.monospaceGameFont;
 		
@@ -44,12 +42,9 @@ extends JLabel
 		this.setHorizontalAlignment( SwingConstants.LEFT );
 	}
 	
-	
 	public static enum HUDLabelType
 	{
 		STANDARD,
 		MONOSPACE;
-	} //end enum HUDLabelType Definition
-			
-	
-} //end class HUDLabel definition
+	} 			
+} 

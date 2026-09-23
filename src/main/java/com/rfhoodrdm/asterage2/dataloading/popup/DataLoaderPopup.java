@@ -1,6 +1,7 @@
 package com.rfhoodrdm.asterage2.dataloading.popup;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -34,6 +35,7 @@ public class DataLoaderPopup {
 		//initialize the gui components.
 		loaderFrame = new JFrame ("Loading " + GameConstants.GAME_NAME + " data..." );
 		loaderFrame.setDefaultCloseOperation(  JFrame.DO_NOTHING_ON_CLOSE );
+		loaderFrame.getContentPane().setBackground(Color.black);
 		loaderFrame.setLayout ( null );
 		loaderFrame.setSize ( loaderSize );
 		loaderFrame.setLocationRelativeTo( null );
@@ -60,6 +62,8 @@ public class DataLoaderPopup {
 		loaderProgressBar.setPreferredSize ( componentSize );
 		loaderProgressBar.setMaximumSize ( componentSize );
 		loaderProgressBar.setStringPainted ( true );
+		loaderProgressBar.setForeground(Color.DARK_GRAY);
+		loaderProgressBar.setBackground(Color.black); 
 		
 		//assemble everything.
 		loaderFrame.add ( loaderPanel );

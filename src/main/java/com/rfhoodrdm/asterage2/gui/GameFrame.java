@@ -38,10 +38,12 @@ public class GameFrame
 				GameConstants.GAME_VERSION);				
 		
 		//set the parameters of this component.
-		this.setSize( GUI.panelWidth , GUI.panelHeight + 25);	//use given component sizes. Add some pixels to accomodate menu bar size differences
+		
+		this.setSize( GUI.panelWidth , GUI.panelHeight + 25);	//use given component sizes. Add some pixels to accommodate menu bar size differences
 		this.setLayout( null );									//layout will honor coordinates of sub components.
 		this.setLocationRelativeTo( null );						//center on screen
-		this.setBackground ( new Color ( 0, 0, 0) );			//solid black background
+		setExtendedState(JFrame.MAXIMIZED_BOTH);				//full windowed screen mode.
+		this.getContentPane().setBackground ( Color.black );	//solid black background
 		this.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );	//exit game on closing of window.
 		
 		this.setIgnoreRepaint(false);

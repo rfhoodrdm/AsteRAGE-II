@@ -2,10 +2,9 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
-import com.rfhoodrdm.asterage2.gui.Image;
-
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.Expires;
 
 public class PlasmaBolt

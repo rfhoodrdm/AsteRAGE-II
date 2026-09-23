@@ -7,10 +7,6 @@ import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.S
 import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.MYTHICITE;
 import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.SHIELD_GENERATOR;
 import static com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.Ship_System_Destruction_Target.SONIC_DISRUPTOR;
-import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_PURPLE;
-import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_RED;
-import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_TAN;
-import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_WHITE;
 import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.MEDIUM_PURPLE;
 import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.MEDIUM_RED;
 import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.MEDIUM_TAN;
@@ -29,6 +25,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
+import com.rfhoodrdm.asterage2.controller.asterage2.constants.PowerUpMenuCycleOption;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SonicDisruptorEffect;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.TrollLaser;
@@ -51,7 +48,8 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollScoutShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.TrollWeaponPod;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
-import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard.PopUpMessageLabel.MessageType;
+import com.rfhoodrdm.asterage2.gui.asterage2.components.PopUpMessageLabel;
+import com.rfhoodrdm.asterage2.gui.asterage2.components.PopUpMessageLabel.MessageType;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.FiresTrollLaser;
@@ -228,11 +226,11 @@ public class Asterage2Controller
 				
 			//power up menu controls
 			case KeyEvent.VK_Y:
-				if ( activelyAcceptingPlayerControls ) { cyclePowerUpMenu(Power_Up_Menu_Cycle_Option.LEFT); }
+				if ( activelyAcceptingPlayerControls ) { cyclePowerUpMenu(PowerUpMenuCycleOption.LEFT); }
 				break;
 				
 			case KeyEvent.VK_O:
-				if ( activelyAcceptingPlayerControls ) { cyclePowerUpMenu(Power_Up_Menu_Cycle_Option.RIGHT); }
+				if ( activelyAcceptingPlayerControls ) { cyclePowerUpMenu(PowerUpMenuCycleOption.RIGHT); }
 				break;
 				
 			case KeyEvent.VK_G:
@@ -851,7 +849,6 @@ public class Asterage2Controller
 		} 
 	} 
 	
-	
 	private void createTrollTrackingPlasmaBolt ( PlayerShip playerShip, TrollBaseShip trollShip ) {
 		double trollX = trollShip.getxCoordinate();
 		double trollY = trollShip.getyCoordinate();
@@ -923,13 +920,12 @@ public class Asterage2Controller
 		asterage2State.addPlasmaBolt(trollPlasmaBolt);
 	} 
 	
-	private void cyclePowerUpMenu(Power_Up_Menu_Cycle_Option whichWayToCycle) {
+	private void cyclePowerUpMenu(PowerUpMenuCycleOption whichWayToCycle) {
 		//get the current option, decide whether to go forward or back in the menu, and then save the new option.
 		PowerUpMenuOption currentOption = asterage2State.getCurrentSelectedPowerUpMenuOption();
-		PowerUpMenuOption nextOption = ( Power_Up_Menu_Cycle_Option.LEFT == whichWayToCycle )?
+		PowerUpMenuOption nextOption = (PowerUpMenuCycleOption.LEFT.equals(whichWayToCycle))?
 						currentOption.getPrevious() : currentOption.getNext();
 		asterage2State.setCurrentSelectedPowerUpMenuOption(nextOption);
-		
 	}
 	
 	/**
@@ -1513,7 +1509,7 @@ public class Asterage2Controller
 		boolean showingMessage = asterage2State.isPopUpMessageBeingShown();
 		boolean timeToClearMessage = asterage2State.getPopUpMessageRemainingCountdown() < Asterage2State.POP_UP_MESSAGE_CLEAR_TIME;
 		if ( showingMessage && timeToClearMessage )	{
-			gui.setAsterage2PopUpText("", AsteRAGE2GameBoard.PopUpMessageLabel.MessageType.INFO);
+			gui.setAsterage2PopUpText("", PopUpMessageLabel.MessageType.INFO);
 		}
 	}
 	
@@ -1554,15 +1550,6 @@ public class Asterage2Controller
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
-	
-	/**
-	 * Types of requests to shift the option selected by the power up menu.
-	 */
-	public static enum Power_Up_Menu_Cycle_Option {
-		LEFT,
-		RIGHT;
-	} 
-	
 	
 	public static enum Ship_System_Destruction_Target {
 		DECELERATION,

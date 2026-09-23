@@ -1,8 +1,7 @@
 package com.rfhoodrdm.asterage2.objectBehaviors.asterage1;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.TrollMothership;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 
 /**
  * This interface presents all of the functions related to a spaceobject that shoots the troll super laser.

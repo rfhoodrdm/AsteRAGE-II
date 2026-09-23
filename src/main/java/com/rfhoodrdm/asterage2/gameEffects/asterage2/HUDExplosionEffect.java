@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 
 public class HUDExplosionEffect
 extends SpaceEffect

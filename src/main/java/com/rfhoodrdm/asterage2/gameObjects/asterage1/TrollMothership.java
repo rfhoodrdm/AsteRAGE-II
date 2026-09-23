@@ -1,23 +1,23 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
-import lombok.extern.slf4j.Slf4j;
-
-import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
-import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
-import com.rfhoodrdm.asterage2.gameEffects.asterage1.TrollLaser;
-import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
+
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
+import com.rfhoodrdm.asterage2.gameEffects.asterage1.TrollLaser;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.DeploysShields;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresBullets;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresSuperLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresTractorBeam;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
