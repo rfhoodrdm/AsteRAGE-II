@@ -1,15 +1,20 @@
 
 
-package com.rfhoodrdm.asterage2.state;
+package com.rfhoodrdm.asterage2.state.asterage2;
 
-import static com.rfhoodrdm.asterage2.state.Asterage2State.POINT_AWARDS.EXTRA_POINT_PURCHASE;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_PURPLE;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_RED;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_TAN;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_WHITE;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.controller.Asterage2Controller;
+import com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller;
+import com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.AsteroidPointCard;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.ShipExplosionEffect;
@@ -30,6 +35,10 @@ import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage2.ControlsWeaponsPods;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.GameState;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.MultiShotDirection;
+import com.rfhoodrdm.asterage2.state.asterage2.constants.PowerUpMenuOption;
+import com.rfhoodrdm.asterage2.state.highscore.HighScoreDirectory;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,6 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class Asterage2State
 	implements RequiresLoadedData {
+	
 	public static int POP_UP_MESSAGE_MAX_EXPIRED_COUNTER = GameConstants.FRAMES_PER_SECOND;	//how long until message expires
 	public static int POP_UP_MESSAGE_CLEAR_TIME = GameConstants.FRAMES_PER_SECOND / 3;		//at what point in the countdown is the message cleared?
 	public static final int MAX_SPECIAL_ITEM_DROPS_PER_LEVEL = 2;
@@ -59,27 +69,26 @@ public class Asterage2State
 		********************************************************************** */
 	
 	private HighScoreDirectory highScoreDirectory;
-	private DataLoader dataLoader;
 	
 	//graphical display data members
-	private int frameNumber = 0;			//what redraw frame are we on? Out of however many frames per second.
+	@Getter private int frameNumber = 0;			//what redraw frame are we on? Out of however many frames per second.
 	
 	//game stats data members
 	@Getter @Setter private int gameLevel;					//what level is currently being played?
 	@Getter @Setter private int remainingShips;				//how many ships does the player have left?
 	@Getter @Setter(AccessLevel.PRIVATE) private int extraLivesAwarded;			//how many extra lives have been awarded already?
 	@Getter @Setter private long score;						//how many points has the player earned?
-	private GameState gameState;			//what is the current state of the current game?
+	@Getter private GameState gameState;			//what is the current state of the current game?
 	@Getter @Setter private boolean requestToSpawnShipFlag;	//set to true when the player requests to spawn the ship.
 	
-	private int warpOutCountdown;			//countdown timer to end of warp-out sequence.
+	@Getter private int warpOutCountdown;			//countdown timer to end of warp-out sequence.
 	
 	//information about various ship's systems and upgrade levels.
 	
 	private int powerUpPoints;										//how many power up points have been collected.
 	private PowerUpMenuOption currentSelectedPowerUpMenuOption;		//which option from the menu is currently selected?
 	
-	private Multi_Shot_Direction multiShotDirection;				//which side of the ship is the multi shot fired on?
+	@Getter @Setter private MultiShotDirection multiShotDirection;				//which side of the ship is the multi shot fired on?
 	
 	//List of In-Play Game objects
 	private PlayerShip playerShip;
@@ -90,14 +99,14 @@ public class Asterage2State
 	private ConcurrentLinkedQueue<SpaceEffect> spaceEffectList;		//list of space effects not attached to other objects.
 	private ConcurrentLinkedQueue<HomingMissile> homingMissileList;	//list of homing missiles currently on the screen.
 	
-	private boolean popUpMessageBeingShown;		//is a message currently on the screen.
-	private int popUpMessageExpiredCounter;		//countdown to expired message.
+	@Getter private boolean popUpMessageBeingShown;		//is a message currently on the screen.
+	@Getter private int popUpMessageRemainingCountdown;				//countdown to expired message.
 
 	//troll state objects 
 	@Getter @Setter private int remainingTrollScoutCountdown;
 	@Getter @Setter private int countSpecialItemsDroppedThisLevel;
 	
-	private boolean spawnedTrollMothershipRecently = false;
+	@Getter @Setter private boolean spawnedTrollMothershipRecently = false;
 	private boolean trollMothershipSpawnCountdownInProgress = false;
 	private int currentTrollMothershipSpawnCountdown = TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN;
 	
@@ -126,8 +135,8 @@ public class Asterage2State
 		setScore(0l);														//starting score is 0 points.
 		setGameState( GameState.RUNNING );									//start game as running.
 		setRequestToSpawnShipFlag(false);									//no initial request to spawn the ship.
-		multiShotDirection = Multi_Shot_Direction.LEFT;						//start on the left side. 
-		currentSelectedPowerUpMenuOption = PowerUpMenuOption.fromInt(0);		//start at the leftmost option at the start.
+		multiShotDirection = MultiShotDirection.LEFT;						//start on the left side. 
+		currentSelectedPowerUpMenuOption = PowerUpMenuOption.fromInt(0);	//start at the leftmost option at the start.
 		resetTrollScoutCountdown();											//set troll scout countdown to max.
 		
 		//initialize in-play game objects.
@@ -147,6 +156,8 @@ public class Asterage2State
 		trollMothershipSpawnCountdownInProgress = false;				//set countdown-in-progress flag to false
 		currentTrollMothershipSpawnCountdown = 
 				TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN;					//reset countdown to max.
+		
+		generateAsteroidsForLevel();
 	} 
 
 	
@@ -154,7 +165,6 @@ public class Asterage2State
 		********************		Class Interface			******************
 		********************************************************************** */
 	
-	public GameState getGameState() { return this.gameState; }
 	public void setGameState( GameState newGameState ) { 
 		this.gameState = newGameState; 
 		//if the state is WARPING OUT, then reset the warping out timer.
@@ -166,30 +176,25 @@ public class Asterage2State
 	public void resetTrollScoutCountdown() { this.remainingTrollScoutCountdown = MAX_TROLL_SCOUT_COUNTDOWN; }
 	public void grantTrollScoutCountdownDeferment() { this.remainingTrollScoutCountdown += TROLL_SCOUT_COUNTDOWN_DEFERMENT_BONUS;}
 	public boolean checkTimeToSpawnTrollScout() { return ( 0 == getRemainingTrollScoutCountdown() ); }
-	public void decrementTrollScoutCountdown() 
-	{
+	public void decrementTrollScoutCountdown() {
 		//decrement by 1. Don't go below 0.
 		remainingTrollScoutCountdown -= 1;
 		if ( 0 > remainingTrollScoutCountdown ) { remainingTrollScoutCountdown = 0; }
-	} //end method decrementTrollScoutCountdown
+	} 
 	
-	
-	public int getWarpingOutCountDown() { return this.warpOutCountdown; }
 	private void resetWarpingOutCountDown() { warpOutCountdown = MAX_WARP_OUT_COUNTDOWN; }
-	public void decrementWarpingOutCountDown() 
-	{
+	public void decrementWarpingOutCountDown() {
 		//decrement by 1, don't go below 0.
 		warpOutCountdown = ( warpOutCountdown > 0 ) ?
 				(warpOutCountdown - 1) : 0;				
 	}
-
 	
-	public int getRemainingShieldPercentage() 
-	{
+	public int getRemainingShieldPercentage() 	{
+		//TODO: This needs to be an Optional check 
 		if ( null == playerShip ) return 0;		//if no ship, show no shields.
 		
 		return playerShip.getRemainingShieldPercentage();
-	} //end method getRemainingShieldPercentage
+	} 
 	
 	public int getPowerUpPoints() { return this.powerUpPoints; } //return 5; }//debug code
 	public void setPowerUpPoints( int passedPowerUpPoints ) {
@@ -201,7 +206,6 @@ public class Asterage2State
 		else { powerUpPoints = passedPowerUpPoints; }
 	}
 	
-	
 	public PowerUpMenuOption getCurrentSelectedPowerUpMenuOption() { return this.currentSelectedPowerUpMenuOption; }
 	public void setCurrentSelectedPowerUpMenuOption ( PowerUpMenuOption passedOption ) 	{ 
 		if ( null != passedOption ) 		{
@@ -212,42 +216,25 @@ public class Asterage2State
 	/**
 	 * Check the current level of the system, if applicable.
 	 */
-	public boolean checkSystemAtMaxLevel( PowerUpMenuOption whichSystem )
-	{
-		switch (whichSystem)
-		{
-			case DECELERATION:
-				return ( getDecelerationLevel() == MAX_SHIP_SYSTEM_LEVEL );
-				
-			case SHIELD_GENERATOR:
-				return ( getShieldGeneratorLevel() == MAX_SHIP_SYSTEM_LEVEL );
-				
-			case HOMING_MISSILE:
-				return ( getHomingMissileLevel() == MAX_SHIP_SYSTEM_LEVEL );
-				
-			case EXTRA_POINTS:
-				return false;	//extra points are never maxed out.
-				
-			case MULTISHOT:
-				return ( getMultishotLevel() == MAX_SHIP_SYSTEM_LEVEL );
-				
-			default: 
-				log.warn("Cannot check max level of system: {} is not recognized.", whichSystem);
-				return false;
-		} 
+	public boolean checkSystemAtMaxLevel( PowerUpMenuOption whichSystem ) {
+		return switch (whichSystem) {
+			case DECELERATION -> 		getDecelerationLevel() == MAX_SHIP_SYSTEM_LEVEL ;
+			case SHIELD_GENERATOR -> 	getShieldGeneratorLevel() == MAX_SHIP_SYSTEM_LEVEL;
+			case HOMING_MISSILE -> 		getHomingMissileLevel() == MAX_SHIP_SYSTEM_LEVEL ;
+			case EXTRA_POINTS ->		false;	//extra points are never maxed out.
+			case MULTISHOT ->			getMultishotLevel() == MAX_SHIP_SYSTEM_LEVEL;
+		};
 	} 
 	
 	/**
 	 * Upgrade the system designated.
-	 * @param whichSystem 
 	 */
 	public void upgradeSystem( PowerUpMenuOption whichSystem )	{
 		//check first to see if the system is at max level already, just to be safe.
-		if ( true == checkSystemAtMaxLevel(whichSystem)) 
-		{ 
+		if ( true == checkSystemAtMaxLevel(whichSystem)) { 
 			log.warn("Cannot upgrade system: {}. Already at max level.", whichSystem);
 			return;
-		} //end if check for system already at max level 
+		} 
 		
 		int currentSystemLevel;		//what level is the system currently at?
 		switch ( whichSystem )
@@ -276,32 +263,23 @@ public class Asterage2State
 				currentSystemLevel = getMultishotLevel();
 				setMultiShopLevel(currentSystemLevel + 1);
 				break;
-		} //end switch based on which ship system is being upgraded.
-	} //end method upgradeSystem
+		} 
+	} 
 	
-	
-	public int getFrameNumber() { return this.frameNumber; }
-	public void incrementFrameNumber() 
-	{
-		frameNumber += 1;
-		if ( frameNumber >= GameConstants.FRAMES_PER_SECOND )
-		{
-			frameNumber = 0;
-		} //check for upper bounds. Reset to 0 if passed.
-	} //end method incrementFrameNumber
+	public void incrementFrameNumber() 	{
+		frameNumber = (frameNumber + 1) % GameConstants.FRAMES_PER_SECOND;
+	}
 	
 	
 	//Space objects getters/setters and manipulators
-	
+	//TODO: return a defensive copy?
 	public PlayerShip getPlayerShip() { return this.playerShip; }
 	
 	/**
 	 * Generic method to add a space object to its corresponding list.
 	 * Performs some basic sorting, but won't react well to being passed an object it doesn't understand.
-	 * @param objectToAdd 
 	 */
-	public void addSpaceObjectToLists( SpaceObject objectToAdd )
-	{
+	public void addSpaceObjectToLists( SpaceObject objectToAdd ) {
 		//ASSUMPTION: the object should conform to one and only one of these categories.
 		//if the object is of type Asteroid, add it to the asteroid list.
 		if		( objectToAdd instanceof Asteroid )			{ addAsteroid((Asteroid)objectToAdd); }
@@ -311,11 +289,10 @@ public class Asterage2State
 		else if ( objectToAdd instanceof HomingMissile)		{ addHomingMissile((HomingMissile) objectToAdd ); }
 		
 		//else we cannot add it, because we don't know of what type it is.
-		else
-		{
+		else {
 			log.error("Cannot add object of unrecognized type.");
-		} //end else clause to note error of inability to add the object.
-	} //end method addSpaceObjectToLists
+		} 
+	} 
 	
 	public void addAsteroid( Asteroid asteroidToAdd )			{	asteroidList.add( asteroidToAdd );	} //end method addAsteroid
 	public ConcurrentLinkedQueue<Asteroid> getAsteroidList()	{ return this.asteroidList; }
@@ -343,65 +320,48 @@ public class Asterage2State
 			} //end if check for expired
 		} //end for loop iterating through plasma bolts
 	} //end method removeExpiredPlasmaBolts
-	public Multi_Shot_Direction getMultiShotDirection () { return this.multiShotDirection; }
-	private void setMultiShotDirection ( Multi_Shot_Direction newDirection ) { this.multiShotDirection = newDirection; }
-	public void toggleMultiShotDirection()
-	{
-		//make it the opposite of whatever it is currently.
-		Multi_Shot_Direction currentDirection = getMultiShotDirection ();
-		if ( Multi_Shot_Direction.LEFT == currentDirection )
-		{
-			setMultiShotDirection(Multi_Shot_Direction.RIGHT);
-		}
-		else
-		{
-			setMultiShotDirection(Multi_Shot_Direction.LEFT);
-		}
-	} //end method toggleMultiShotDirection
+	
+	public void toggleMultiShotDirection()	{
+		MultiShotDirection newDirection = (MultiShotDirection.LEFT.equals(getMultiShotDirection()))
+				?  MultiShotDirection.RIGHT
+				:  MultiShotDirection.LEFT;
+		setMultiShotDirection(newDirection);
+	} 
 	
 	
 	public ConcurrentLinkedQueue<TrollBaseShip> getTrollShipList() { return trollShipList; }
 	public void addTrollShip( TrollBaseShip trollToAdd ) { trollShipList.add(trollToAdd); }
-	public void removeExpiredTrollShips( Asterage2Controller asterage2Controller, GUI gui )
-	{
-		for ( TrollBaseShip currentTroll: trollShipList )
-		{
-			if ( true == currentTroll.checkExpired() )
-			{
+	public void removeExpiredTrollShips( Asterage2Controller asterage2Controller, GUI gui )	{
+		for ( TrollBaseShip currentTroll: trollShipList )		{
+			if ( true == currentTroll.checkExpired() )			{
 				trollShipList.remove(currentTroll);
 				
 				//if the destroyed troll was a weapons pod, tell the owning parent to detach it.
-				if ( currentTroll instanceof TrollWeaponPod )
-				{
+				if ( currentTroll instanceof TrollWeaponPod )				{
 					detachPodFromParent( (TrollWeaponPod) currentTroll );
-				} //end if check for a dead weapon pod.
+				} 
 				
 				//if the destroyed troll was a controller of weapons pods, the pods must be signalled that they are free.
-				if ( currentTroll instanceof ControlsWeaponsPods )
-				{
+				if ( currentTroll instanceof ControlsWeaponsPods )				{
 					((ControlsWeaponsPods) currentTroll).freeAllPodsUponDeath();
-				} //end if check for death of weapons pods controller.
+				} 
 				
 				//if the destroyed troll was a Troll Mining Pod, we have to check why it died.
 				//if it died from damage, we must initiate the countdown to summon a troll mothership,
 				//and continue just as if it were any other troll ship being destroyed.
 				//if it died from old age, then we must generate a warp-out effect and play that sound effect instead, then 
 				//continue through to the bottom of this loop iteration.
-				if ( currentTroll instanceof TrollMiningPod )
-				{
+				if ( currentTroll instanceof TrollMiningPod )				{
 					boolean podDiedOfDamage = ((TrollMiningPod) currentTroll).checkPodDiedOfDamage();
-					if ( podDiedOfDamage )
-					{
+					if ( podDiedOfDamage )					{
 						beginMothershipSpawnCountdown();
-					} //end if check for 
-					else
-					{
+					} else {
 						//warp out pod and skip rest of loop.
 						soundManager.playSoundEvent(SoundEvent.A2_WARPING_OUT);
 						addSpaceEffect(new WarpOutEffect( currentTroll, WarpOutEffect.WarpEffectSize.SMALL ));
 						continue;
-					} //end else clause for pod which did not die of player damage.
-				} //end if check for a troll mining pod
+					} 
+				} 
 				
 				//award points, and play sound effects appropriate to a ship being destroyed. Generate an explosion.
 				asterage2Controller.awardPoints( currentTroll.getPointValueDestroy() );
@@ -413,42 +373,35 @@ public class Asterage2State
 				addSpaceEffect ( trollShipExplosion );
 				soundManager.playSoundEvent(SoundEvent.A2_TROLL_DESTROYED);
 				
-			} //end if check for expiration and removal.
-		} //end for loop iterating through troll ships
-	} //end method removeExpiredTrollShips
+			} 
+		} 
+	} 
 	
-	private void detachPodFromParent( TrollWeaponPod deadPod )
-	{
+	private void detachPodFromParent( TrollWeaponPod deadPod )	{
 		//get the parent. If the parent is not null, then instruct it to detach the dead pod.
 		ControlsWeaponsPods podController = deadPod.getParentShip();
-		if ( null != podController )
-		{
+		if ( null != podController ) {
 			podController.detachDeadWeaponPod(deadPod);
-		} //end if check 
-	} //end method detachPodFromParent
+		} 
+	} 
 	
+	// TODO: return defensive copy instead?
 	public ConcurrentLinkedQueue<PowerUpBaseObject> getPowerUpList() { return powerUpList; }
 	public void addPowerUp( PowerUpBaseObject powerUpToAdd ) { powerUpList.add(powerUpToAdd); }
-	public void removeExpiredPowerUps()
-	{
-		for ( PowerUpBaseObject currentPowerUp: powerUpList )
-		{
-			if ( true == currentPowerUp.checkExpired() )
-			{
+	public void removeExpiredPowerUps() {
+		for ( PowerUpBaseObject currentPowerUp: powerUpList ) {
+			if ( true == currentPowerUp.checkExpired() ) {
 				powerUpList.remove(currentPowerUp);
-			} //end if check for expired power up
-		} //end for loop iterating through power ups in the list
-	} //end method removeExpiredPowerUps
+			} 
+		} 
+	} 
 	
-	
+	//TODO: make defensive copy?
 	public ConcurrentLinkedQueue<HomingMissile> getHomingMissileList() { return this.homingMissileList; }
 	public void addHomingMissile( HomingMissile newMissile ) { homingMissileList.add(newMissile); }
-	public void removeExpiredHomingMissiles()
-	{	
-		for ( HomingMissile currentHomingMissile: homingMissileList )
-		{
-			if ( true == currentHomingMissile.checkExpired() )
-			{
+	public void removeExpiredHomingMissiles() {	
+		for ( HomingMissile currentHomingMissile: homingMissileList ) {
+			if ( true == currentHomingMissile.checkExpired() ) {
 				//remove the homing missile from the list, and then generate a small ship explosion, based on the 
 				//type of missile and last location.
 				homingMissileList.remove( currentHomingMissile );
@@ -461,118 +414,87 @@ public class Asterage2State
 													whatExplosionType,
 													currentHomingMissile.getSpatialRadius() );
 				addSpaceEffect(newExplosionEffect);
-			} //end if check for expired homing missile
-		} //end for loop iterating through homing missiles
-	} //end method removeExpiredHomingMissiles
+			} 
+		} 
+	} 
 	
-	public int getCountPlayerHomingMissiles()
-	{
+	public int getCountPlayerHomingMissiles() {
 		int playerMissileCount = 0;		//initial value, starts at 0.
 		
 		//iterate through missiles and count the player ones.
-		for ( HomingMissile currentHomingMissile : homingMissileList )
-		{
-			if ( HomingMissile.MissileType.PLAYER == currentHomingMissile.getMissileType() )
-			{
+		for ( HomingMissile currentHomingMissile : homingMissileList ) {
+			if ( HomingMissile.MissileType.PLAYER == currentHomingMissile.getMissileType() ) {
 				playerMissileCount += 1;
-			} //end if check for missile type as belonging to a player
-		} //end for loop iterating through homing missiles
+			}
+		} 
 		
 		return playerMissileCount;
-	} //end method getCountPlayerHomingMissiles
+	}
 	
-	
+	//TODO: return defensive copy instead?
 	public ConcurrentLinkedQueue<SpaceEffect> getSpaceEffectList() { return this.spaceEffectList; }
 	public void addSpaceEffect( SpaceEffect effectToAdd ) { spaceEffectList.add(effectToAdd); }
-	public void removeExpiredEffects ()
-	{
-		for ( SpaceEffect currentEffect: spaceEffectList )
-		{
-			if ( true == currentEffect.checkExpired() )
-			{
-				spaceEffectList.remove( currentEffect );
-			} //end if check for expired space effect
-		} //end for loop iterating through space effects
-	} // end method removeExpiredEffects
 	
-	public void ageSpaceEffects ()
-	{
-		for ( SpaceEffect currentEffect: spaceEffectList )
-		{
+	public void ageSpaceEffectsAndRemoveExpired ()	{
+		for ( SpaceEffect currentEffect: spaceEffectList ) {
 			currentEffect.decrementExpiredCountdownTimer();
-		} //end for loop iterating through space effects
-	} //end method ageSpaceEffects
+			if ( true == currentEffect.checkExpired() )	{
+				spaceEffectList.remove( currentEffect );
+			} 
+		} 
+	} 
 	
 	/**
 	 * Is a ship exploding on the game board?
-	 * @return 
 	 */
-	public boolean checkShipExplosionEffectOnBoard()
-	{
-		for ( SpaceEffect currentEffect : spaceEffectList )
-		{
-			if ( currentEffect instanceof ShipExplosionEffect )
-			{
-				//if we find one, we can stop and return true immediately.
+	public boolean checkShipExplosionEffectOnBoard() {
+		for ( SpaceEffect currentEffect : spaceEffectList )	{
+			if ( currentEffect instanceof ShipExplosionEffect )	{
 				return true;
-			} //end if check for ship explosion type of effect
-		} //end for loop 
+			} 
+		} 
 		
-		//if we've made it this far, then the answer is no. return false.
 		return false;
-	} //end method checkShipExplosionEffectOnBoard
-	
+	} 
 	
 	public void incrementExtraLivesAwarded() { extraLivesAwarded += 1; }
-	public long getPointsRequiredForNextExtraLife() 
-	{ 
+	public long getPointsRequiredForNextExtraLife() { 
 		return POINTS_REQUIRED_PER_EXTRA_LIFE * (getExtraLivesAwarded() + 1);
-	} //end method getPointsRequiredForNextExtraLife() 
+	} 
 	
-	
-	
-	public boolean checkPopUpMessageBeingShown() { return popUpMessageBeingShown; }
-	public int getPopUpMessageRemainingCountdown() { return popUpMessageExpiredCounter; }
-	public void resetPopUpMessageCountdown()
-	{
-		//set the flag to true, and set the counter to max.
+	public void resetPopUpMessageCountdown() {
 		popUpMessageBeingShown = true;
-		popUpMessageExpiredCounter = POP_UP_MESSAGE_MAX_EXPIRED_COUNTER;
-	} //end method resetPopUpMessageCountdown
-	public void decrementPopUpCountdown() 
-	{
-		//decrement by 1 if it will not take it below 0.
-		popUpMessageExpiredCounter = ( popUpMessageExpiredCounter > 0 ) ?
-				( popUpMessageExpiredCounter - 1 ) : 0;
-	} //end method decrementPopUpCountdown
+		popUpMessageRemainingCountdown = POP_UP_MESSAGE_MAX_EXPIRED_COUNTER;
+	}
 	
-	
+	/**
+	 * Decrement by 1, but don't go below 0.
+	 */
+	public void decrementPopUpCountdown() {
+		popUpMessageRemainingCountdown = Math.max(popUpMessageRemainingCountdown - 1, 0);
+	}
 	
 	// High score directory exposed interface.
-	public String getHighScoreNameAtPlace( int place )
-	{
+	public String getHighScoreNameAtPlace( int place )	{
 		return highScoreDirectory.getNameAtPlace(place);
 	}
-	public String getHighScoreLevelAtPlace( int place )
-	{
+	
+	public String getHighScoreLevelAtPlace( int place )	{
 		return highScoreDirectory.getLevelAtPlace(place);
 	}
-	public String getHighScorePointsAtPlace( int place )
-	{
+	
+	public String getHighScorePointsAtPlace( int place ) {
 		return highScoreDirectory.getPointsAtPlace(place);
 	}
-	public boolean doesScoreRankTopTen( long points )
-	{
+	
+	public boolean doesScoreRankTopTen( long points ) {
 		return highScoreDirectory.doesScoreRankTopTen( points );
-	} //end function doesScoreRankTopTen
+	}
 	
-	public void insertNewRecord ( String name, int level, long points )
-	{
+	public void insertNewRecord ( String name, int level, long points )	{
 		highScoreDirectory.insertNewRecord(name, level, points);
-	} //end function insertNewRecord
+	}
 	
-	
-
 	//weapons systems interface methods.
 	public int getHomingMissileLevel()				{	return playerShip.getHomingMissileLevel();	}
 	public int getMultishotLevel()					{	return playerShip.getMultiShotLevel();	}
@@ -613,59 +535,143 @@ public class Asterage2State
 	{
 		//return the value resulting from comparing to see if the number of drops is below the max for the level.
 		return ( getCountSpecialItemsDroppedThisLevel() < MAX_SPECIAL_ITEM_DROPS_PER_LEVEL );
-	} //end method specialItemDropsLeftThisLevel
+	}
 	public void resetSpecialItemDropCounter() { this.countSpecialItemsDroppedThisLevel = 0; }
 	
 
-	public boolean	getSpawnedTrollMothershipRecently(){ return this.spawnedTrollMothershipRecently; }
-	public void setSpawnedTrollMothershipRecently( boolean newFlag ) { spawnedTrollMothershipRecently = newFlag; }
 	public boolean checkMothershipSpawnCountdownActive() { return this.trollMothershipSpawnCountdownInProgress; }
-	public void beginMothershipSpawnCountdown() 
-	{
+	public void beginMothershipSpawnCountdown() {
 		//set the countdown to max, set the spawn_recently flag to true, and set the flag of a countdown in progress to true.
 		spawnedTrollMothershipRecently = true;
 		trollMothershipSpawnCountdownInProgress = true;
 		currentTrollMothershipSpawnCountdown = TROLL_MOTHERSHIP_MAX_SPAWN_COUNTDOWN;
-	} //end method beginMothershipSpawnCountdown
+	} 
 	
-	public boolean advanceTrollMothershipSpawnCountdown()
-	{
+	public boolean advanceTrollMothershipSpawnCountdown() {
 		//first check if a countdown is even in progress. If not then do nothing and return false.
-		if ( false == trollMothershipSpawnCountdownInProgress) { return false; }
+		if ( false == trollMothershipSpawnCountdownInProgress) { 
+			return false; 
+		}
 		
 		//else advance the countdown and return true if the counter is at 0, or false if not.
 		//Also if the countdown has reached 0, set the flag of a countdown in progress to false.
 		currentTrollMothershipSpawnCountdown -= 1;
 		currentTrollMothershipSpawnCountdown = (currentTrollMothershipSpawnCountdown >= 0 ) ? currentTrollMothershipSpawnCountdown : 0;
-		if ( 0 == currentTrollMothershipSpawnCountdown )
-		{
+		if ( 0 == currentTrollMothershipSpawnCountdown ) {
 			trollMothershipSpawnCountdownInProgress = false;
 			return true;
-		} //end if check for case of countdown over.
-		else
-		{
+		} else {
 			return false;
-		} //end if check for case of countdown still in progress.
-	} //end metho advanceTrollMothershipSpawnCountdown;
+		} 
+	}
 	
 	/**
 	 * Check to make sure we can only spawn one of any such kind of ship at one time.
-	 * @return 
 	 */
-	public boolean checkMothershipOrTrollMiningPodInPlay()
-	{
-		for ( TrollBaseShip currentTroll: getTrollShipList() )
-		{
+	public boolean checkMothershipOrTrollMiningPodInPlay() {
+		for ( TrollBaseShip currentTroll: getTrollShipList() ) {
 			if ( currentTroll instanceof TrollMothership ||
-					currentTroll instanceof TrollMiningPod )
-			{
+					currentTroll instanceof TrollMiningPod ) {
 				return true;
-			} //end if check for a match
-		} //end for loop iterating through each troll ship, looking for a mining pod or a mothership.
+			} 
+		} 
 		
 		//if we get here, then no match.
 		return false;
-	} //end method checkMothershipOrTrollMiningPodInPlay
+	} 
+	
+	public void generateAsteroidsForLevel() {	
+		//add one large white asteroid's worth of points to the point card for each level.
+		//max of 78, since with the two extra starting asteroids, that makes 80, for 10 large purple asteroids.
+		int asteroidPoints = getGameLevel() * LARGE_WHITE.generationPointValue();
+		asteroidPoints = ( asteroidPoints >= (78 * LARGE_WHITE.generationPointValue()) ) ? 
+						78 * LARGE_WHITE.generationPointValue() :
+						asteroidPoints;
+		
+		AsteroidPointCard pointCard = new AsteroidPointCard();		//make a new asteroid point card, and add base asteroids.
+		pointCard.addBaseStartingAsteroids();
+		pointCard.creditPoints(asteroidPoints);
+		
+		//go through the while loop, incrementing the number of asteroids that we're going to spawn for this level.
+		while ( pointCard.getRemainingPointsToSpend() >= LARGE_WHITE.generationPointValue() )	{
+			pointCard.addToAsteroidCount(LARGE_WHITE, 1);
+		} 
+		
+		final int LARGE_ASTEROID_CAP = 10;
+		final int EXCHANGE_RATE = 2;
+		
+		//if we have too many large white asteroids, switch some out for large tans.
+		//exchange large whites for 1 large tan as long as we are able.
+		boolean tooManyLargeAsteroids = pointCard.getAsteroidCount(LARGE_WHITE) > LARGE_ASTEROID_CAP;
+		boolean haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_WHITE) >= EXCHANGE_RATE;
+		while( tooManyLargeAsteroids && haveExchangeAvailable )	{
+			pointCard.decrementFromAsteroidCount(LARGE_WHITE, EXCHANGE_RATE);
+			pointCard.addToAsteroidCount(LARGE_TAN, 1);
+			
+			//recheck conditions to continue
+			tooManyLargeAsteroids = (pointCard.getAsteroidCount(LARGE_WHITE) + pointCard.getAsteroidCount(LARGE_TAN)) > LARGE_ASTEROID_CAP;
+			haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_WHITE) >= EXCHANGE_RATE;
+		}
+		
+		//similarly, if we have too many tan asteroids, switch some out for large red ones.
+		//exchange large tan asteroids for 1 large red as long as we are able.
+		tooManyLargeAsteroids = pointCard.getAsteroidCount(LARGE_TAN) > LARGE_ASTEROID_CAP;
+		haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_TAN) >= EXCHANGE_RATE;
+		while( tooManyLargeAsteroids && haveExchangeAvailable )	{
+			pointCard.decrementFromAsteroidCount(LARGE_TAN, EXCHANGE_RATE);
+			pointCard.addToAsteroidCount(LARGE_RED, 1);
+			
+			//recheck conditions to continue
+			tooManyLargeAsteroids = (pointCard.getAsteroidCount(LARGE_TAN) + pointCard.getAsteroidCount(LARGE_RED)) > LARGE_ASTEROID_CAP;
+			haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_TAN) >= EXCHANGE_RATE;
+		} 
+		
+		
+		//lastly, if we have too many red asteroids, switch some out for large purple ones.
+		//exchange large red asteroids for purple ones as long as we are able.
+		tooManyLargeAsteroids = pointCard.getAsteroidCount(LARGE_RED) > LARGE_ASTEROID_CAP;
+		haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_RED) >= EXCHANGE_RATE;
+		while ( tooManyLargeAsteroids && haveExchangeAvailable ) {
+			pointCard.decrementFromAsteroidCount(LARGE_RED, EXCHANGE_RATE);
+			pointCard.addToAsteroidCount(LARGE_PURPLE, 1);
+			
+			//recheck conditions to continue
+			tooManyLargeAsteroids = (pointCard.getAsteroidCount(LARGE_RED) + pointCard.getAsteroidCount(LARGE_PURPLE)) > LARGE_ASTEROID_CAP;
+			haveExchangeAvailable = pointCard.getAsteroidCount(LARGE_RED) >= EXCHANGE_RATE;
+		}
+		
+		//generate the asteroids for this level and add them to the game board.
+		ArrayList<SpaceObject> generatedAsteroids = generateAsteroidsFromPointCard ( pointCard, null );
+		for ( SpaceObject currentObject : generatedAsteroids )	{
+			addSpaceObjectToLists(currentObject);
+		}
+		
+				
+		//lines to add troll ships for testing.
+		//asterage2State.addTrollShip( new TrollScoutShip(0) );			// add troll ship for debugging								
+		//asterage2State.addTrollShip( new TrollWeaponPod(null) );		// add a loose troll weapon pod for debugging.
+		//asterage2State.addTrollShip( new TrollMiningPod(0.0, 0.0) );	// add a new mining pod for debugging.	
+		//asterage2State.beginMothershipSpawnCountdown();				// add troll mothership for debugging.
+	} 
+	
+	public ArrayList<SpaceObject> generateAsteroidsFromPointCard ( AsteroidPointCard pointCard, SpaceObject parentObject ) {
+		ArrayList<SpaceObject> generatedAsteroids = new ArrayList<>();
+		
+		//go through and create as many asteroid of each type as the score card says we must.
+		for ( Asteroid.Asteroid_Type_Size currentTypeAndSize : Asteroid.Asteroid_Type_Size.values() ) {
+			for ( int count = 1;	count <= pointCard.getAsteroidCount(currentTypeAndSize);	++count )
+			{
+				double randomXCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.boardWidth);
+				double randomYCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.boardHeight);			
+				Asteroid newAsteroid = (null != parentObject) ?
+						new Asteroid ( parentObject, currentTypeAndSize ) :
+						new Asteroid(randomXCoordinate, randomYCoordinate, currentTypeAndSize);
+				generatedAsteroids.add( newAsteroid );
+			} 
+		} 
+		
+		return generatedAsteroids;
+	} 
 	
 	/*	**********************************************************************
 		********************		Functionality			******************
@@ -674,92 +680,5 @@ public class Asterage2State
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
-	
-	public static enum PowerUpMenuOption {
-		//each enum should have an index to identify it. All indicies should be contiguous.
-		DECELERATION(0, 1),
-		HOMING_MISSILE(1, 2),
-		SHIELD_GENERATOR(2, 3),
-		EXTRA_POINTS(3, 4),
-		MULTISHOT(4, 5);
-		
-		private int index;
-		private int cost;
-		
-		PowerUpMenuOption( int passedIndex,int passedCost )
-		{
-			this.index = passedIndex;
-			this.cost = passedCost;
-		} //end constructor
-		
-		public int toInt() { return this.index; }
-		
-		public static PowerUpMenuOption fromInt ( int indexToMatch ) {
-			//go through each option, looking for a match. 
-			//If no match found, throw an exception rather than returning null.
-			for ( PowerUpMenuOption currentOption : values() )		{
-				if ( indexToMatch == currentOption.toInt() ) 	{ 
-					return currentOption; 
-				}
-			} //end for loop iterating through Power Up Menu Options
-			
-			throw new IllegalArgumentException ( "Cannot match Power Up option with index of : " + indexToMatch );
-		} //end menu from 
-		
-		public PowerUpMenuOption getNext() 	{
-			//get the current index, and add one, adjusting for the limit.
-			int currentIndex = this.toInt();
-			int indexModulus = values().length;
-			int indexToFind = (currentIndex + 1) % indexModulus;
-			
-			return fromInt ( indexToFind );
-		} //end method getNext
-		
-		public PowerUpMenuOption getPrevious()	{
-			//check if we are at 0. If so, then we go to the highest indexed item. If not, just subtract 1.
-			int currentIndex = this.toInt();
-			int maxIndex = values().length - 1;
-			int indexToFind = ( currentIndex > 0 ) ?  (currentIndex -1)	:	maxIndex;
-			
-			return fromInt ( indexToFind );
-		} //end method getPrevious
-		
-		public int getCost() { return this.cost; } 
-		
-		public static long getExtraPointsPowerUpValue() { return EXTRA_POINT_PURCHASE.getPointAward(); }
-	} //end enum PowerUpMenuOption
-	
-	
-	public static enum Multi_Shot_Direction	{
-		LEFT,
-		RIGHT;
-	} //end enum Multi Shot Direction
-	
-	
-	public static enum GameState	{
-		RUNNING,
-		PAUSE,
-		GAME_OVER,
-		WARPING_OUT;
-	} //end enum GameState definition
-	
-	
-	public static enum POINT_AWARDS	{
-		LARGE_ASTEROID_HIT(10l),
-		MEDIUM_ASTEROID_HIT(10l),
-		SMALL_ASTEROID_HIT(10l),
-		
-		TROLL_BASIC_SHIP_HIT(5l),
-		TROLL_BASIC_SHIP_DESTROYED(250l),
-		TROLL_MOTHERSHIP_DESTROYED(1000l),
-		
-		EXTRA_POINT_PURCHASE( POINTS_REQUIRED_PER_EXTRA_LIFE/2 );
-		
-		long pointAward;
-		
-		POINT_AWARDS( long passedValue ) { this.pointAward = passedValue; }
-		
-		public long getPointAward() { return this.pointAward; }
-	}
 
 } 

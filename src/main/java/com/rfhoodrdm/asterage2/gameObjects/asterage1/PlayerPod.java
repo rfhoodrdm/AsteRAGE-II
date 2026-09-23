@@ -6,10 +6,6 @@ import java.awt.image.BufferedImage;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- *
- * @author roberthood
- */
 public class PlayerPod
 extends TrollPod
 {

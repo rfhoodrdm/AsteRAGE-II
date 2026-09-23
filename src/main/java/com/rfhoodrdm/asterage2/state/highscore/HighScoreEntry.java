@@ -1,8 +1,7 @@
-package com.rfhoodrdm.asterage2.state;
+package com.rfhoodrdm.asterage2.state.highscore;
 
 /**
  * Contains information about one high score entry. Also has the getter and setter methods for those stats.
- * @author roberthood
  */
 public class HighScoreEntry
 implements Comparable<HighScoreEntry>

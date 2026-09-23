@@ -1,4 +1,4 @@
-package com.rfhoodrdm.asterage2.state;
+package com.rfhoodrdm.asterage2.state.asterage1;
 
 /**
  * This package encapsulates the player's score and modifier functions. This is so a reference to it 

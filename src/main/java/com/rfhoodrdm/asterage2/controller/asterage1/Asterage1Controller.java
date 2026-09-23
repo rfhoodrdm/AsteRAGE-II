@@ -1,5 +1,5 @@
 
-package com.rfhoodrdm.asterage2.controller;
+package com.rfhoodrdm.asterage2.controller.asterage1;
 
 import java.awt.event.KeyEvent;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -28,8 +28,8 @@ import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.FiresSuperLaser;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
 import com.rfhoodrdm.asterage2.sounds.SoundEvent;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
-import com.rfhoodrdm.asterage2.state.Asterage1ScoreState;
-import com.rfhoodrdm.asterage2.state.Asterage1State;
+import com.rfhoodrdm.asterage2.state.asterage1.Asterage1ScoreState;
+import com.rfhoodrdm.asterage2.state.asterage1.Asterage1State;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -290,8 +290,6 @@ public class Asterage1Controller {
 	/**
 	 * Iterate through the list, and have objects that fire bullets do so, if they
 	 * want to.
-	 * 
-	 * @param spaceObjectList
 	 */
 	private void fireBullets(ConcurrentLinkedQueue<SpaceObject> spaceObjectList) {
 		for (SpaceObject currentObject : spaceObjectList) {
@@ -313,8 +311,6 @@ public class Asterage1Controller {
 	/**
 	 * Those about to fire the super laser do so. Decrement the cooldown of those
 	 * waiting.
-	 * 
-	 * @param List
 	 */
 	public void fireSuperLaser(PlayerShip playerShip, ConcurrentLinkedQueue<SpaceObject> spaceObjectList) {
 		if (asterage1State.getLevel() < TrollMothership.superLaserLevelAcquired) {
@@ -356,9 +352,6 @@ public class Asterage1Controller {
 	/**
 	 * For the tractor beam, we can cheat a little, since only the troll mothership
 	 * fires this weapon.
-	 * 
-	 * @param playerShip
-	 * @param spaceObjectList
 	 */
 	private void fireOrUpdateTractorBeam(PlayerShip playerShip, ConcurrentLinkedQueue<SpaceObject> spaceObjectList) {
 		for (SpaceObject currentObject : spaceObjectList) {

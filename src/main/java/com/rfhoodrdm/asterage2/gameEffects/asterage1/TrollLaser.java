@@ -7,13 +7,9 @@ import java.awt.Graphics2D;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.awt.Color;
 
-/**
- *
- * @author roberthood
- */
 public class TrollLaser
-extends SpaceEffect
-{
+	extends SpaceEffect {
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */

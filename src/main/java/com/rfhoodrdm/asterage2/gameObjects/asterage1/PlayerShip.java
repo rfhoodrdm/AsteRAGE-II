@@ -17,7 +17,6 @@ import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 /**
  * PlayerShip is the component on the game board representing the player. 
  * It inherits from SpaceObject because it is an object belonging on the game board.
- * @author roberthood
  */
 public class PlayerShip
 extends SpaceObject

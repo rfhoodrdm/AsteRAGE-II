@@ -3,6 +3,9 @@ package com.rfhoodrdm.asterage2.controller;
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
+import com.rfhoodrdm.asterage2.controller.asterage1.Asterage1Controller;
+import com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller;
+import com.rfhoodrdm.asterage2.controller.title.TitleController;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;

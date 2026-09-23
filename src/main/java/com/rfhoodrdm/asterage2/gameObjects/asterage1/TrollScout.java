@@ -11,10 +11,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShieldRing;
 import com.rfhoodrdm.asterage2.gameEffects.asterage1.ShipDebrisExplosion;
+
 /**
  * The troll scout is an independently navigating foe of the player.
  * It flies around the screen and attempts to destroy the player by firing bullets.
- * @author roberthood
  */
 public class TrollScout
 extends SpaceObject

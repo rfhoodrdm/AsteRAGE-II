@@ -4,7 +4,6 @@ import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 
 /**
  * This interface presents all of the functions for a spaceobject that employs the troll tractor beam.
- * @author roberthood
  */
 public interface FiresTractorBeam
 {

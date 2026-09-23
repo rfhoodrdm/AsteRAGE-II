@@ -1,11 +1,24 @@
 package com.rfhoodrdm.asterage2.state;
 
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_PURPLE;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_RED;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_TAN;
+import static com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid.Asteroid_Type_Size.LARGE_WHITE;
+
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
+import com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller.AsteroidPointCard;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid;
+import com.rfhoodrdm.asterage2.gameObjects.asterage2.SpaceObject;
+import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
+import com.rfhoodrdm.asterage2.state.asterage1.Asterage1State;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
+import com.rfhoodrdm.asterage2.state.title.TitleState;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +66,8 @@ public class State
 
 	/**
 	 * Changes the currently active state to a new one.
-	 * @param newCurrentState 
 	 */
-	public void changeCurrentActiveState( CurrentState newCurrentState )
-	{
+	public void changeCurrentActiveState( CurrentState newCurrentState ) {
 		//acquire the state lock to make changes.
 		stateLock.acquireUninterruptibly();
 		

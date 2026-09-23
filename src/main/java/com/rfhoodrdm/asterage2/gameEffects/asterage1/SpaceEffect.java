@@ -11,7 +11,6 @@ import java.awt.Graphics;
 
 /**
  *	SpaceEffects are an extension of space objects, but have their own unique movement and drawing functions.
- * @author roberthood
  */
 public abstract class SpaceEffect
 extends SpaceObject

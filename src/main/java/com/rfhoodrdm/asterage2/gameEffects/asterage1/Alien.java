@@ -8,13 +8,9 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import com.rfhoodrdm.asterage2.gui.Image;
 
-/**
- * Alien that is ejected from an asteroid into space, and dies. Calls the troll mothership when dead.
- * @author roberthood
- */
 public class Alien
-extends SpaceEffect
-{
+	extends SpaceEffect {
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
