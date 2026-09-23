@@ -1,14 +1,14 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
-import com.rfhoodrdm.asterage2.gui.Image;
-import com.rfhoodrdm.asterage2.common.constants.GameConstants;
-import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import java.awt.Graphics;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
+import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gui.Image;
 
 /**
  * The ShipDebrisExplosion effect shows a bunch of debris flying out from a central location.

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.common.constants.CurrentState;
 import com.rfhoodrdm.asterage2.gui.asterage1.Asterage1GameScreen;
-import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameBoard;
 import com.rfhoodrdm.asterage2.gui.asterage2.AsteRAGE2GameScreen;
+import com.rfhoodrdm.asterage2.gui.asterage2.components.PopUpMessageLabel;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.titlescreen.SplashScreen;
 import com.rfhoodrdm.asterage2.sounds.SoundManager;
@@ -162,7 +162,7 @@ public class GUI {
 		asterage2GameScreen.addPowerUpPointsHUDExplosion();
 	}
 	
-	public void setAsterage2PopUpText( String message, AsteRAGE2GameBoard.PopUpMessageLabel.MessageType whatType ) { 
+	public void setAsterage2PopUpText( String message, PopUpMessageLabel.MessageType whatType ) { 
 		asterage2GameScreen.setPopUpText(message, whatType);
 	} 
 	

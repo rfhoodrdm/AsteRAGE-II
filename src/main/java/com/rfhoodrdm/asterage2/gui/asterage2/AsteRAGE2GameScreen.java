@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.gui.asterage2.components.PopUpMessageLabel;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
@@ -70,7 +71,7 @@ public class AsteRAGE2GameScreen
 		asterage2HUD.addPowerUpPointsHUDExplosion();
 	}
 	 
-	public void setPopUpText( String message, AsteRAGE2GameBoard.PopUpMessageLabel.MessageType whatType ) { 
+	public void setPopUpText( String message, PopUpMessageLabel.MessageType whatType ) { 
 		asterage2GameBoard.setPopUpText(message, whatType);
 	} 
 	

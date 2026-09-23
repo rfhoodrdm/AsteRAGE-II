@@ -1,8 +1,8 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
-import com.rfhoodrdm.asterage2.gui.Image;
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 
 public class Mythicite
 extends SpaceObject

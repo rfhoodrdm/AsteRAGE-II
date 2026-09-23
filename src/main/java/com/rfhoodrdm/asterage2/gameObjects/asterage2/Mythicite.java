@@ -1,11 +1,10 @@
 
 package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
+import java.awt.image.BufferedImage;
+
 import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
-
-import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
 
 public class Mythicite
 extends PowerUpBaseObject

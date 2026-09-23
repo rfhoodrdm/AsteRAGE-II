@@ -1,10 +1,9 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
-import com.rfhoodrdm.asterage2.gui.Image;
-
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import com.rfhoodrdm.asterage2.gui.Image;
 
 public class PlayerPod
 extends TrollPod

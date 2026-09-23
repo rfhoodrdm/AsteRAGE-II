@@ -68,7 +68,9 @@ public class DataLoader
 	public void startLoading() {
 		try {
 			Thread.sleep(500);
-		} catch (Exception ex) { }
+		} catch (Exception ex) { 
+			
+		}
 
 		try	{
 			loadAllImages();
@@ -90,27 +92,20 @@ public class DataLoader
 		try {
 			Thread.sleep(1000);
 		} catch (Exception ex) {}
-		dataLoaderPopup.setVisible ( false );	
+		dataLoaderPopup.setVisible(false);	
 	} 
 	
 
 	public ArrayList<HighScoreEntry> getAsterage1HighScoreList( HighScoreDirectory.GAME_IDENTIFIER whichGame ) {
-		switch ( whichGame )
-		{
-			case ASTERAGE1:
-				return this.asterage1HighScoreList;
-			case ASTERAGE2:
-				return this.asterage2HighScoreList;
-			default: 
-				return null;
-		} 
+		return switch ( whichGame ) {
+			case ASTERAGE1 -> asterage1HighScoreList;
+			case ASTERAGE2 -> asterage2HighScoreList;
+		};
 	} 
 
 	
 	/**
 	 * Invoke the XML handler to save the high score list given, under the file name provided.
-	 * @param highScoreListToSave
-	 * @param fileNameToSave 
 	 */
 	public void saveHighScoreList ( ArrayList<HighScoreEntry> highScoreListToSave, String fileNameToSave ){
 		String fullFileNameToSave = BASE_HIGH_SCORE_DIRECTORY + fileNameToSave;

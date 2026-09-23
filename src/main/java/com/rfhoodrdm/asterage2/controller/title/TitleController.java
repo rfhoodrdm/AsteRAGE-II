@@ -1,9 +1,7 @@
 package com.rfhoodrdm.asterage2.controller.title;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.stereotype.Component;
 

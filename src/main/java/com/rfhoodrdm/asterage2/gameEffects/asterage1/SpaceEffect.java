@@ -1,13 +1,12 @@
 package com.rfhoodrdm.asterage2.gameEffects.asterage1;
 
-import com.rfhoodrdm.asterage2.gui.Image;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
+import com.rfhoodrdm.asterage2.gui.Image;
 import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
-import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.awt.Graphics;
 
 /**
  *	SpaceEffects are an extension of space objects, but have their own unique movement and drawing functions.

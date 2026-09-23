@@ -8,7 +8,6 @@ import com.rfhoodrdm.asterage2.controller.asterage2.Asterage2Controller;
 import com.rfhoodrdm.asterage2.controller.title.TitleController;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.input.GameKeyAdapter;
-import com.rfhoodrdm.asterage2.sounds.SoundManager;
 import com.rfhoodrdm.asterage2.state.State;
 
 import lombok.extern.slf4j.Slf4j;
@@ -63,19 +62,6 @@ public class Controller
 		} 
 	} 
 	
-	/**
-	 * Organizes the switch of the current, officially active state between Title screen, Asterage 1, and Asterage 2.
-	 */
-//	public void switchActiveState ( CurrentState newState ) {
-//		//change and reinitialize the current active state.
-//		state.changeCurrentActiveState( newState );
-//		
-//		//initialize the respective games.
-//		asterage2Controller.beginNewGame();
-//		
-//		//show the correct gui components.
-//		gui.changeCurrentGuiShown();
-//	} 
     /*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */

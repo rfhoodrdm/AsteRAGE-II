@@ -26,8 +26,8 @@ import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.state.highscore.HighScoreEntry;
 
 @Slf4j
-public class HighScoreXMLHandler
-{
+public class HighScoreXMLHandler {
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
@@ -41,20 +41,23 @@ public class HighScoreXMLHandler
 		********************************************************************** */
 	
 	/**
-	 * Loads a high score xml file and returns a ConcurrentLinkedQueue of high score entries.
-	 * @param filenameToLoad
-	 * @return 
+	 * Loads a high score xml file and returns a Collection of high score entries.
 	 */
-	public static ArrayList<HighScoreEntry> loadXML( String filenameToLoad )
-	{
+	public static ArrayList<HighScoreEntry> loadXML( String filenameToLoad ) {
 		//Initialize our return object.
 		ArrayList<HighScoreEntry> highScoreList = new ArrayList<>();
 		
 		//Try to read in the file.
 		try	{
+			File highScoresFile = new File(filenameToLoad);
+			if(!highScoresFile.exists()) {
+				log.warn("High score file not found: {}", filenameToLoad);
+				return highScoreList;
+			}
+			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder(); 
-			Document doc = db.parse(new File(filenameToLoad));
+			Document doc = db.parse(highScoresFile);
 			
 			NodeList highScoreEntryNodeList = doc.getElementsByTagName( GameConstants.HIGH_SCORE_ENTRY_NODE );
 			

@@ -1,11 +1,10 @@
 package com.rfhoodrdm.asterage2.gameObjects.asterage1;
 
-import com.rfhoodrdm.asterage2.gui.Image;
-
 import java.awt.image.BufferedImage;
-import com.rfhoodrdm.asterage2.gui.GUI;
-import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import com.rfhoodrdm.asterage2.gui.Image;
+import com.rfhoodrdm.asterage2.objectBehaviors.asterage1.LimitedLifespan;
 
 /**
  * Represents a bullet projectile on the game board.
