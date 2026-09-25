@@ -38,7 +38,7 @@ public class StoryPane
 		
 		SimpleAttributeSet storyBodyStyle = new SimpleAttributeSet();
 		StyleConstants.setAlignment(storyBodyStyle, StyleConstants.ALIGN_JUSTIFIED);
-		StyleConstants.setFontSize(storyBodyStyle, 30);
+		StyleConstants.setFontSize(storyBodyStyle, 28);
 		StyleConstants.setBold(storyBodyStyle, true);
 		StyleConstants.setItalic(storyBodyStyle, true);
 		StyleConstants.setForeground(storyBodyStyle, new Color ( 0xFF, 0xFF, 0x99) );
@@ -52,6 +52,18 @@ public class StoryPane
 							"a hostile species that will undoubtly attack you at every opportunity. " + 
 							"Exercise the utmost of caution and collect as much Mythicite as you can. \n\n" + 
 							"Good luck, captain!";
+
+		//TODO: Prefer text block, but make it display correctly.
+//		String bodyString = """
+//				You are the captain of the mining ship, Trololo. You have been sent 
+//				to a distant sector of the quadrant in search of the valuable--and coveted--mineral
+//				known as Mythicite. 
+//				Unfortunately, this region of space is also claimed by the Space Troll Empire: 
+//				a hostile species that will undoubtly attack you at every opportunity.
+//				Exercise the utmost of caution and collect as much Mythicite as you can.
+//				Good luck, captain!
+//				""";
+		
 		try {
 			storyDoc.setParagraphAttributes(0, titleString.length(), 
 												storyHeaderStyle, false);

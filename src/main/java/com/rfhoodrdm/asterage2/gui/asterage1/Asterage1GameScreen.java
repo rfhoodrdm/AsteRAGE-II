@@ -1,5 +1,7 @@
 package com.rfhoodrdm.asterage2.gui.asterage1;
 
+import java.awt.Dimension;
+
 import org.springframework.stereotype.Component;
 
 import com.rfhoodrdm.asterage2.gui.GUI;
@@ -32,7 +34,11 @@ public class Asterage1GameScreen
 		super();
 		
 		//set size and layout
-		this.setSize ( GUI.panelWidth, GUI.panelHeight );
+		Dimension panelSize = new Dimension(GUI.panelWidth, GUI.panelHeight);
+		this.setSize(panelSize);
+		this.setPreferredSize(panelSize);
+		this.setMinimumSize(panelSize);
+		this.setMaximumSize(panelSize);
 		this.setLayout ( null );
 		
 		//create and initialize component objects.

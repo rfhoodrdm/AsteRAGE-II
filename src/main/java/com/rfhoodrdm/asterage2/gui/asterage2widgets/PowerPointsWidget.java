@@ -2,45 +2,51 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
-import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
-import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import javax.swing.JProgressBar;
 
+import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.gameEffects.asterage2.HUDExplosionEffect;
+import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
+
+@Component
 public class PowerPointsWidget
-extends BaseAsterageWidget
-{
+	extends BaseAsterageWidget {
+	
+	private static final long serialVersionUID = -5903127949166609673L;
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	HUDLabel powerPointsDescriptionLabel;				//"P-UP:"
-	JProgressBar powerPointsBar;						//shows remaining power points to spend
+	private HUDLabel powerPointsDescriptionLabel;				//"P-UP:"
+	private JProgressBar powerPointsBar;						//shows remaining power points to spend
 	
-	HUDExplosionEffect hudExplosionEffect = null;		//effect shown if mythicite is jettisoned.
+	private HUDExplosionEffect hudExplosionEffect = null;		//effect shown if mythicite is jettisoned.
 
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public PowerPointsWidget()
-	{
+	public PowerPointsWidget()	{
 		super();
 		initializeSubComponents();
-	} //end constructor
+	} 
 	
 	@Override
-	protected void initializeSubComponents()
-	{
+	protected void initializeSubComponents()	{
 		//initialize components
 		powerPointsDescriptionLabel = new HUDLabel("P-UP:", HUDLabel.HUDLabelType.STANDARD);
 		powerPointsBar = new JProgressBar();
 		powerPointsBar.setValue(0);
 		powerPointsBar.setMaximum( Asterage2State.MAX_POWER_UP_POINTS );
 		powerPointsBar.setStringPainted(true);
+		powerPointsBar.setBackground(Color.DARK_GRAY);
+		powerPointsBar.setForeground(Color.BLUE);
 
 		//set basic layout info, and common layout attributes.
 		GridBagLayout powerPointsLayout = new GridBagLayout();
@@ -60,7 +66,7 @@ extends BaseAsterageWidget
 		layoutInfo.weightx = 1;
 		add ( powerPointsBar, layoutInfo );
 		
-	} //end method initializeSubComponents
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -68,19 +74,16 @@ extends BaseAsterageWidget
 	
 	/**
 	 *
-	 * @param asterage2State
 	 */
 	@Override
-	public void updateDisplay( Asterage2State asterage2State )
-	{
+	public void updateDisplay( Asterage2State asterage2State ) {
 		int currentPowerPoints = asterage2State.getPowerUpPoints();
 		powerPointsBar.setValue(currentPowerPoints);
 		powerPointsBar.setString( currentPowerPoints + "/" + Asterage2State.MAX_POWER_UP_POINTS );
-	} //end method updateDisplay
+	} 
 	
 	@Override
-	protected void paintComponent( Graphics g )
-	{
+	protected void paintComponent( Graphics g ) {
 		super.paintComponent(g);		//call to super's paintcomponent object
 		
 		//if there is an HUDExplosionEffect to draw, then draw it. 
@@ -90,12 +93,10 @@ extends BaseAsterageWidget
 			hudExplosionEffect.paintObject(g); 
 			hudExplosionEffect.decrementExpiredCountdownTimer();
 			if ( hudExplosionEffect.checkExpired() ) { hudExplosionEffect = null; }
-		} //end if check for handling an hud explosion effect.
-
-	} //end method paintComponent
+		} 
+	}
 	
-	public void addPowerUpPointsHUDExplosion()
-	{
+	public void addPowerUpPointsHUDExplosion()	{
 		//calculate the boundaries of the effect.
 		int xLocation = 0;												//flush with the left side.
 		int width = this.getWidth();									//width of the panel
@@ -103,7 +104,7 @@ extends BaseAsterageWidget
 		int height = this.getHeight() - yLocation;						//fill the rest of the panel down.
 		
 		hudExplosionEffect = new HUDExplosionEffect( xLocation, yLocation, width, height );
-	} //end method createNewHUDExplosion
+	} 
 	
 	/*	**********************************************************************
 		********************		Functionality			******************
@@ -113,4 +114,4 @@ extends BaseAsterageWidget
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-} //end class PowerPointsWidget definition
+} 

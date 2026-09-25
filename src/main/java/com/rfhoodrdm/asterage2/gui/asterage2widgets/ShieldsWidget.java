@@ -2,41 +2,46 @@
 
 package com.rfhoodrdm.asterage2.gui.asterage2widgets;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JProgressBar;
 
+import org.springframework.stereotype.Component;
+
 import com.rfhoodrdm.asterage2.state.asterage2.Asterage2State;
 
-
+@Component
 public class ShieldsWidget
-extends BaseAsterageWidget
-{
+	extends BaseAsterageWidget {
+	
+	private static final long serialVersionUID = -7418156891737762977L;
+	
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	HUDLabel shieldsDescriptionLabel;	//"Shields:"
-	JProgressBar shieldStrengthBar;		//shows remaining shields
 	
+	private HUDLabel shieldsDescriptionLabel;	//"Shields:"
+	private JProgressBar shieldStrengthBar;		//shows remaining shields
 	
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public ShieldsWidget()
-	{
+	public ShieldsWidget()	{
 		super();
 		initializeSubComponents();
-	} //end constructor
+	}
 	
 	@Override
-	protected void initializeSubComponents()
-	{
+	protected void initializeSubComponents() {
 		//initialize components
 		shieldsDescriptionLabel = new HUDLabel("Shields:", HUDLabel.HUDLabelType.STANDARD);
 		shieldStrengthBar = new JProgressBar();
 		shieldStrengthBar.setValue(100);
+		shieldStrengthBar.setForeground(Color.yellow);
+		shieldStrengthBar.setBackground(Color.DARK_GRAY);
 		
 		//set basic layout info, and common layout attributes.
 		GridBagLayout shieldsLayout = new GridBagLayout();
@@ -55,7 +60,7 @@ extends BaseAsterageWidget
 		layoutInfo.gridx = 1;
 		layoutInfo.weightx = 1;
 		add ( shieldStrengthBar, layoutInfo );
-	} //end method initializeSubComponents
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -63,14 +68,12 @@ extends BaseAsterageWidget
 	
 	/**
 	 *
-	 * @param asterage2State
 	 */
 	@Override
-	public void updateDisplay( Asterage2State asterage2State )
-	{
+	public void updateDisplay( Asterage2State asterage2State ) {
 		int shieldsRemainingPercent = asterage2State.getRemainingShieldPercentage();
 		shieldStrengthBar.setValue( shieldsRemainingPercent );
-	} //end method updateDisplay
+	} 
 	
 	/*	**********************************************************************
 		********************		Functionality			******************
@@ -79,4 +82,4 @@ extends BaseAsterageWidget
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
-} //end class ShieldsWidget
+}

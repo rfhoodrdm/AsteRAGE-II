@@ -43,15 +43,17 @@ public class AsteRAGE2HUD
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public AsteRAGE2HUD(Asterage2State asterage2State )	{
+	public AsteRAGE2HUD(Asterage2State asterage2State,
+			LivesLevelScoreWidget livesLevelScoreWidget, ShieldsWidget shieldsWidget, UpgradesMenuWidget upgradesMenuWidget, 
+			PowerPointsWidget powerPointsWidget, ShipPowerupStatusWidget shipPowerupStatusWidget)	{
 		super();
 		
 		this.asterage2State = asterage2State;
-		livesLevelScoreWidget = new LivesLevelScoreWidget();
-		shieldsWidget = new ShieldsWidget();
-		upgradesMenuWidget = new UpgradesMenuWidget();
-		powerPointsWidget = new PowerPointsWidget();
-		shipPowerupStatusWidget = new ShipPowerupStatusWidget();
+		this.livesLevelScoreWidget = livesLevelScoreWidget;
+		this.shieldsWidget = shieldsWidget;
+		this.upgradesMenuWidget = upgradesMenuWidget;
+		this.powerPointsWidget = powerPointsWidget;
+		this.shipPowerupStatusWidget = shipPowerupStatusWidget;
 		
 		this.setMaximumSize(hudDimension);
 		this.setMinimumSize(hudDimension);

@@ -41,5 +41,10 @@ public class GameConstants
 	public static final String HIGH_SCORE_NAME_ATTRIBUTE = "Name";
 	public static final String HIGH_SCORE_LEVEL_ATTRIBUTE = "Level";
 	public static final String HIGH_SCORE_POINTS_ATTRIBUTE = "Points";
+	
+	
+	public static final int GAME_PANEL_WIDTH = 1280;
+	public static final int GAME_BOARD_HEIGHT = 960;
+	public static final int GAME_HUD_HEIGHT = 100;
 
 } 
