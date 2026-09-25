@@ -492,8 +492,6 @@ public class Asterage1Controller {
 	 * Handle collisions between objects. Of note: PlayerShip and asteroids. Bullets
 	 * and asteroids. Bullets and PlayerShip -- for troll bullets. Bullets and
 	 * TrollShips -- for player bullets.
-	 * 
-	 * @param spaceObjectList
 	 */
 	private void checkAndResolveCollisions(ConcurrentLinkedQueue<SpaceObject> spaceObjectList) {
 		// N^2 complexity, unfortunately, due to no specific get-at-index function for
@@ -622,10 +620,7 @@ public class Asterage1Controller {
 		playerShip.damageShields(amountDamage, spaceObjectList);
 		if (false == playerShip.hasShieldsAttached()) {
 			ShieldRing shieldRing = new ShieldRing(playerShip);
-			playerShip.attachShields(shieldRing);//	@Getter
-//			@Setter
-//			private GUI gui;
-
+			playerShip.attachShields(shieldRing);
 			spaceObjectList.add(shieldRing);
 		} else {
 			playerShip.renewShieldEffect();
@@ -792,7 +787,7 @@ public class Asterage1Controller {
 		// If the player is dead, no level promotion.
 		if (PlayerShip.SHIP_STATUS.ALIVE != playerShip.getShipStatus()) {
 			return;
-		} // end if check for player being alive.
+		} 
 
 		for (SpaceObject currentObject : spaceObjectList) {
 			// If there are any asteroids or enemy ships on the board, then the answer is
@@ -800,13 +795,12 @@ public class Asterage1Controller {
 			if ((currentObject instanceof Asteroid) || (currentObject instanceof TrollScout)
 					|| (currentObject instanceof TrollMothership) || (currentObject instanceof TrollPod)) {
 				return;
-			} // end if check for enemies or asteroids being alive.
+			} 
 
-		} // end for loop to iterate through enemy objects.s
-			// if at the end of all, we have not found a reason to deny promotion, trigger
-			// it.
-			// sound the promotion bell, and replace the current text message this instant.
-
+		} 
+		
+		// if at the end of all, we have not found a reason to deny promotion, trigger it.
+		// sound the promotion bell, and replace the current text message this instant.
 		asterage1State.promoteToNextLevel();
 		soundManager.playSoundEvent(SoundEvent.REWARD_EARNED);
 		makeNewMessageText("Level " + asterage1State.getLevel() + "!", MessageText.MESSAGE_COLOR.REWARD, asterage1State,
@@ -872,10 +866,6 @@ public class Asterage1Controller {
 	/**
 	 * Helper method that checks if there are any player bullets or ship debris left
 	 * on the game board.
-	 * 
-	 * @param spaceObjectList
-	 * @return Boolean value representing if there are player bullets or ship debris
-	 *         left. True = yes, false = no.
 	 */
 	private boolean playerBulletsOrExplosionsOnGameBoard(ConcurrentLinkedQueue<SpaceObject> spaceObjectList) {
 		// iterate through the list of space objects. If one is a player bullet, return
@@ -943,13 +933,11 @@ public class Asterage1Controller {
 			asterage1State.spawnNewPlayerShip();
 			asterage1State.setGameStatus(Asterage1State.GAME_STATUS.IN_PROGRESS);
 			soundManager.playSoundEvent(SoundEvent.PLAYER_SHIP_APPEARS);
-		} // end if clause to handle successful player respawn.
-	} // end function requestRespawnPlayerShip
+		} 
+	} 
 
 	/**
 	 * See how many player lives are left.
-	 * 
-	 * @return
 	 */
 	private boolean playerHasLivesRemaining() {
 		int livesLeft = asterage1State.getExtraLives();
@@ -963,17 +951,14 @@ public class Asterage1Controller {
 	/**
 	 * This helper method goes through all objects currently in existence. If one is
 	 * an explosion, it returns false. Else this function returns true.
-	 * 
-	 * @return
 	 */
 	private boolean noExplosionsExist() {
 		for (SpaceObject currentObject : asterage1State.getSpaceObjectList()) {
 			if (currentObject instanceof ShipDebrisExplosion) {
 				return false;
-			} // end if check for the type of object
-		} // end for loop to iterate through objects.
+			} 
+		} 
 
-		// else there are no explosions.
 		return true;
 	}
 
@@ -981,8 +966,6 @@ public class Asterage1Controller {
 	 * Return true if it is time to do a special update. This is found by taking the
 	 * modulus of the counter and the maximum counter value. If the modulus is 0,
 	 * then the answer is yes.
-	 * 
-	 * @return
 	 */
 	private boolean timeToDoSpecialUpdate() {
 		if (0 == (this.specialConditionCheckCounter % this.maxSpecialConditionCheckCounter)) {
@@ -993,17 +976,15 @@ public class Asterage1Controller {
 
 	/**
 	 * This method increments the special update counter by 1, and takes the result
-	 * mod maximum value, so that we end up with a rotating counter.
+	 * modulo maximum value, so that we end up with a rotating counter.
 	 */
 	private void incrementSpecialUpdateCounter() {
 		this.specialConditionCheckCounter += 1;
 		this.specialConditionCheckCounter = this.specialConditionCheckCounter % this.maxSpecialConditionCheckCounter;
-	} // end function incrementSpecialUpdateCounter
+	}
 
 	/**
 	 * Toggle the state from pause to un-paused, as long as the game is in progress.
-	 * 
-	 * @param asterage1State
 	 */
 	private void togglePause(Asterage1State asterage1State) {
 		// If the game status is IN PROGRESS, set it to PAUSE. If it is PAUSE, set it to

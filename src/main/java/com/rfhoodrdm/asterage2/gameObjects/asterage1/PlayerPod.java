@@ -18,8 +18,8 @@ extends TrollPod
 	/*	**********************************************************************
 		********************		Constructor				******************
 		********************************************************************** */
-	public PlayerPod( TrollMothership passedMothership, int passedIndex, PlayerShip passedPlayerShip)
-	{
+	
+	public PlayerPod( TrollMothership passedMothership, int passedIndex, PlayerShip passedPlayerShip)	{
 		super ( passedMothership, passedIndex );
 		
 		//set local variables.
@@ -70,17 +70,15 @@ extends TrollPod
 		********************************************************************** */
 	
 	@Override
-	public void moveObject ()
-	{
+	public void moveObject () {
 		double expectedXLocation;
 		double expectedYLocation;
 		
 		//Move differently, depending on what state we are in.
-		switch ( getPlayerPodStatus() )
-		{
+		switch ( getPlayerPodStatus() )	{
 			case BEING_TRACTORED:
 				//spin wildly, like other ships caught in certain tractor beams.
-				this.angleFacing += this.rotationalSpeed;
+				this.angleFacing += rotationalSpeed; 
 				this.checkAndCorrectAngleFacing();
 				expectedXLocation = trollMothership.getXPosition();
 				expectedYLocation = trollMothership.getYPosition();
@@ -99,26 +97,23 @@ extends TrollPod
 				facePlayerShip();
 				break;
 			
-		} //end switch based on what status we're in.	
-	} //end function moveObject
+		} 
+	}
 	
 	/**
 	 * Always face the player ship. The player pod does not have the tracking ability of the troll pod.
 	 */
-	private void facePlayerShip()
-	{
+	private void facePlayerShip() {
 			double dx = playerShip.getXPosition() - this.getXPosition();
 			double dy = playerShip.getYPosition() - this.getYPosition();
 			
-			this.angleFacing = (int) Math.floor( Math.toDegrees( Math.atan2(dx, -1 * dy))); 
-	} //end function facePlayerShip
-	
+			this.angleFacing = (int) Math.floor( Math.toDegrees( Math.atan2(dx, -1 * dy))); 	
+	} 
 	
 	/**
 	 * Move towards the deploy location. If we're within striking distance of both, then we change our status to operational.
 	 */
-	private void moveToCorrectPosition(double passedExpectedXLocation, double passedExpectedYLocation)
-	{
+	private void moveToCorrectPosition(double passedExpectedXLocation, double passedExpectedYLocation) {
 		double howFarToMove = 3.5;
 		//Get the x and y coordinates that the mothership would LIKE us to be at.
 		
@@ -126,81 +121,59 @@ extends TrollPod
 		double dy = Math.abs(passedExpectedYLocation - this.getYPosition() );
 		
 		if (	( dx < howFarToMove ) && 
-				( dy < howFarToMove ) 
-			)
-		{
-			if ( getPlayerPodStatus() == PLAYER_POD_STATUS.BEING_TRACTORED )
-			{
+				( dy < howFarToMove ) ) {
+			if ( getPlayerPodStatus() == PLAYER_POD_STATUS.BEING_TRACTORED ) {
 				//start deploying.
 				this.changePodStatus(PLAYER_POD_STATUS.DEPLOYING);
 				this.setPosition(passedExpectedXLocation, passedExpectedYLocation);
 				return;
-			}
-			else if ( getPlayerPodStatus() == PLAYER_POD_STATUS.DEPLOYING )
-			{
+			} else if ( getPlayerPodStatus() == PLAYER_POD_STATUS.DEPLOYING ) {
 				//We're here. Set the status to operational. Done.
 				this.changePodStatus(PLAYER_POD_STATUS.OPERATIONAL);
 				this.setPosition(passedExpectedXLocation, passedExpectedYLocation);
 				return;
 			} 
-			
-		} //end if check to move to operational status.
+		} 
 		
 		//Adjust x position by the full amount, or jump into the location if we're close enough.
-		if ( dx >= howFarToMove )
-		{
-			if ( passedExpectedXLocation > this.getXPosition() )
-			{
+		if ( dx >= howFarToMove ) {
+			if ( passedExpectedXLocation > this.getXPosition() ) {
 				this.xPosition += howFarToMove;
-			}
-			else if (passedExpectedXLocation < this.getXPosition() )
-			{
+			} else if (passedExpectedXLocation < this.getXPosition() ) {
 				this.xPosition -= howFarToMove;
 			} 
-		} //end if checks for x adjustment.
-		else
-		{
+		} else {
 			this.xPosition = passedExpectedXLocation;
-		} //end else block to handle if we are very close.
+		} 
 		
 		//Adjust y position by the full amount, or jump into the location if we're close enough.
-		if ( dy >= howFarToMove )
-		{
-			if ( passedExpectedYLocation > this.getYPosition() )
-			{
+		if ( dy >= howFarToMove ) {
+			if ( passedExpectedYLocation > this.getYPosition() ) {
 				this.yPosition += howFarToMove;
-			}
-			else if (passedExpectedYLocation < this.getYPosition() )
-			{
+			} else if (passedExpectedYLocation < this.getYPosition() ) {
 				this.yPosition -= howFarToMove;
 			} 
-		} //end if checks for x adjustment.
-		else
-		{
+		} else {
 			this.yPosition = passedExpectedYLocation;
 		}
-		
-	} //end function moveToDeploy
+	} 
 	
 	/**
 	 * Just shoots towards the player ship. No tracking ability like the trolls do.
-	 * @param spaceObjectList 
 	 */
 	@Override
-	public void fireBullet ( ConcurrentLinkedQueue<SpaceObject> spaceObjectList )
-	{
+	public void fireBullet ( ConcurrentLinkedQueue<SpaceObject> spaceObjectList ) {
 		Bullet newBullet = new Bullet ( this.xPosition, this.yPosition, this.angleFacing, Bullet.BULLET_OWNER.TROLL);
 		spaceObjectList.add ( newBullet );
-	} //end function checkBulletCoolDown
+	} 
 	
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-	public static enum PLAYER_POD_STATUS
-	{
+	public static enum PLAYER_POD_STATUS {
 		BEING_TRACTORED,
 		DEPLOYING,
 		OPERATIONAL;
-	} //end enum player pod status definition.
+	}
 }

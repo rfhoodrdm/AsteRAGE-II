@@ -82,8 +82,8 @@ extends TrollBaseShip
 		double xOffset = thrusterDistance * Math.sin( Math.toRadians(getFacingAngleDegrees()) * -1);
 		double yOffset = thrusterDistance * Math.cos( Math.toRadians(getFacingAngleDegrees()) );
 		
-		int thrusterXCoordinate = (int) Math.floor( getxCoordinate() + xOffset );
-		int thrusterYCoordinate = (int) Math.floor( getyCoordinate() + yOffset );
+		int thrusterXCoordinate = (int) Math.floor( getXCoordinate() + xOffset );
+		int thrusterYCoordinate = (int) Math.floor( getYCoordinate() + yOffset );
 		
 		g2d.setColor( getRandomThrustColor() );
 		int thrustSize = 10;

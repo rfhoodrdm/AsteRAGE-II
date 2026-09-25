@@ -1,11 +1,13 @@
 package com.rfhoodrdm.asterage2.gui.asterage1;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.PlayerShip;
 import com.rfhoodrdm.asterage2.gameObjects.asterage1.SpaceObject;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
@@ -26,9 +28,8 @@ public class Asterage1GameBoard
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-	
-	public static final int boardWidth = 1200;
-	public static final int boardHeight = 600;
+	public static final Dimension GAME_BOARD_DIMENSION 
+		= new Dimension(GameConstants.GAME_BOARD_WIDTH, GameConstants.GAME_BOARD_HEIGHT);
 	
 	private final Asterage1State asterage1State;
 	
@@ -37,11 +38,13 @@ public class Asterage1GameBoard
 		********************************************************************** */
 	
 	public Asterage1GameBoard(Asterage1State asterage1State) {
-		this.setBounds( 0, 0, boardWidth, boardHeight );
-		//this.setBorder( null );								//get rid of the border; it's painting funny.
+		setSize(GAME_BOARD_DIMENSION);
+		setMinimumSize(GAME_BOARD_DIMENSION);
+		setMaximumSize(GAME_BOARD_DIMENSION);
+		setPreferredSize(GAME_BOARD_DIMENSION);
+		
 		this.asterage1State = asterage1State;
-	} //end constructor
-	
+	}
 
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -55,8 +58,7 @@ public class Asterage1GameBoard
 		********************		Functionality			******************
 		********************************************************************** */
 	@Override
-	protected void paintComponent( Graphics g )
-	{
+	protected void paintComponent( Graphics g )	{
 		super.paintComponent(g);
 		
 		ConcurrentLinkedQueue<SpaceObject> spaceObjectList = asterage1State.getSpaceObjectList();

@@ -77,8 +77,8 @@ implements Expires, TakesDamage
 	 */
 	public Asteroid ( SpaceObject parentObject, Asteroid_Type_Size whatSize )
 	{
-		this (	( null != parentObject ) ? parentObject.getxCoordinate() : 0 , 
-				( null != parentObject ) ? parentObject.getyCoordinate() : 0, 
+		this (	( null != parentObject ) ? parentObject.getXCoordinate() : 0 , 
+				( null != parentObject ) ? parentObject.getYCoordinate() : 0, 
 				whatSize );	
 	} //end constructor with parent.
 	

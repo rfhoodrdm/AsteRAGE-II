@@ -36,9 +36,6 @@ public class Asterage1HUD
 		********************************************************************** */
 	private final Asterage1State asterage1State;
 	
-	public final int hudWidth = 1200;
-	public final int hudHeight = 100;
-	
 	private JLabel shieldLabel;
 	private JLabel scoreLabel;
 	private JLabel levelLabel;
@@ -61,8 +58,6 @@ public class Asterage1HUD
 		********************************************************************** */
 	
 	public Asterage1HUD(Asterage1State asterage1State) {
-		//set the location of this component.
-		this.setBounds (0, 590, 1200, 100 );
 		shieldLabel = new JLabel("Shields:");
 		scoreLabel = new JLabel("Score:");
 		levelLabel = new JLabel ( "Level:");
@@ -131,7 +126,7 @@ public class Asterage1HUD
 		this.scoreTextField.setText( "" + asterage1State.getScore() );
 		this.levelTextField.setText( "" + asterage1State.getLevel() );
 		this.shieldBar.setValue( asterage1State.getPlayerShields() );
-		this.mythiciteBar.setValue( asterage1State.getPlayerMythicite() );
+		this.mythiciteBar.setValue( asterage1State.getCollectedMythiciteTotal() );
 	}
 	
 	/*	**********************************************************************

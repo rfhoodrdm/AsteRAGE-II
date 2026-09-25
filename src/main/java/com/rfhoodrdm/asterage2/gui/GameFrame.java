@@ -40,7 +40,7 @@ public class GameFrame
 		
 		//set the parameters of this component.
 		
-		this.setSize( GUI.panelWidth , GUI.panelHeight + 50);	//use given component sizes. Add some pixels to accommodate menu bar size differences
+		this.setSize( GameConstants.GAME_FRAME_WIDTH , GameConstants.GAME_FRAME_HEIGHT);	
 		this.setLayout( new GridBagLayout() );					
 		this.setLocationRelativeTo( null );						//center on screen
 		setExtendedState(JFrame.MAXIMIZED_BOTH);				//full windowed screen mode.

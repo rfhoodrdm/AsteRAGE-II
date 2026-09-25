@@ -40,7 +40,7 @@ implements FiresBullets, DeploysShields
 	{
 		super ( passedMothership.getPodXPosition(passedIndex), passedMothership.getPodYPosition(passedIndex),
 				75, 0, 0,
-				-1 * passedMothership.getRotationSpeed(),
+				-1 * passedMothership.getRotationalSpeed(),
 				0.0, 10.0, 0.0 );
 		
 		//set the local references.

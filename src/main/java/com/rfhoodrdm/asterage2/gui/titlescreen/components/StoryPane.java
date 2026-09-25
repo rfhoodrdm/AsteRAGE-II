@@ -25,7 +25,6 @@ public class StoryPane
 		setEditable(false);
 		//setBackground( Color.black);
 		setOpaque(false);
-		setBounds(5, 5, 1190, 475);
 		
 		//set up the contents.
 		StyledDocument storyDoc = this.getStyledDocument();		//get document (content) reference.

@@ -33,10 +33,8 @@ public class HighScorePanel
 		this.asterage2State = Objects.requireNonNull(a2State);
 		
 		setVisible(false);			//initially invisible
-		//setBackground( Color.black);
 		setOpaque(false);
-		setBounds(5, 5, 1190, 475);
-		this.setLayout(null);			// honor sub-component coordinates.
+		this.setLayout(null);			// honor sub-component coordinates.	TODO: eventually transition to a layout manager.
 		
 		JLabel titleLabel = new JLabel("AsteRAGE All-Stars:");
 		titleLabel.setFont( new Font( GameConstants.gameFont, Font.BOLD, 48) );

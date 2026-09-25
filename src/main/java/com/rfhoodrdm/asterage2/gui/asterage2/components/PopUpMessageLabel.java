@@ -17,12 +17,12 @@ public class PopUpMessageLabel
 	private static final long serialVersionUID = -1365184913233342775L;
 
 	public PopUpMessageLabel() {
-		Dimension messageSize = new Dimension(AsteRAGE2GameBoard.boardWidth, 100);
+		Dimension messageSize = new Dimension(AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.width, 100);
 		setSize(messageSize);
 		setPreferredSize(messageSize);
 		setMinimumSize(messageSize);
 		setMaximumSize(messageSize);
-		setLocation(0, (AsteRAGE2GameBoard.boardHeight / 2));
+		setLocation(0, (AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.height/ 2));
 		setFont(new java.awt.Font(GameConstants.gameFont, Font.BOLD, GameConstants.Asterage2HUDFontSize));
 		setHorizontalAlignment(CENTER);
 	}

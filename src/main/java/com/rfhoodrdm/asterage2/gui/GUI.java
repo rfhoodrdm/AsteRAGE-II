@@ -30,10 +30,6 @@ public class GUI {
 	/*	**********************************************************************
 		*******************			Data Members			******************
 		********************************************************************** */
-    
-	//GUI constants.
-	public final static int panelWidth = 1200;	    //height of one game panel.
-    public final static int panelHeight = 700;	    //width of one game panel.
 	
 	private final State state;
 	
