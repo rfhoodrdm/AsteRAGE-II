@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gui.GUI;
@@ -64,8 +65,8 @@ public class TitleGameMenu
 	public TitleGameMenu ()	{
 		//set up the GUI components.
 		this.setLayout ( null );		//honor the coordinates of sub components.
-		int upperLeftX = (GUI.panelWidth/2) - ( titleMenuWidth / 2 );
-		int upperLeftY = 500;
+		int upperLeftX = (GameConstants.GAME_PANEL_WIDTH / 2) - ( titleMenuWidth / 2 );
+		int upperLeftY = (GameConstants.GAME_PANEL_HEIGHT * 3 / 4); 
 		this.setBounds ( upperLeftX, upperLeftY, titleMenuWidth, titleMenuHeight);
 		
 		asterage1MenuOption = new JLabel();

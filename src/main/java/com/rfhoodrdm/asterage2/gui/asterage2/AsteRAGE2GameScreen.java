@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import com.rfhoodrdm.asterage2.gui.asterage2.components.PopUpMessageLabel;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShipPowerupStatusWidget;
@@ -38,7 +39,7 @@ public class AsteRAGE2GameScreen
 		this.asterage2GameBoard = asterage2GameBoard;
 		
 		//set size and layout
-		Dimension panelSize = new Dimension(GUI.panelWidth, GUI.panelHeight);
+		Dimension panelSize = new Dimension(GameConstants.GAME_PANEL_WIDTH, GameConstants.GAME_PANEL_HEIGHT);
 		this.setSize(panelSize);
 		this.setPreferredSize(panelSize);
 		this.setMinimumSize(panelSize);

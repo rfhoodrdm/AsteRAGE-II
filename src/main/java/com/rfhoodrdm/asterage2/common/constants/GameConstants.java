@@ -43,8 +43,13 @@ public class GameConstants
 	public static final String HIGH_SCORE_POINTS_ATTRIBUTE = "Points";
 	
 	
-	public static final int GAME_PANEL_WIDTH = 1280;
-	public static final int GAME_BOARD_HEIGHT = 960;
+	public static final int GAME_BOARD_HEIGHT = 875;
+	public static final int GAME_BOARD_WIDTH = 1200;
 	public static final int GAME_HUD_HEIGHT = 100;
+	public static final int GAME_FRAME_HEIGHT_PADDING = 25;
+	public static final int GAME_PANEL_WIDTH = GAME_BOARD_WIDTH;
+	public static final int GAME_PANEL_HEIGHT = GAME_BOARD_HEIGHT + GAME_HUD_HEIGHT;
+	public static final int GAME_FRAME_WIDTH = GAME_PANEL_WIDTH;
+	public static final int GAME_FRAME_HEIGHT = GAME_PANEL_HEIGHT + GAME_FRAME_HEIGHT_PADDING;
 
 } 

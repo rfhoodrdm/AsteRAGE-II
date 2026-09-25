@@ -140,8 +140,8 @@ public class Asterage2State
 		resetTrollScoutCountdown();											//set troll scout countdown to max.
 		
 		//initialize in-play game objects.
-		double playerShipXLocation = AsteRAGE2GameBoard.boardWidth / 2;								//generated at center of game board.
-		double playerShipYLocation = AsteRAGE2GameBoard.boardHeight / 2;							//generated at center of game board
+		double playerShipXLocation = AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.width / 2;				//generated at center of game board.
+		double playerShipYLocation = AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.height / 2;			//generated at center of game board
 		playerShip = PlayerShip.makeNewPlayerShip(playerShipXLocation, playerShipYLocation);		//make a new player ship object.
 		
 		asteroidList = new ConcurrentLinkedQueue<>();				//clear space for new asteroid list
@@ -661,8 +661,8 @@ public class Asterage2State
 		for ( Asteroid.Asteroid_Type_Size currentTypeAndSize : Asteroid.Asteroid_Type_Size.values() ) {
 			for ( int count = 1;	count <= pointCard.getAsteroidCount(currentTypeAndSize);	++count )
 			{
-				double randomXCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.boardWidth);
-				double randomYCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.boardHeight);			
+				double randomXCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.width);
+				double randomYCoordinate = Math.floor( Math.random() * AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.height);			
 				Asteroid newAsteroid = (null != parentObject) ?
 						new Asteroid ( parentObject, currentTypeAndSize ) :
 						new Asteroid(randomXCoordinate, randomYCoordinate, currentTypeAndSize);

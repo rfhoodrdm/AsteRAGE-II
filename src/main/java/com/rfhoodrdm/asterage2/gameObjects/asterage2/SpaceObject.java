@@ -3,6 +3,7 @@ package com.rfhoodrdm.asterage2.gameObjects.asterage2;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.GravityNetEffect;
 import com.rfhoodrdm.asterage2.gui.GUI;
 import java.awt.Graphics;
@@ -102,10 +103,10 @@ public abstract class SpaceObject
 	public void setRandomSpawnCoordinates ( )
 	{
 		//can spawn anywhere along top or right edge.
-			int locationRange = GUI.panelWidth + GUI.panelHeight;
+			int locationRange = GameConstants.GAME_PANEL_WIDTH + GameConstants.GAME_PANEL_HEIGHT;
 			int randomLocation = (int) Math.floor( Math.random() * locationRange );
 			
-			if ( randomLocation < GUI.panelWidth )
+			if ( randomLocation < GameConstants.GAME_PANEL_WIDTH )
 			{
 				//then it's a top edge troll.
 				setxCoordinate( randomLocation );
@@ -114,8 +115,8 @@ public abstract class SpaceObject
 			else
 			{
 				//else it's a right edge troll
-				setxCoordinate ( GUI.panelWidth );
-				setyCoordinate( randomLocation - GUI.panelWidth );
+				setxCoordinate ( GameConstants.GAME_PANEL_WIDTH );
+				setyCoordinate( randomLocation - GameConstants.GAME_PANEL_WIDTH );
 			} //end else clause for a right edge troll
 	} //end method setRandomSpawnCoordinates
 	

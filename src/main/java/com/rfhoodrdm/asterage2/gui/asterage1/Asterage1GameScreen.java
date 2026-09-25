@@ -2,9 +2,11 @@ package com.rfhoodrdm.asterage2.gui.asterage1;
 
 import java.awt.Dimension;
 
+import javax.swing.BoxLayout;
+
 import org.springframework.stereotype.Component;
 
-import com.rfhoodrdm.asterage2.gui.GUI;
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.templates.PanelTemplate;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,17 +36,18 @@ public class Asterage1GameScreen
 		super();
 		
 		//set size and layout
-		Dimension panelSize = new Dimension(GUI.panelWidth, GUI.panelHeight);
+		Dimension panelSize = new Dimension(GameConstants.GAME_PANEL_WIDTH, GameConstants.GAME_PANEL_HEIGHT);
 		this.setSize(panelSize);
 		this.setPreferredSize(panelSize);
 		this.setMinimumSize(panelSize);
 		this.setMaximumSize(panelSize);
-		this.setLayout ( null );
+		this.setLayout ( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		
 		//create and initialize component objects.
-		this.asterage1HUD = asterage1HUD;
 		this.asterage1GameBoard = asterage1GameBoard;
 		this.add( asterage1GameBoard );
+		
+		this.asterage1HUD = asterage1HUD;
 		this.add( asterage1HUD );
 	} 
 	

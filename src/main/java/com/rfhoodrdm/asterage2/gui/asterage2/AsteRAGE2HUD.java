@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.LivesLevelScoreWidget;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.PowerPointsWidget;
 import com.rfhoodrdm.asterage2.gui.asterage2widgets.ShieldsWidget;
@@ -29,7 +30,8 @@ public class AsteRAGE2HUD
 		*******************			Data Members			******************
 		********************************************************************** */
 	
-	public static final Dimension hudDimension = new Dimension (1200, 100);
+	public static final Dimension hudDimension 
+		= new Dimension (GameConstants.GAME_PANEL_WIDTH, GameConstants.GAME_HUD_HEIGHT);
 	
 	private final Asterage2State asterage2State;		
 	

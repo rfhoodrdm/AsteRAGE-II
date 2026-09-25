@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.dataloading.DataLoader;
 import com.rfhoodrdm.asterage2.dataloading.RequiresLoadedData;
 import com.rfhoodrdm.asterage2.gui.GUI;
@@ -54,13 +55,15 @@ public class SplashScreen
 		this.add(storyPane);
 		
 		this.storyPane = storyPane;
+		storyPane.setBounds(5, 105, 1190, 575);	//TODO: eventually introduce a layout manager to place the components.
 		this.add(highScorePanel);
 		
 		this.highScorePanel = highScorePanel;
+		highScorePanel.setBounds(5, 105, 1190, 575); //TODO: eventually introduce a layout manager to place the components.
 		this.add(titleGameMenu);
 		
 		//set size and layout
-		Dimension panelSize = new Dimension(GUI.panelWidth, GUI.panelHeight);
+		Dimension panelSize = new Dimension(GameConstants.GAME_PANEL_WIDTH, GameConstants.GAME_PANEL_HEIGHT);
 		this.setSize(panelSize);
 		this.setPreferredSize(panelSize);
 		this.setMinimumSize(panelSize);
@@ -119,7 +122,7 @@ public class SplashScreen
 		storyPane.setVisible(false); 		//hide the editor panes containing the other content.
 		highScorePanel.setVisible(false);
 								
-		g.drawImage(titleGraphic, 0, 0, null);		//draw the title graphic.
+		g.drawImage(titleGraphic, 0, 100, null);		//draw the title graphic.
 	} 
 	
 	private void displayStory( Graphics g )	{

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gameEffects.asterage2.SpaceEffect;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.Asteroid;
 import com.rfhoodrdm.asterage2.gameObjects.asterage2.HomingMissile;
@@ -32,9 +33,8 @@ public class AsteRAGE2GameBoard
 		*******************			Data Members			******************
 		********************************************************************** */
 	
-	public static final int boardWidth = 1200;
-	public static final int boardHeight = 600;
-	public static final Dimension gameBoardDimension = new Dimension (boardWidth, boardHeight);
+	public static final Dimension GAME_BOARD_DIMENSION 
+		= new Dimension (GameConstants.GAME_BOARD_WIDTH, GameConstants.GAME_BOARD_HEIGHT);
 	
 	private PopUpMessageLabel popUpMessage;				//holder for messages on the game screen.
 	private final Asterage2State asterage2State;		//reference to game state object
@@ -49,10 +49,10 @@ public class AsteRAGE2GameBoard
 		super();		
 		
 		//initialize starting parameters of the panel
-		this.setMaximumSize(gameBoardDimension);
-		this.setMinimumSize(gameBoardDimension);
-		this.setPreferredSize(gameBoardDimension);
-		this.setSize(gameBoardDimension);
+		this.setMaximumSize(GAME_BOARD_DIMENSION);
+		this.setMinimumSize(GAME_BOARD_DIMENSION);
+		this.setPreferredSize(GAME_BOARD_DIMENSION);
+		this.setSize(GAME_BOARD_DIMENSION);
 		this.setLayout(null);							//absolute layout
 		
 		starList = new ArrayList<>();					//make list of stars to display.
@@ -160,8 +160,8 @@ public class AsteRAGE2GameBoard
 		//now make a bunch of stars
 		for ( int count = 0;    count <= numberOfStars;    ++count ) {
 			//create a new star at a random location in the board.
-			int randomXCoord = (int) Math.floor( Math.random() * boardWidth );
-			int randomYCoord = (int) Math.floor( Math.random() * boardHeight );
+			int randomXCoord = (int) Math.floor( Math.random() * GAME_BOARD_DIMENSION.width );
+			int randomYCoord = (int) Math.floor( Math.random() * GAME_BOARD_DIMENSION.height );
 			StarPoint newStar = new StarPoint ( randomXCoord, randomYCoord );
 			starList.add( newStar );
 		} 

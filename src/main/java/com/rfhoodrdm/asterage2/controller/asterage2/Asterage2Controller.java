@@ -302,8 +302,8 @@ public class Asterage2Controller
 	private void moveAndRotateObjects()	{
 		//move each object in the state. We do this to each list to avoid having to compile a list of
 		//objects each time we update.
-		int gameBoardWidth = AsteRAGE2GameBoard.boardWidth;
-		int gameBoardHeight = AsteRAGE2GameBoard.boardHeight;
+		int gameBoardWidth = AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.width;
+		int gameBoardHeight = AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.height;
 		boolean gravityNetActive = asterage2State.checkGravityNetEquipped();
 		
 		//move the ship
@@ -868,7 +868,8 @@ public class Asterage2Controller
 		for ( int currentIteration = 1;   currentIteration <= numberOfIterations;  ++currentIteration)
 		{
 			//move the fake ship one step, according to it's last known velocity.
-			fakePlayerShip.moveAndRotate(AsteRAGE2GameBoard.boardWidth, AsteRAGE2GameBoard.boardHeight, asterage2State.checkGravityNetEquipped());
+			fakePlayerShip.moveAndRotate(AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.width, AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.height, 
+					asterage2State.checkGravityNetEquipped());
 	
 			//calculate the firing angle from the troll to this proposed location and create a plasma bolt to represent the shot.
 			double deltaX = fakePlayerShip.getxCoordinate() - trollX;
@@ -877,7 +878,8 @@ public class Asterage2Controller
 			PlasmaBolt proposedBolt = PlasmaBolt.createTrollPlasmaBolt(trollX, trollY, firingAngle);
 			
 			for (int moveIterations = 1;  moveIterations <= currentIteration ;  ++moveIterations )	{
-				proposedBolt.moveAndRotate(AsteRAGE2GameBoard.boardWidth, AsteRAGE2GameBoard.boardHeight, asterage2State.checkGravityNetEquipped());
+				proposedBolt.moveAndRotate(AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.width, AsteRAGE2GameBoard.GAME_BOARD_DIMENSION.height, 
+						asterage2State.checkGravityNetEquipped());
 			} //end for loop moving the plasma bolt along to its destination.
 			
 			if ( true == fakePlayerShip.checkCollision(proposedBolt) )	{

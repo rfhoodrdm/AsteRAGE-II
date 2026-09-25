@@ -3,6 +3,7 @@ package com.rfhoodrdm.asterage2.gui.titlescreen.components;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.rfhoodrdm.asterage2.common.constants.GameConstants;
 import com.rfhoodrdm.asterage2.gui.GUI;
 
 public class StarPoint {
@@ -35,29 +36,29 @@ public class StarPoint {
 	
 	public void reset() {
 		// can spawn anywhere along top or right edge.
-		int locationRange = GUI.panelWidth + GUI.panelHeight;
+		int locationRange = GameConstants.GAME_PANEL_WIDTH + GameConstants.GAME_PANEL_HEIGHT;
 		int randomLocation = (int) Math.floor(Math.random() * locationRange);
 		
-		if (randomLocation < GUI.panelWidth) {	
+		if (randomLocation < GameConstants.GAME_PANEL_WIDTH) {	
 			// then it's a top edge star.
 			setPosition(randomLocation, 0);
 		} else {
 			// else it's a right edge star
-			setPosition(GUI.panelWidth, randomLocation - GUI.panelWidth);
+			setPosition(GameConstants.GAME_PANEL_WIDTH, randomLocation - GameConstants.GAME_PANEL_WIDTH);
 		}
 		
 		randomizeSpeed();
 	}
 
 	private void randomizePositionAndSpeed() {
-		xCoordinate = (int) Math.floor(Math.random() * GUI.panelWidth);
-		yCoordinate = (int) Math.floor(Math.random() * GUI.panelHeight);
+		xCoordinate = (int) Math.floor(Math.random() * GameConstants.GAME_PANEL_WIDTH);
+		yCoordinate = (int) Math.floor(Math.random() * GameConstants.GAME_PANEL_HEIGHT);
 		randomizeSpeed();
 	}
 
 	public boolean checkExpired() {
 		// if we've traveled off of the right edge or bottom edge, then it has expired.
-		return ((xCoordinate < 0) || (yCoordinate > GUI.panelHeight));
+		return ((xCoordinate < 0) || (yCoordinate > GameConstants.GAME_PANEL_HEIGHT));
 	}
 
 	public void paintStar(Graphics g) {
