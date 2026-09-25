@@ -2,6 +2,7 @@
 
 package com.rfhoodrdm.asterage2.gui.titlescreen;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -59,7 +60,11 @@ public class SplashScreen
 		this.add(titleGameMenu);
 		
 		//set size and layout
-		this.setSize ( GUI.panelWidth, GUI.panelHeight );
+		Dimension panelSize = new Dimension(GUI.panelWidth, GUI.panelHeight);
+		this.setSize(panelSize);
+		this.setPreferredSize(panelSize);
+		this.setMinimumSize(panelSize);
+		this.setMaximumSize(panelSize);
 		this.setLayout ( null );
 	} 
 	

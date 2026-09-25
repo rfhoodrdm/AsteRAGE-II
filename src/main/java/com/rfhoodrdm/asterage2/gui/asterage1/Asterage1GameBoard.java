@@ -27,8 +27,8 @@ public class Asterage1GameBoard
 		*******************			Data Members			******************
 		********************************************************************** */
 	
-	public final int boardWidth = 1200;
-	public final int boardHeight = 600;
+	public static final int boardWidth = 1200;
+	public static final int boardHeight = 600;
 	
 	private final Asterage1State asterage1State;
 	

@@ -1,6 +1,7 @@
 package com.rfhoodrdm.asterage2.gui;
 
 import java.awt.Color;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
@@ -39,8 +40,8 @@ public class GameFrame
 		
 		//set the parameters of this component.
 		
-		this.setSize( GUI.panelWidth , GUI.panelHeight + 25);	//use given component sizes. Add some pixels to accommodate menu bar size differences
-		this.setLayout( null );									//layout will honor coordinates of sub components.
+		this.setSize( GUI.panelWidth , GUI.panelHeight + 50);	//use given component sizes. Add some pixels to accommodate menu bar size differences
+		this.setLayout( new GridBagLayout() );					
 		this.setLocationRelativeTo( null );						//center on screen
 		setExtendedState(JFrame.MAXIMIZED_BOTH);				//full windowed screen mode.
 		this.getContentPane().setBackground ( Color.black );	//solid black background
@@ -52,7 +53,7 @@ public class GameFrame
 		add(asterage1GameScreen);
 		add(asterage2GameScreen);
 	} 
-	
+
 	public void registerKeyListener(KeyListener keyListener) {
 		this.addKeyListener(keyListener);
 	}

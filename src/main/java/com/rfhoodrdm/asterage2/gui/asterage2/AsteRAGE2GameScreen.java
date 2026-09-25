@@ -1,5 +1,6 @@
 package com.rfhoodrdm.asterage2.gui.asterage2;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 
 import org.springframework.stereotype.Component;
@@ -37,7 +38,11 @@ public class AsteRAGE2GameScreen
 		this.asterage2GameBoard = asterage2GameBoard;
 		
 		//set size and layout
-		this.setSize ( GUI.panelWidth, GUI.panelHeight );
+		Dimension panelSize = new Dimension(GUI.panelWidth, GUI.panelHeight);
+		this.setSize(panelSize);
+		this.setPreferredSize(panelSize);
+		this.setMinimumSize(panelSize);
+		this.setMaximumSize(panelSize);
 		this.setLayout ( new java.awt.GridBagLayout() );
 		
 		GridBagConstraints layoutInfo = new GridBagConstraints();
