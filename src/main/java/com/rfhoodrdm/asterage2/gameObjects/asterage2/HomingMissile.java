@@ -14,9 +14,8 @@ import com.rfhoodrdm.asterage2.utility.RandomizedNumbers;
 import com.rfhoodrdm.asterage2.utility.ThetaCorrector;
 
 public class HomingMissile
-extends SpaceObject
-implements Expires
-{
+	extends SpaceObject
+	implements Expires {
 	
 	/*	**********************************************************************
 		*******************			Data Members			******************
@@ -42,10 +41,9 @@ implements Expires
 		********************		Constructor				******************
 		********************************************************************** */
 	
-	public HomingMissile( SpaceObject parentObject, MissileType whatType, TrollBaseShip passedTarget )
-	{
+	public HomingMissile( SpaceObject parentObject, MissileType whatType, TrollBaseShip passedTarget ) {
 		//remember initial position, what type, and what we're targetting.
-		super(parentObject.getxCoordinate(), parentObject.getyCoordinate(), HOMING_MISSILE_SPATIAL_RADIUS );
+		super(parentObject.getXCoordinate(), parentObject.getYCoordinate(), HOMING_MISSILE_SPATIAL_RADIUS );
 		this.missileType = whatType;
 		currentTarget = passedTarget;
 		
@@ -57,10 +55,8 @@ implements Expires
 		
 		//set idling distance initially to 0.
 		idleDistance = 0.0;
-		
 		expiredFlag = false;
-	} //end constructor
-	
+	} 
 	
 	/*	**********************************************************************
 		********************		Class Interface			******************
@@ -70,44 +66,39 @@ implements Expires
 	@Override	protected double getMaxVelocity()	{	return MAX_HOMING_MISSILE_VELOCITY;	}
 	@Override	public boolean checkExpired()	{	return expiredFlag;	}
 	@Override	public void setExpiredFlag(boolean newFlag)	{	expiredFlag = newFlag;	}
+	
 	@Override	
-	protected BufferedImage getSimpleSprite()	
-	{	
-		//return the missile sprite corresponding to the missile type.
-		if ( MissileType.PLAYER == getMissileType() )
-		{
+	protected BufferedImage getSimpleSprite()		{	
+		if ( MissileType.PLAYER.equals(getMissileType()) ) {
 			return Image.A2_HOMING_MISSILE_PLAYER.getImage();
-		}
-		else
-		{
+		} else {
 			return Image.A2_HOMING_MISSILE_TROLL.getImage();
 		}
-	} //end method getSimpleSprite
+	} 
 	
 	public MissileType getMissileType() { return this.missileType; }
 	public SpaceObject getTarget() { return this.currentTarget; }
+	
 	/*	**********************************************************************
 		********************		Functionality			******************
 		********************************************************************** */
 	@Override
-	public void paintObject ( Graphics g )
-	{
+	public void paintObject ( Graphics g )	{
 		//paint the engine thrust of the missile.
 		Graphics2D g2d = (Graphics2D) g;
 		paintEngineThrust(g2d);
 		
 		//lastly, call to super's paint method.
 		super.paintObject(g);
-	} //end method paintObject
+	} 
 	
-	private void paintEngineThrust ( Graphics2D g2d )
-	{
+	private void paintEngineThrust ( Graphics2D g2d )	{
 		int thrusterDistance = 20;
 		double xOffset = thrusterDistance * Math.sin( Math.toRadians(getFacingAngleDegrees()) * -1);
 		double yOffset = thrusterDistance * Math.cos( Math.toRadians(getFacingAngleDegrees()) );
 		
-		int thrusterXCoordinate = (int) Math.floor( getxCoordinate() + xOffset );
-		int thrusterYCoordinate = (int) Math.floor( getyCoordinate() + yOffset );
+		int thrusterXCoordinate = (int) Math.floor( getXCoordinate() + xOffset );
+		int thrusterYCoordinate = (int) Math.floor( getYCoordinate() + yOffset );
 		
 		g2d.setColor( getRandomThrustColor() );
 		int thrustSize = 15;
@@ -115,10 +106,9 @@ implements Expires
 						thrusterYCoordinate - (thrustSize /2 ), 
 						thrustSize, 
 						thrustSize);
-	} //end method paintEngineThrust
+	} 
 	
-	private Color getRandomThrustColor ()
-	{
+	private Color getRandomThrustColor ()	{
 		int randomColorChance = RandomizedNumbers.random100();
 		
 		if ( randomColorChance < 20 ) return Color.YELLOW;
@@ -127,40 +117,34 @@ implements Expires
 		if ( randomColorChance < 80 ) return Color.PINK;
 		
 		return Color.RED; 
-	} //end method getRandomThrustColor
+	} 
 	
 	@Override
-	public void moveAndRotate(int boardWidth, int boardHeight, boolean gravityNetActive)
-	{
+	public void moveAndRotate(int boardWidth, int boardHeight, boolean gravityNetActive) {
 		//check to see if we're idle moving due to a lack of a target.
 		if (	null == currentTarget  ||
-				currentTarget.checkExpired() )
-		{
+				currentTarget.checkExpired() )	{
 			//add the amount of our current velocity to our idle distance, and then idle drift.
 			idleDistance += getMovementVelocity();
 			super.moveAndRotate(boardWidth, boardHeight, gravityNetActive);
-		} //end if check for not tracking an object
-		else
-		{
+		} else {
 			//move according to our tracking algorithm.
 			moveAndRotateByTracking( boardWidth, boardHeight, gravityNetActive);
 		}
 		
 		//check if idle drift exceeds our max allowance. If so, mark this homing missile as expired
-		if ( idleDistance >= MAX_IDLE_DISTANCE )
-		{
+		if ( idleDistance >= MAX_IDLE_DISTANCE ) {
 			setExpiredFlag(true);
-		} //end if check for expired homing missile due to idle drift.
-	} //end method moveAndRotate
+		} 
+	} 
 	
-	private void moveAndRotateByTracking( int boardWidth, int boardHeight, boolean gravityNetActive )
-	{
+	private void moveAndRotateByTracking( int boardWidth, int boardHeight, boolean gravityNetActive ) {
 		//turn to face the target being tracked.
 		int targetXCoordinate = computeTargetXCoordinate( boardWidth );
 		int targetYCoordinate = computeTargetYCoordinate( boardHeight );
 		
-		double deltaX = targetXCoordinate - getxCoordinate() ;
-		double deltaY = targetYCoordinate - getyCoordinate();
+		double deltaX = targetXCoordinate - getXCoordinate() ;
+		double deltaY = targetYCoordinate - getYCoordinate();
 		int targetAngle = ThetaCorrector.correctThetaRange(90 + (int) Math.floor(Math.toDegrees(Math.atan2( deltaY , deltaX ))));
 		
 		setMovementAngleDegrees(targetAngle);
@@ -172,11 +156,9 @@ implements Expires
 		
 		//move towards the target.
 		super.moveAndRotate(boardWidth, boardHeight, gravityNetActive);
-	} //end method moveAndRotateByTracking
-
+	} 
 	
-	private int computeTargetXCoordinate( int boardWidth )
-	{
+	private int computeTargetXCoordinate( int boardWidth )	{
 		//if there is more than a half screen difference between the missile and target, project off of the left or right
 		//of the screen, as appropriate.
 		//Else just return the target's x coordinate.
@@ -186,18 +168,15 @@ implements Expires
 		int computedXCoordinate = targetRawXCoordinate;			//go with the actual coordinate, unless...
 		int threshold = (boardWidth/2);
 		
-		if ( Math.abs(targetRawXCoordinate - missileXCoordinate) > threshold )
-		{
+		if ( Math.abs(targetRawXCoordinate - missileXCoordinate) > threshold ) {
 			computedXCoordinate = ( targetRawXCoordinate < threshold ) ?
 					(targetRawXCoordinate + boardWidth) : (targetRawXCoordinate - boardWidth);
-		} //end if check for greater than half a screen difference
+		} 
 		
 		return computedXCoordinate;
-		
-	} //end method computeTargetXCoordinate
+	} 
 	
-	private int computeTargetYCoordinate( int boardHeight )
-	{
+	private int computeTargetYCoordinate( int boardHeight )	{
 		//if there is more than a half screen difference between the missile and target, project off of the left or right
 		//of the screen, as appropriate.
 		//Else just return the target's x coordinate.
@@ -207,24 +186,21 @@ implements Expires
 		int computedYCoordinate = targetRawYCoordinate;			//go with the actual coordinate, unless...
 		int threshold = (boardHeight/2);
 		
-		if ( Math.abs(targetRawYCoordinate - missileYCoordinate) > threshold )
-		{
+		if ( Math.abs(targetRawYCoordinate - missileYCoordinate) > threshold )		{
 			computedYCoordinate = ( targetRawYCoordinate < threshold ) ?
 					(targetRawYCoordinate + boardHeight) : (targetRawYCoordinate - boardHeight);
-		} //end if check for greater than half a screen difference
+		} 
 		
-		return computedYCoordinate;
-		
-	} //end method computeTargetYCoordinate
+		return computedYCoordinate;	
+	} 
 	
 	/*	**********************************************************************
 		********************		Inner Classes			******************
 		********************************************************************** */
 	
-	public static enum MissileType
-	{
+	public static enum MissileType {
 		PLAYER,
 		TROLL;
-	} //end MISSILE_TYPE definition
+	} 
 	
-} //end class HomingMissile
+} 

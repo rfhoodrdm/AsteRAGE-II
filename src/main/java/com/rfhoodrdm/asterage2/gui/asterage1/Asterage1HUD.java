@@ -126,7 +126,7 @@ public class Asterage1HUD
 		this.scoreTextField.setText( "" + asterage1State.getScore() );
 		this.levelTextField.setText( "" + asterage1State.getLevel() );
 		this.shieldBar.setValue( asterage1State.getPlayerShields() );
-		this.mythiciteBar.setValue( asterage1State.getPlayerMythicite() );
+		this.mythiciteBar.setValue( asterage1State.getCollectedMythiciteTotal() );
 	}
 	
 	/*	**********************************************************************

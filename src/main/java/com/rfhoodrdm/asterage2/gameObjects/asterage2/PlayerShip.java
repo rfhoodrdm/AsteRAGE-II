@@ -96,8 +96,8 @@ implements FiresPlasmaBolts, FiresSonicDisruptor, DeploysShields, TakesDamage
 	
 	public void resetShipStats( boolean restoreShieldStrength)
 	{
-		setxCoordinate(startingXCoordinate);		//reset position
-		setyCoordinate(startingYCoordinate);
+		setXCoordinate(startingXCoordinate);		//reset position
+		setYCoordinate(startingYCoordinate);
 		
 		rotateClockwise = false;					//set rotation to false.
 		rotateCounterClockwise = false;
@@ -310,8 +310,8 @@ implements FiresPlasmaBolts, FiresSonicDisruptor, DeploysShields, TakesDamage
 		double xOffset = thrusterDistance * Math.sin( Math.toRadians(getFacingAngleDegrees()) * -1);
 		double yOffset = thrusterDistance * Math.cos( Math.toRadians(getFacingAngleDegrees()) );
 		
-		int thrusterXCoordinate = (int) Math.floor( getxCoordinate() + xOffset );
-		int thrusterYCoordinate = (int) Math.floor( getyCoordinate() + yOffset );
+		int thrusterXCoordinate = (int) Math.floor( getXCoordinate() + xOffset );
+		int thrusterYCoordinate = (int) Math.floor( getYCoordinate() + yOffset );
 		
 		g2d.setColor( getRandomThrustColor() );
 		int thrustSize = 20;

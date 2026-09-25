@@ -349,8 +349,8 @@ public class Asterage2Controller
 									
 		if ( playerReadyWaitingAndAble ) {
 			//create a plasma bolt, add it to the state to keep track of it, and start the plasma bolt cooldown.
-			PlasmaBolt newPlasmaBolt = PlasmaBolt.createPlayerPlasmaBolt (	playerShip.getxCoordinate(), 
-																			playerShip.getyCoordinate(), 
+			PlasmaBolt newPlasmaBolt = PlasmaBolt.createPlayerPlasmaBolt (	playerShip.getXCoordinate(), 
+																			playerShip.getYCoordinate(), 
 																			playerShip.getFacingAngleDegrees() );
 			playerShip.startPlasmaBoltCooldown();
 			asterage2State.addPlasmaBolt( newPlasmaBolt );
@@ -364,8 +364,8 @@ public class Asterage2Controller
 						PlasmaBolt.MULTISHOT_ARC_VARIATION : (-1 * PlasmaBolt.MULTISHOT_ARC_VARIATION);
 				int multiShotAngle = playerShip.getFacingAngleDegrees() + variationDegree; 
 				PlasmaBolt multiShotPlasmaBolt = 
-						PlasmaBolt.createPlayerPlasmaBolt(	playerShip.getxCoordinate(), 
-															playerShip.getyCoordinate(), 
+						PlasmaBolt.createPlayerPlasmaBolt(	playerShip.getXCoordinate(), 
+															playerShip.getYCoordinate(), 
 															multiShotAngle);
 				asterage2State.addPlasmaBolt( multiShotPlasmaBolt );
 				asterage2State.toggleMultiShotDirection();
@@ -710,12 +710,12 @@ public class Asterage2Controller
 		
 		//random chance of PowerUp spawning from asteroids.
 		if ( checkPowerUpSpawnChance() ) {
-			generatedObjectList.add( spawnPowerUp(parentAsteroid.getxCoordinate(), parentAsteroid.getyCoordinate()) );	
+			generatedObjectList.add( spawnPowerUp(parentAsteroid.getXCoordinate(), parentAsteroid.getYCoordinate()) );	
 		} 
 		
 		//also a random chance of spawning a troll mining pod from asteroids.
 		if ( checkTrollMiningPodSpawnChance() ) {
-			TrollMiningPod newTrollMiningPod = new TrollMiningPod(parentAsteroid.getxCoordinate(), parentAsteroid.getyCoordinate());
+			TrollMiningPod newTrollMiningPod = new TrollMiningPod(parentAsteroid.getXCoordinate(), parentAsteroid.getYCoordinate());
 			generatedObjectList.add( newTrollMiningPod );
 		} 
 		
@@ -850,8 +850,8 @@ public class Asterage2Controller
 	} 
 	
 	private void createTrollTrackingPlasmaBolt ( PlayerShip playerShip, TrollBaseShip trollShip ) {
-		double trollX = trollShip.getxCoordinate();
-		double trollY = trollShip.getyCoordinate();
+		double trollX = trollShip.getXCoordinate();
+		double trollY = trollShip.getYCoordinate();
 		
 		//now, go through frame iterations, calculating out where the ship is going to be, and 
 		//seeing if a plasma bolt fired towards that location will cause a collision
@@ -859,7 +859,7 @@ public class Asterage2Controller
 		//we've checked the plasma bolt max range for troll weapons
 		
 		//create a target player ship at which we will shoot.
-		PlayerShip fakePlayerShip = PlayerShip.makeNewPlayerShip(playerShip.getxCoordinate() , playerShip.getyCoordinate());
+		PlayerShip fakePlayerShip = PlayerShip.makeNewPlayerShip(playerShip.getXCoordinate() , playerShip.getYCoordinate());
 		fakePlayerShip.setMovementAngleDegrees( playerShip.getMovementAngleDegrees() );
 		fakePlayerShip.setMovementVelocity( playerShip.getMovementVelocity() );
 		fakePlayerShip.setShipStatus(Ship_Status.IN_PLAY);
@@ -872,8 +872,8 @@ public class Asterage2Controller
 					asterage2State.checkGravityNetEquipped());
 	
 			//calculate the firing angle from the troll to this proposed location and create a plasma bolt to represent the shot.
-			double deltaX = fakePlayerShip.getxCoordinate() - trollX;
-			double deltaY = fakePlayerShip.getyCoordinate() - trollY;
+			double deltaX = fakePlayerShip.getXCoordinate() - trollX;
+			double deltaY = fakePlayerShip.getYCoordinate() - trollY;
 			firingAngle = (int) Math.floor( Math.toDegrees( Math.atan2(deltaX, -1 * deltaY)));  
 			PlasmaBolt proposedBolt = PlasmaBolt.createTrollPlasmaBolt(trollX, trollY, firingAngle);
 			
@@ -1222,8 +1222,8 @@ public class Asterage2Controller
 		
 		//iterate through the troll ships in our list, picking out the one with the smallest difference in angle.
 		for ( TrollBaseShip currentTroll: asterage2State.getTrollShipList() ) {
-			double deltaX = currentTroll.getxCoordinate() - playerShip.getxCoordinate() ;
-			double deltaY = currentTroll.getyCoordinate() - playerShip.getyCoordinate();
+			double deltaX = currentTroll.getXCoordinate() - playerShip.getXCoordinate() ;
+			double deltaY = currentTroll.getYCoordinate() - playerShip.getYCoordinate();
 			int trollAngle = ThetaCorrector.correctThetaRange(90 + (int) Math.floor(Math.toDegrees(Math.atan2( deltaY , deltaX ))));
 			int angleDifference = calculateAngleDifference( trollAngle, playerShip.getFacingAngleDegrees() );
 			

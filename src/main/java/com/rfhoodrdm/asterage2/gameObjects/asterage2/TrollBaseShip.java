@@ -273,8 +273,8 @@ implements FiresPlasmaBoltsAtIntervals, DeploysShields, FiresTrollLaser
 		
 		//else, set the velocity to max and determine the direction in which the player is closest.
 		setMovementVelocity( getMaxVelocity() );
-		double deltaX = pursuitTarget.getxCoordinate() - getxCoordinate();
-		double deltaY = pursuitTarget.getyCoordinate() - getyCoordinate();
+		double deltaX = pursuitTarget.getXCoordinate() - getXCoordinate();
+		double deltaY = pursuitTarget.getYCoordinate() - getYCoordinate();
 		int movementAngle = (int) Math.floor( Math.toDegrees( Math.atan2(deltaX, -1 * deltaY))); 
 		setMovementAngleDegrees(movementAngle);
 		

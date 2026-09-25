@@ -227,8 +227,8 @@ implements PursuesPlayer, ControlsWeaponsPods
 		//calculate the coordinates, given the ship's current location, the orbit distance,
 		//the index of the pod in question out of the total number of pods, and current offset.
 		int orbitDistance = (int) Math.floor((TROLL_MOTHERSHIP_SPATIAL_RADIUS + TrollWeaponPod.POD_SPATIAL_RADIUS) ); //* 1.10 for slightly more than touching each other.
-		double parentXCoord = getxCoordinate();
-		double parentYCoord = getyCoordinate();
+		double parentXCoord = getXCoordinate();
+		double parentYCoord = getYCoordinate();
 		
 		int podSpacingOffset = ( 360 / getMaxWeaponPodCount() ) * podIndex;				//this is how far the pods are from each other.
 		int totalOrbitAngle = podSpacingOffset + weaponPodOrbitOffset;

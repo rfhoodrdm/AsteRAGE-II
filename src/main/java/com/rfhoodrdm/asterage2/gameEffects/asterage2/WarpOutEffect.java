@@ -30,7 +30,7 @@ extends SpaceEffect
 	
 	public WarpOutEffect( SpaceObject parentObject, WarpEffectSize pWarpEffectSize )
 	{
-		super( parentObject.getxCoordinate(), parentObject.getyCoordinate() );	//call to super with location.
+		super( parentObject.getXCoordinate(), parentObject.getYCoordinate() );	//call to super with location.
 		resetCoundownToMax();													//reset the timer for this effect to max, so that it lives.
 		warpEffectSize = pWarpEffectSize;										//how big to make this warp effect?
 	} //end constructor
